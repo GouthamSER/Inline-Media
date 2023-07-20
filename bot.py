@@ -9,8 +9,8 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from utils import Media
 from info import SESSION, API_ID, API_HASH, BOT_TOKEN
-from aiohttp import web
-from plugins import web_server
+from aiohttp import web as webserver
+from plugins.webcode import bot_run
 
 class Bot(Client):
 
