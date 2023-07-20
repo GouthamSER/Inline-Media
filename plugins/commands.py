@@ -3,7 +3,7 @@ import logging
 
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
+from pyrogram.errors import UserNotParticipant
 from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG
 from utils import Media
 
@@ -34,10 +34,7 @@ async def start(bot, message):
             InlineKeyboardButton('Go Inline', switch_inline_query=''),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_text(
-            text=info.START_MSG.format(message.from_user.mention)
-            reply_markup=reply_markup
-        )
+        await message.reply(START_MSG.format(message.from_user.mention, reply_markup=reply_markup))
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
