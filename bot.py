@@ -31,10 +31,14 @@ class Bot(Client):
         me = await self.get_me()
         self.username = '@' + me.username
         print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
-        app = web.AppRunner(await web_server())
-        await app.setup()
+        
+        client = webserver.AppRunner(await bot_run())
+        await client.setup()
         bind_address = "0.0.0.0"
-        await web.TCPSite(app, bind_address, PORT).start()
+        await webserver.TCPSite(client, bind_address,
+        PORT_CODE).start()
+        
+        
 
     async def stop(self, *args):
         await super().stop()
