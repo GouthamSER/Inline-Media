@@ -12,6 +12,8 @@ from info import SESSION, API_ID, API_HASH, BOT_TOKEN
 from aiohttp import web as webserver
 from plugins.webcode import bot_run
 
+PORT_CODE = environ.get("PORT", "8080")
+
 class Bot(Client):
 
     def __init__(self):
