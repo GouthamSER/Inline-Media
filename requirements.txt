@@ -1,5 +1,5 @@
 pyrogram~=2.0.35
-tgcrypto==1.2.3
+tgcrypto
 pymongo[srv]==3.12.3
 motor==2.5.1
 marshmallow==3.14.1
