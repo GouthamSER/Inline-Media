@@ -9,19 +9,35 @@ from utils import Media
 
 logger = logging.getLogger(__name__)
 
+FORCE_SUB = "wudixh13"
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
     """Start command handler"""
-    if len(message.command) > 1 and message.command[1] == 'subscribe':
-        await message.reply(INVITE_MSG)
-    else:
+    if FORCE_SUB:
+        try:
+            user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
+            if user.status == "kicked out":
+                await message.reply_text("You Are Banned")
+                return
+        except UserNotParticipant :
+            await message.reply_text(
+                text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs? Tʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
+                reply_markup=InlineKeyboardMarkup( [[
+                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
+                 ]]
+                 )
+            )
+            return
         buttons = [[
             InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
             InlineKeyboardButton('Go Inline', switch_inline_query=''),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply(START_MSG, reply_markup=reply_markup)
+        await message.reply_text(
+            text=info.START_MSG.format(message.from_user.mention)
+            reply_markup=reply_markup
+        )
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
