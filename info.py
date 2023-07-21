@@ -35,7 +35,21 @@ default_start_msg = """
 
 Here you can search files in inline mode. Just press following buttons and start searching.
 """
+help_txt="""Hᴇʏ {}
+Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
+/add - to use index the files from channel (admin)
+/stats - to see how many files are in db
+/log - to see the errors
+/channel - to see how many channels connected
+"""
+abt_txt="""Hᴇʏ {}
+Nᴀᴍᴇ - Kᴜᴛᴛᴜ Bᴏᴛ 2
+DB - Mongodb
+Server - Render
+"""
 
 START_MSG = environ.get('START_MSG', default_start_msg)
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
 INVITE_MSG = environ.get('INVITE_MSG', 'Please join @.... to use this bot')
+HELP_TXT=help_txt
+ABOUT_TXT=abt_txt
