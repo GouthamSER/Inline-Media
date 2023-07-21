@@ -42,7 +42,7 @@ async def start(bot, message):
         return
 
 @Client.on_message(filters.command('help'))
-"""Help"""
+    """Help"""
 async def help(bot, message):
     await message.reply_text(
         text=HELP_TXT.format(message.from_user.mention)
@@ -54,7 +54,7 @@ async def help(bot, message):
 )
 
 @Client.on_message(filters.command('about'))
-"""About"""
+    """About"""
 async def about(bot, message):
     await message.reply_text(
         text=ABOUT_TXT.format(message.from_user.mention)
