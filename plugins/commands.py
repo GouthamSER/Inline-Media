@@ -1,10 +1,11 @@
 import os
 import logging
+import asyncio
 
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserNotParticipant
-from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG
+from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG, HELP_TXT
 from utils import Media
 
 logger = logging.getLogger(__name__)
@@ -28,13 +29,42 @@ async def start(bot, message):
                  ]]
                  )
             )
-            return
         buttons = [[
-            InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('Go Inline', switch_inline_query=''),
+            InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query=''),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
+        s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
+        await asyncio.sleep(1)
+        await s.delete()
+        
         await message.reply(START_MSG.format(message.from_user.mention, reply_markup=reply_markup))
+        return
+
+@Client.on_message(filters.command('help'))
+"""Help"""
+async def help(bot, message):
+    await message.reply_text(
+        text=HELP_TXT.format(message.from_user.mention)
+        reply_markup=InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
+        ]]
+    )
+)
+
+@Client.on_message(filters.command('about'))
+"""About"""
+async def about(bot, message):
+    await message.reply_text(
+        text=ABOUT_TXT.format(message.from_user.mention)
+        reply_markup=InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
+        ]]
+    )
+)
+
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
@@ -70,10 +100,10 @@ async def channel_info(bot, message):
 @Client.on_message(filters.command('stats') & filters.user(ADMINS))
 async def total(bot, message):
     """Show total files in database"""
-    msg = await message.reply("Processing...⏳", quote=True)
+    msg = await message.reply("Pʀᴏᴄᴇssɪɴɢ...⏳", quote=True)
     try:
         total = await Media.count_documents()
-        await msg.edit(f'📁 Saved files: {total}')
+        await msg.edit(f'📁 Sᴀᴠᴇᴅ ғɪʟᴇs: {total}')
     except Exception as e:
         logger.exception('Failed to check total files')
         await msg.edit(f'Error: {e}')
