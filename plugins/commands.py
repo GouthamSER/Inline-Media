@@ -49,8 +49,7 @@ async def help(bot, message):
         [[
             InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
         ]]
-    )
-)
+    ))
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
@@ -60,8 +59,7 @@ async def about(bot, message):
         [[
             InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
         ]]
-    )
-)
+    ))
 
 
 
