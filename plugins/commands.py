@@ -42,28 +42,24 @@ async def start(bot, message):
         return
 
 @Client.on_message(filters.command('help'))
-async def help(bot, message):
-
-    buttonshelp=[[
-        InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
-    ]]
-    
+async def help(bot, message):  
     await message.reply_text(
         text=HELP_TXT.format(message.from_user.mention)
-        reply_markup=InlineKeyboardMarkup(buttonshelp)
-    )
+        reply_markup = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
+        ]]
+    ))
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
-    
-    buttonsabt=[[
-        InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
-    ]]
-    
     await message.reply_text(
         text=ABOUT_TXT.format(message.from_user.mention)
-        reply_markup=InlineKeyboardMarkup(buttonsabt)
-    )
+        reply_markup = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
+        ]]
+    ))
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
