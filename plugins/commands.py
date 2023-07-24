@@ -29,17 +29,19 @@ async def start(bot, message):
                  ]]
                  )
             )
-        buttons = [[
+        buttonsstart = [[
             InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
             InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query=''),
         ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
         s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
         await asyncio.sleep(1)
         await s.delete()
         
-        await message.reply(START_MSG.format(message.from_user.mention, reply_markup=reply_markup))
-        return
+        await message.reply_text(
+            text=START_MSG.format(message.from_user.mention),
+            reply_markup = InlineKeyboardMarkup(buttonsstart)
+        )
+        
 
 @Client.on_message(filters.command('help'))
 async def help(bot, message):  
