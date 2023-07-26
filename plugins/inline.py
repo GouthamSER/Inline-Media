@@ -20,8 +20,8 @@ async def answer(bot, query):
         await query.answer(
             results=[],
             cache_time=0,
-            switch_pm_text='You have to subscribe channel',
-            switch_pm_parameter="subscribe",
+            switch_pm_text='Yᴏᴜ ʜᴀᴠᴇ ᴛᴏ sᴜʙsᴄʀɪʙᴇ ᴄʜᴀɴɴᴇʟ🌹',
+            switch_pm_parameter="Sᴜʙsᴄʀɪʙᴇ💖",
         )
         return
 
@@ -50,7 +50,7 @@ async def answer(bot, query):
         )
 
     if results:
-        switch_pm_text = f"{emoji.FILE_FOLDER} Results"
+        switch_pm_text = f"{emoji.FILE_FOLDER} Rᴇsᴜʟᴛs"
         if text:
             switch_pm_text += f" for {text}"
 
@@ -63,7 +63,7 @@ async def answer(bot, query):
         )
     else:
 
-        switch_pm_text = f'{emoji.CROSS_MARK} No results'
+        switch_pm_text = f'{emoji.CROSS_MARK} No Rᴇsᴜʟᴛs'
         if text:
             switch_pm_text += f' for "{text}"'
 
@@ -78,10 +78,10 @@ async def answer(bot, query):
 def get_reply_markup(username, query):
     url = 't.me/share/url?url=' + quote(SHARE_BUTTON_TEXT.format(username=username))
     buttons = [[
-            InlineKeyboardButton('Search again', switch_inline_query_current_chat=query),
-            InlineKeyboardButton('Share bot', url=url)
+            InlineKeyboardButton('Sᴇᴀʀᴄʜ ᴀɢᴀɪɴ🔎', switch_inline_query_current_chat=query),
+            InlineKeyboardButton('Sʜᴀʀᴇ ʙᴏᴛ💕', url=url)
         ],[
-            InlineKeyboardButton('Developer', url=f"https://telegram.dog/wudixh13/4")
+            InlineKeyboardButton('Dᴇᴠᴇʟᴏᴘᴇʀ😎', url=f"https://telegram.dog/wudixh13/4")
         ]]
     
     return InlineKeyboardMarkup(buttons)
