@@ -20,8 +20,8 @@ async def answer(bot, query):
         await query.answer(
             results=[],
             cache_time=0,
-            switch_pm_text='Yᴏᴜ ʜᴀᴠᴇ ᴛᴏ sᴜʙsᴄʀɪʙᴇ ᴄʜᴀɴɴᴇʟ🌹',
-            switch_pm_parameter="Sᴜʙsᴄʀɪʙᴇ💖",
+            switch_pm_text='Yᴏᴜ Hᴀᴠᴇ Tᴏ SᴜʙSᴄʀɪʙᴇ Cʜᴀɴɴᴇʟ...',
+            switch_pm_parameter="SubScribe...",
         )
         return
 
@@ -43,7 +43,7 @@ async def answer(bot, query):
             InlineQueryResultCachedDocument(
                 title=file.file_name,
                 document_file_id=file.file_id,
-                caption=file.caption or "",
+                caption=file.caption or "Kuttu boT {file.file_name}\n{file.file_size}",
                 description=f'Size: {size_formatter(file.file_size)}\nType: {file.file_type}',
                 reply_markup=reply_markup
             )
