@@ -1,20 +1,8 @@
-FROM python:3-slim-buster
 
-RUN pip install --upgrade pip
-
-ENV USER botx
-ENV HOME /home/$USER
-ENV BOT $HOME/media-search-bot
-
-RUN useradd -m $USER
-RUN mkdir -p $BOT
-RUN chown $USER:$USER $BOT
-USER $USER
-WORKDIR $BOT
-
-
+FROM python:3.9-slim-buster
+WORKDIR /app
 COPY requirements.txt requirements.txt
-RUN pip install --user --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY . .
 
