@@ -43,7 +43,7 @@ async def answer(bot, query):
             InlineQueryResultCachedDocument(
                 title=file.file_name,
                 document_file_id=file.file_id,
-                caption=file.caption or "Kuttu boT {file.file_name}\n{file.file_size}",
+                caption=file.caption or "Kuttu boT file.file_name\nfile.file_size",
                 description=f'Size: {size_formatter(file.file_size)}\nType: {file.file_type}',
                 reply_markup=reply_markup
             )
