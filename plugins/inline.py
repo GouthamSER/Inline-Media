@@ -21,7 +21,7 @@ async def answer(bot, query):
             results=[],
             cache_time=0,
             switch_pm_text='Yᴏᴜ Hᴀᴠᴇ Tᴏ SᴜʙSᴄʀɪʙᴇ Cʜᴀɴɴᴇʟ...',
-            switch_pm_parameter="SubScribe...",
+            switch_pm_parameter="Sᴜʙsᴄʀɪʙᴇ...",
         )
         return
 
@@ -43,14 +43,14 @@ async def answer(bot, query):
             InlineQueryResultCachedDocument(
                 title=file.file_name,
                 document_file_id=file.file_id,
-                caption=file.caption or "Kuttu boT file.file_name\nfile.file_size",
-                description=f'Size: {size_formatter(file.file_size)}\nType: {file.file_type}',
+                caption=file.file_name or "Kᴜᴛᴛᴜ Bᴏᴛ 2 ™ {file.file_name} \n {file.file_size} \n Fʀᴇᴇ Mᴏᴠɪᴇ Gʀᴏᴜᴘ🎬- @wudixh",
+                description=f'Size: {size_formatter(file.file_size)}\nType: {file.file_type}\n© Kᴜᴛᴛᴜ Bᴏᴛ 2 ™',
                 reply_markup=reply_markup
             )
         )
 
     if results:
-        switch_pm_text = f"{emoji.FILE_FOLDER} Rᴇsᴜʟᴛs"
+        switch_pm_text = f"📁Rᴇsᴜʟᴛz📁"
         if text:
             switch_pm_text += f" for {text}"
 
@@ -63,7 +63,7 @@ async def answer(bot, query):
         )
     else:
 
-        switch_pm_text = f'{emoji.CROSS_MARK} No Rᴇsᴜʟᴛs'
+        switch_pm_text = f"❌No Rᴇsᴜʟᴛz❌"
         if text:
             switch_pm_text += f' for "{text}"'
 
