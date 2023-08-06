@@ -5,7 +5,7 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
-from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG, HELP_TXT
+from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG, HELP_TXT, ABOUT_TXT
 from utils import Media
 
 logger = logging.getLogger(__name__)
