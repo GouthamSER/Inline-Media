@@ -43,7 +43,7 @@ async def answer(bot, query):
             InlineQueryResultCachedDocument(
                 title=file.file_name,
                 document_file_id=file.file_id,
-                caption= "Kᴜᴛᴛᴜ Bᴏᴛ 2 ™ \n📁Fɪʟᴇ Nᴀᴍᴇ: {file.file_name} \n📽Fɪʟᴇ Sɪᴢᴇ: {file.file_size} \n Fʀᴇᴇ Mᴏᴠɪᴇ Gʀᴏᴜᴘ🎬- @wudixh" ,
+                caption= f"Kᴜᴛᴛᴜ Bᴏᴛ 2 ™ | 📁Fɪʟᴇ Nᴀᴍᴇ: {file.file_name} \n\n| 📽Fɪʟᴇ Sɪᴢᴇ: {file.file_size} | \n\n Fʀᴇᴇ Mᴏᴠɪᴇ Gʀᴏᴜᴘ🎬- @wudixh" ,
                 description=f'Size: {size_formatter(file.file_size)}\nType: {file.file_type}\n© Kᴜᴛᴛᴜ Bᴏᴛ 2 ™',
                 reply_markup=reply_markup
             )
