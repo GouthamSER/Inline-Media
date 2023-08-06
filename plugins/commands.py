@@ -76,7 +76,7 @@ async def start(bot, msg):
 @Client.on_message(filters.command('help'))
 async def help(bot, message):  
     await message.reply_text(
-        text=HELP_TXT.format(message.from_user.mention)
+        text=HELP_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
