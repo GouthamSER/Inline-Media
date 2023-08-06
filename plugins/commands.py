@@ -37,8 +37,9 @@ async def start(bot, message):
         await asyncio.sleep(1)
         await s.delete()
         
-        await message.reply_text(
-            text=START_MSG.format(message.from_user.mention),
+        await message.reply_photo(
+            photo="https://telegra.ph/file/a3da9285babbf059a665d.jpg",
+            caption=START_MSG.format(message.from_user.mention),
             reply_markup = InlineKeyboardMarkup(buttonsstart)
         )
         
