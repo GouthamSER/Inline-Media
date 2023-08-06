@@ -3,7 +3,7 @@ import logging
 import asyncio
 
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
 from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG, HELP_TXT
 from utils import Media
@@ -41,6 +41,40 @@ async def start(bot, message):
             photo="https://telegra.ph/file/a3da9285babbf059a665d.jpg",
             caption=START_MSG.format(message.from_user.mention),
             reply_markup = InlineKeyboardMarkup(buttonsstart)
+        )
+
+#CALLBACK ADDED
+@Client.on_callback_query()
+async def start(bot, msg):
+    
+    if msg.data == "start":
+        await msg.message.edit(
+            text=START_MSG.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup(
+            [[
+                InlineKeyboardButton("Help✨", callback_data="help"),
+                InlineKeyboardButton("About🔰", callback_data="about")
+            ]]
+            )
+        )
+
+    elif msg.data == "help":
+        await msg.message.edit(
+            text=HELP_TXT.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup(
+            [[
+                InlineKeyboardButton("Back👈", callback_data="start")
+            ]]
+            )
+        )
+    elif msg.data == "about":
+        await msg.message.edit(
+            text=ABOUT_TXT.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup(
+            [[
+                InlineKeyboardButton('Back👈', callback_data="start")
+            ]]
+            )
         )
         
 
