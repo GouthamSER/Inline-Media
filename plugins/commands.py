@@ -93,7 +93,7 @@ async def channel_info(bot, message):
         os.remove(file)
 
 
-@Client.on_message(filters.command('stats') & filters.user(ADMINS))
+@Client.on_message(filters.command('stats')) #use all members
 async def total(bot, message):
     """Show total files in database"""
     msg = await message.reply("Pʀᴏᴄᴇssɪɴɢ...⏳", quote=True)
