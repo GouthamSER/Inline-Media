@@ -48,18 +48,13 @@ async def start(bot, message):
 async def start(bot, msg):
     
     if msg.data == "start":
-        await msg.message.edit(
+        await msg.message.edit_text(
             text=START_MSG.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup(
-            [[
-                InlineKeyboardButton("Help✨", callback_data="help"),
-                InlineKeyboardButton("About🔰", callback_data="about")
-            ]]
-            )
+            reply_markup=InlineKeyboardMarkup(buttonsstart)
         )
 
     elif msg.data == "help":
-        await msg.message.edit(
+        await msg.message.edit_text(
             text=HELP_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
             [[
@@ -68,7 +63,7 @@ async def start(bot, msg):
             )
         )
     elif msg.data == "about":
-        await msg.message.edit(
+        await msg.message.edit_text(
             text=ABOUT_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
             [[
@@ -81,22 +76,12 @@ async def start(bot, msg):
 @Client.on_message(filters.command('help'))
 async def help(bot, message):  
     await message.reply_text(
-        text=HELP_TXT.format(message.from_user.mention),
-        reply_markup = InlineKeyboardMarkup(
-        [[
-            InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
-        ]]
-    ))
+        text=HELP_TXT.format(message.from_user.mention)
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
     await message.reply_text(
-        text=ABOUT_TXT.format(message.from_user.mention),
-        reply_markup = InlineKeyboardMarkup(
-        [[
-            InlineKeyboardButton("Oᴡɴᴇʀ 🤵", url=f"https://t.me/wudixh13/4")
-        ]]
-    ))
+        text=ABOUT_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
