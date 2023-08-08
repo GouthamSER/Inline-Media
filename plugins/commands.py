@@ -54,7 +54,7 @@ async def start(bot, message):
 
 #CALLBACK ADDED
 @Client.on_callback_query()
-async def start(bot, msg: CallbackQuery):
+async def start(bot, msg):
     
     if msg.data == "start":
         await msg.message.edit_text(
