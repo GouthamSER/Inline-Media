@@ -51,44 +51,6 @@ async def start(bot, message):
                 ]]
             )
 
-
-#CALLBACK ADDED
-@Client.on_callback_query()
-async def start(bot, msg):
-    
-    if msg.data == "start":
-        await msg.message.edit_text(
-            text=START_MSG.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup(
-                [[
-                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
-                InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
-            ],[
-                InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
-                InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
-                ]]
-            )
-
-    elif msg.data == "help":
-        await msg.message.edit_text(
-            text=HELP_TXT.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup(
-            [[
-                InlineKeyboardButton("Bᴀᴄᴋ👈", callback_data="start")
-            ]]
-            )
-        )
-    elif msg.data == "about":
-        await msg.message.edit_text(
-            text=ABOUT_TXT.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup(
-            [[
-                InlineKeyboardButton('Bᴀᴄᴋ👈', callback_data="start")
-            ]]
-            )
-        )
-        
-
 @Client.on_message(filters.command('help'))
 async def help(bot, message):  
     await message.reply_text(
