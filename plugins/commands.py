@@ -29,6 +29,7 @@ async def start(bot, message):
                  ]]
                  )
             )
+            return
         buttonsstart = [[
             InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
             InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query=''),
@@ -40,25 +41,40 @@ async def start(bot, message):
         await message.reply_photo(
             photo="https://telegra.ph/file/a3da9285babbf059a665d.jpg",
             caption=START_MSG.format(message.from_user.mention),
-            reply_markup = InlineKeyboardMarkup(buttonsstart)
-        )
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
+                InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
+            ],[
+                InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
+                InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
+                ]]
+            )
+
 
 #CALLBACK ADDED
 @Client.on_callback_query()
-async def start(bot, msg):
+async def start(bot, msg: CallbackQuery):
     
     if msg.data == "start":
         await msg.message.edit_text(
             text=START_MSG.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup(buttonsstart)
-        )
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
+                InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
+            ],[
+                InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
+                InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
+                ]]
+            )
 
     elif msg.data == "help":
         await msg.message.edit_text(
             text=HELP_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
             [[
-                InlineKeyboardButton("Back👈", callback_data="start")
+                InlineKeyboardButton("Bᴀᴄᴋ👈", callback_data="start")
             ]]
             )
         )
@@ -67,7 +83,7 @@ async def start(bot, msg):
             text=ABOUT_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
             [[
-                InlineKeyboardButton('Back👈', callback_data="start")
+                InlineKeyboardButton('Bᴀᴄᴋ👈', callback_data="start")
             ]]
             )
         )
