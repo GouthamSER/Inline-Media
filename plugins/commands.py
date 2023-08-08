@@ -65,7 +65,7 @@ async def start(bot, msg):
                 InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
-            )
+            ))
 
     elif msg.data == "help":
         await msg.message.edit_text(
