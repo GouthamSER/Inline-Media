@@ -7,6 +7,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQ
 from pyrogram.errors import UserNotParticipant
 from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG, HELP_TXT, ABOUT_TXT
 from utils import Media
+from Script import script
 
 logger = logging.getLogger(__name__)
 
@@ -30,17 +31,14 @@ async def start(bot, message):
                  )
             )
             return
-        buttonsstart = [[
-            InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query=''),
-        ]]
+#Return then sticker and button            
         s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
         await asyncio.sleep(1)
         await s.delete()
         
         await message.reply_photo(
             photo="https://telegra.ph/file/a3da9285babbf059a665d.jpg",
-            caption=START_MSG.format(message.from_user.mention),
+            caption=script.START_MSG.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
                 InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
@@ -54,12 +52,12 @@ async def start(bot, message):
 @Client.on_message(filters.command('help'))
 async def help(bot, message):  
     await message.reply_text(
-        text=HELP_TXT.format(message.from_user.mention))
+        text=script.HELP_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
     await message.reply_text(
-        text=ABOUT_TXT.format(message.from_user.mention))
+        text=script.ABOUT_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
