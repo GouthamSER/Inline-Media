@@ -48,6 +48,30 @@ async def start(bot, message):
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
             ))
+#callback
+@Client.on_callback_query()
+async def startmes(bot:Client, mes:CallbackQuery):
+    if mes.data="start":
+        await mes.message.edit(
+            text=script.START_TXT.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
+                InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
+            ],[
+                InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
+                InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
+                ]]
+            ))
+    elif mes.data=="help":
+        await mes.message.edit(
+            text=script.HELP_TXT.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Back', callback_data="start"]]))
+    elif mes.data=="about":
+        await mes.message.edit(
+            text=script.ABOUT_TXT.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Back', callback_data="start"]]))
+ #CB ENDED               
 
 @Client.on_message(filters.command('help'))
 async def help(bot, message):  
