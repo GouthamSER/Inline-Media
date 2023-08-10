@@ -66,11 +66,19 @@ async def startmes(bot:Client, mes:CallbackQuery):
     elif mes.data=="help":
         await mes.message.edit(
             text=script.HELP_TXT.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Back', callback_data="start"]]))
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('Back', callback_data="start")
+                ]]
+            ))
     elif mes.data=="about":
         await mes.message.edit(
             text=script.ABOUT_TXT.format(message.from_user.mention),
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Back', callback_data="start"]]))
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('Back', callback_data="start")
+                ]]
+            ))
  #CB ENDED               
 
 @Client.on_message(filters.command('help'))
