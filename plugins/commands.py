@@ -51,7 +51,7 @@ async def start(bot, message):
 #callback
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
-    if mes.data="start":
+    if mes.data=="start":
         await mes.message.edit(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
