@@ -1,6 +1,6 @@
 # [Inline-Media](https://github.com/GouthamSER/Inline-Media)
 <p align = "center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=17&pause=1000&width=435&lines=Welcome+To+Inline+Media+Bot;Created+by+GouthamSER;Inline+Media+bot+Use+Indexes+Files+above+2GB;+A+Bot+with+double+button+Start+message+with+pic+Simple+features!;Waltz%2C+bad+nymph%2C+for+quick+jigs+vex" alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=17&pause=1000&width=435&lines=Welcome+To+Inline+Media+Bot;Created+by+GouthamSER;Inline+Media+bot+Use+Indexes+Files+above+2GB;+A+Bot+with+double+button+Start+message+with+pic+Simple+features!" alt="Typing SVG" /></a>
 </p>
 
 * Index channel or group files for inline search.
