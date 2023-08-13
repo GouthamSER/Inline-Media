@@ -1,14 +1,13 @@
 # [Inline-Media](https://github.com/GouthamSER/Inline-Media)
+<p align = "center">
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=17&pause=1000&width=435&lines=Welcome+To+Inline+Media+Bot;Created+by+GouthamSER;Inline+Media+bot+Use+Indexes+Files+above+2GB;+A+Bot+with+double+button+Start+message+with+pic+Simple+features!;Waltz%2C+bad+nymph%2C+for+quick+jigs+vex" alt="Typing SVG" /></a>
+</p>
 
 * Index channel or group files for inline search.
 * When you post file on telegram channel or group this bot will save that file in database, so you can search easily in inline mode.
 * Supports document, video and audio file formats with caption support.
 
 ## Installation
-
-### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
-### Easy Way
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 
 
