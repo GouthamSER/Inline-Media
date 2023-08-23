@@ -53,7 +53,7 @@ async def start(bot, message):
 async def startmes(bot:Client, mes:CallbackQuery):
     if mes.data=="start":
         await mes.message.edit(
-            text=script.START_TXT.format(message.from_user.mention),
+            text=script.START_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
                 InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
