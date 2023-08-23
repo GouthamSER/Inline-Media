@@ -64,7 +64,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 ]]
             ))
     elif mes.data=="help":
-        await message.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await mes.message.edit(
             text=script.HELP_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -73,7 +73,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 ]]
             ))
     elif mes.data=="about":
-        await message.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await mes.message.edit(
             text=script.ABOUT_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -136,11 +136,10 @@ async def channel_info(bot, message):
 @Client.on_message(filters.command('stats')) #use all members
 async def total(bot, message):
     """Show total files in database"""
-    await message.answer("Fᴇᴛᴄʜɪɴɢ MᴏɴɢᴏDʙ DᴀᴛᴀBᴀsᴇ...")
     msg = await message.reply("Pʀᴏᴄᴇssɪɴɢ...⏳", quote=True)
+    await asyncio.sleep(1)
     try:
         total = await Media.count_documents()
-        await message.answer("Sᴜᴄᴄᴇss ✔")
         await msg.edit_text(
             text=script.STATUS_TXT.format(total)
         )
@@ -152,7 +151,6 @@ async def total(bot, message):
 @Client.on_message(filters.command('log') & filters.user(ADMINS))
 async def log_file(bot, message):
     """Send log file"""
-    await message.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
     try:
         await message.reply_document('TelegramBot.log')
     except Exception as e:
@@ -162,7 +160,6 @@ async def log_file(bot, message):
 @Client.on_message(filters.command('delete') & filters.user(ADMINS))
 async def delete(bot, message):
     """Delete file from database"""
-    await message.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
     reply = message.reply_to_message
     if not (reply and reply.media):
         await message.reply('Reply to file with /delete which you want to delete', quote=True)
