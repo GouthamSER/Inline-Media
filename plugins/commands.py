@@ -101,18 +101,6 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
                 ]]
             ))
-    elif mes.data=="dev":
-        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
-            text=script.DEV_TXT,
-            reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
-                ],[
-                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://telegram.dog/wudixh13/4")
-                ]]
-            ))
-        
  #CB ENDED               
 
 @Client.on_message(filters.command('help'))
