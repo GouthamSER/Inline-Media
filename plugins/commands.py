@@ -78,9 +78,40 @@ async def startmes(bot:Client, mes:CallbackQuery):
             text=script.ABOUT_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
+                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start"),
+                    InlineKeyboardButton("Sᴛᴀᴛᴜs💹", callback_data="stats")
+                ],[
+                    InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev_annan")
                 ]]
             ))
+    elif mes.data=="stats":
+        msg = await message.edit_text("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔..")
+        asyncio.sleep(1)
+        await msg.edit("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔✔.")
+        asyncio.sleep(1)
+        await msg.edit("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔✔✔")
+        asyncio.sleep(1)
+        try:
+            total = await Media.count_documents()
+            await msg.edit_text(
+            text=script.STATUS_TXT.format(total),
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                ]]
+            ))
+    elif mes.data=="dev_annan":
+        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await mes.message.edit(
+            text=script.DEV_TXT,
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                ],[
+                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url="https://telegram.dog/wudixh13/4")
+                ]]
+            ))
+        
  #CB ENDED               
 
 @Client.on_message(filters.command('help'))
@@ -136,8 +167,12 @@ async def channel_info(bot, message):
 @Client.on_message(filters.command('stats')) #use all members
 async def total(bot, message):
     """Show total files in database"""
-    msg = await message.reply("Pʀᴏᴄᴇssɪɴɢ...⏳", quote=True)
-    await asyncio.sleep(1)
+    msg = await message.edit_text("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔..")
+    asyncio.sleep(1)
+    await msg.edit("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔✔.")
+    asyncio.sleep(1)
+    await msg.edit("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔✔✔")
+    asyncio.sleep(1)
     try:
         total = await Media.count_documents()
         await msg.edit_text(
