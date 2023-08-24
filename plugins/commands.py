@@ -84,7 +84,6 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev")
                 ]]
             ))
-
     elif mes.data=="stats":
         msg = await message.edit_text("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔..")
         asyncio.sleep(1)
@@ -92,13 +91,22 @@ async def startmes(bot:Client, mes:CallbackQuery):
         asyncio.sleep(1)
         await msg.edit("𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎 ✔✔✔")
         asyncio.sleep(1)
-        try:
-            total = await Media.count_documents()
-            await msg.edit_text(
+        await msg.edit_text(
             text=script.STATUS_TXT.format(total),
             reply_markup=InlineKeyboardMarkup(
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                ]]
+            ))
+    elif mes.data=="dev":
+        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await mes.message.edit(
+            text=script.DEV_TXT,
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                ],[
+                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://telegram.dog/wudixh13/4")
                 ]]
             ))
  #CB ENDED               
