@@ -16,3 +16,5 @@ DB - Mongodb
 Server - Render
 """
   STATUS_TXT="""📁 Sᴀᴠᴇᴅ Fɪʟᴇs: {}"""
+  DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
+Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
