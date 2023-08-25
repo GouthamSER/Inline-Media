@@ -9,6 +9,7 @@ from info import CHANNELS, ADMINS, INVITE_MSG
 from utils import Media, Database #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
+from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
@@ -88,8 +89,8 @@ async def startmes(bot:Client, mes:CallbackQuery):
     elif mes.data=="stats":
         monsize = await db.get_db_size() #db import from util
         free = 536870912 - monsize
-        monsize = get_size(monsize)
-        free = get_size(free)
+        monsize = size_formatter(monsize) #fn()calling size_formatter
+        free = size_formatter(free) #fn()calling size_formatter
         msg = await mes.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
         await asyncio.sleep(1)
         await msg.edit_text(
@@ -167,8 +168,8 @@ async def total(bot, message):
     """Show total files in database"""
     monsize = await db.get_db_size() #db import from util
     free = 536870912 - monsize
-    monsize = get_size(monsize)
-    free = get_size(free)
+    monsize = size_formatter(monsize)
+    free = size_formatter(free)
     msg = await message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
     await asyncio.sleep(1)
     try:
