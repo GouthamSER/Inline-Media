@@ -85,7 +85,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 ]]
             ))
     elif mes.data=="stats":
-        msg = await mes.edit_text("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
+        msg = await mes.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
         await asyncio.sleep(1)
         await msg.edit_text(
             text=script.STATUS_TXT.format(total),
