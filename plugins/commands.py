@@ -6,7 +6,8 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
 from info import CHANNELS, ADMINS, INVITE_MSG
-from utils import Media
+from utils import Media, Database #class 2 are there dbstatus.py and database.py class Database and class Media
+from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
 
 logger = logging.getLogger(__name__)
@@ -85,10 +86,14 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 ]]
             ))
     elif mes.data=="stats":
+        monsize = await db.get_db_size() #db import from util
+        free = 536870912 - monsize
+        monsize = get_size(monsize)
+        free = get_size(free)
         msg = await mes.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
         await asyncio.sleep(1)
         await msg.edit_text(
-            text=script.STATUS_TXT.format(total),
+            text=script.STATUS_TXT.format(total, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
@@ -160,12 +165,16 @@ async def channel_info(bot, message):
 @Client.on_message(filters.command('stats')) #use all members
 async def total(bot, message):
     """Show total files in database"""
+    monsize = await db.get_db_size() #db import from util
+    free = 536870912 - monsize
+    monsize = get_size(monsize)
+    free = get_size(free)
     msg = await message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
     await asyncio.sleep(1)
     try:
         total = await Media.count_documents()
         await msg.edit_text(
-            text=script.STATUS_TXT.format(total)
+            text=script.STATUS_TXT.format(total, monsize, free)
         )
     except Exception as e:
         logger.exception('Failed to check total files')
