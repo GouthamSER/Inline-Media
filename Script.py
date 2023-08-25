@@ -15,6 +15,9 @@ Nᴀᴍᴇ - Kᴜᴛᴛᴜ Bᴏᴛ 2
 DB - Mongodb
 Server - Render
 """
-  STATUS_TXT="""📁 Sᴀᴠᴇᴅ Fɪʟᴇs: {}"""
+  STATUS_TXT="""📁 Sᴀᴠᴇᴅ Fɪʟᴇs: {}
+  📜 Using Storage: <code>{}</code> MB
+  ♻ Free Storage: <code>{}</code> MB"""
+  
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
