@@ -20,7 +20,7 @@ Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
 
   STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
 📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>
-♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>""" # [ "{}" - size_formater fn() ]
+♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>""" # [ "{}" - size_formater fn() import from inline ]
   
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
