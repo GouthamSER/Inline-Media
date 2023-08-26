@@ -19,8 +19,8 @@ Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
 ✯ Bᴏᴛ Sᴇʀᴠᴇʀ: Koyeb"""
 
   STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
-📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ: {} MB / 512 MB
-♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ: {} MB / 512 MB"""
+📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>
+♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>""" # [ "{}" - size_formater fn() ]
   
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
