@@ -1,6 +1,6 @@
 class script(object):
-  START_TXT="""**Hi, I'm Media Search bot**
-
+  START_TXT="""**Hey {}, I'm Media Search bot**
+  
 Here you can search files in inline mode. Just press following buttons and start searching.
 """
   HELP_TXT="""Hᴇʏ {}
@@ -10,14 +10,17 @@ Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
 /log - to see the errors
 /channel - to see how many channels connected
 """
-  ABOUT_TXT="""Hᴇʏ {}
-Nᴀᴍᴇ - Kᴜᴛᴛᴜ Bᴏᴛ 2
-DB - Mongodb
-Server - Render
-"""
-  STATUS_TXT="""📁 Sᴀᴠᴇᴅ Fɪʟᴇs: {}
-  📜 Using Storage: <code>{}</code> MB
-  ♻ Free Storage: <code>{}</code> MB"""
+  ABOUT_TXT=""" Hey {} ,
+✯ Mʏ Nᴀᴍᴇ: Kᴜᴛᴛᴜ Bᴏᴛ 2 ™
+✯ Cʀᴇᴀᴛᴏʀ: Gᴏᴜᴛʜᴀᴍ Sᴇʀ
+✯ Lɪʙʀᴀʀʏ: Pʏʀᴏɢʀᴀᴍ
+✯ Lᴀɴɢᴜᴀɢᴇ: Pʏᴛʜᴏɴ 3
+✯ DᴀᴛᴀBᴀsᴇ: MᴏɴɢᴏDB
+✯ Bᴏᴛ Sᴇʀᴠᴇʀ: Koyeb"""
+
+  STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
+📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ: {} MB / 512 MB
+♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ: {} MB / 512 MB"""
   
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
