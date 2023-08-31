@@ -32,7 +32,7 @@ Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
 ID - <code>{}</code>
 Name - {}
 """
-      RESTART_TXT = """
+  RESTART_TXT = """
 <b>𝖡𝗈𝗍 𝖱𝖾𝗌𝗍𝖺𝗋𝗍𝖾𝖽 !</b>
 
 📅 𝖣𝖺𝗍𝖾 : <code>{}</code>
