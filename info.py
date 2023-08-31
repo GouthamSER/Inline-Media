@@ -2,6 +2,13 @@ import re
 from os import environ
 
 id_pattern = re.compile(r'^.\d+$')
+def is_enabled(value, default):
+    if value.lower() in ["true", "yes", "1", "enable", "y"]:
+        return True
+    elif value.lower() in ["false", "no", "0", "disable", "n"]:
+        return False
+    else:
+        return default
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
@@ -23,7 +30,7 @@ auth_users = [int(user) if id_pattern.search(user) else user for user in environ
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else auth_channel
-LOG_CHANNEL = [int(log) if id_pattern.search(log) else log for log in environ['LOG_CHANNEL'].split()]
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', 0))
 
 # MongoDB information
 DATABASE_URI = environ['DATABASE_URI']
