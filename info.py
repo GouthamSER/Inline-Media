@@ -23,7 +23,7 @@ auth_users = [int(user) if id_pattern.search(user) else user for user in environ
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else auth_channel
-LOG_CHANNEL = environ.get("LOG_CHANNEL")
+LOG_CHANNEL = [int(log) if id_pattern.search(log) else log for log in environ['LOG_CHANNEL'].split()]
 
 # MongoDB information
 DATABASE_URI = environ['DATABASE_URI']
