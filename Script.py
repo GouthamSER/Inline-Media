@@ -19,9 +19,10 @@ Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
 ✯ Bᴏᴛ Sᴇʀᴠᴇʀ: Koyeb"""
 
   STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
-📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>
-♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code> {} / 512 MB</code>
-Usᴇʀs: {}""" # [ "{}" - size_formater fn() import from inline ]
+🤵Usᴇʀs: {}
+📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
+♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
+""" # [ "{}" - size_formater fn() import from inline ]
   
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
