@@ -12,8 +12,8 @@
       "index",
       "inline"
     ],
-    "website": "https://github.com/Mahesh0253/Inline-Media",
-    "repository": "https://github.com/Mahesh0253/Inline-Media",
+    "website": "https://github.com/GouthamSER/Inline-Media",
+    "repository": "https://github.com/GouthamSER/Inline-Media",
     "env": {
         "BOT_TOKEN": {
             "description": "Your bot token.",
@@ -82,6 +82,11 @@
             "description": "The maximum amount of time in seconds that the result of the inline query may be cached on the server",
             "value": "300",
             "required": false
+        },
+        "LOG_CHANNEL":{
+            "description": "LOG CHANNEL ID GIVE HERE",
+            "value":"id",
+            "required":"true"
         }
     },
     "addons": [],
