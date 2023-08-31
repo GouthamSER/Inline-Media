@@ -11,7 +11,11 @@ from utils import Media
 from info import SESSION, API_ID, API_HASH, BOT_TOKEN
 from aiohttp import web as webserver
 from os import environ
+from utils.dbstatus import db
 from plugins.webcode import bot_run
+from Script import script #for restarttxt
+from datetime import date, datetime 
+import pytz
 
 PORT_CODE = environ.get("PORT", "8080")
 
@@ -34,6 +38,13 @@ class Bot(Client):
         me = await self.get_me()
         self.username = '@' + me.username
         print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
+        print(Recoded By Goutham SER </>)
+
+        tz = pytz.timezone('Asia/Kolkata')
+        today = date.today()
+        now = datetime.now(tz)
+        time = now.strftime("%H:%M:%S %p")
+        await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
         
         client = webserver.AppRunner(await bot_run())
         await client.setup()
