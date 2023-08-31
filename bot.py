@@ -16,7 +16,7 @@ from plugins.webcode import bot_run
 from Script import script #for restarttxt
 from datetime import date, datetime 
 import pytz
-
+from info import LOG_CHANNEL
 PORT_CODE = environ.get("PORT", "8080")
 
 class Bot(Client):
