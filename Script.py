@@ -26,7 +26,7 @@ Usᴇʀs: {}""" # [ "{}" - size_formater fn() import from inline ]
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
 
-  LOGP_TXT"""#NewUser
+  LOGP_TXT="""#NewUser
 ID - <code>{}</code>
 Name - {}
 """
