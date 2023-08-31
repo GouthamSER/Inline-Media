@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
 from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL
-from utils import Media, Database #class 2 are there dbstatus.py and database.py class Database and class Media
+from utils import Media #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
 from plugins.inline import size_formatter
