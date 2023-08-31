@@ -27,7 +27,8 @@ Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
 Cʟɪᴄᴋ ᴛʜᴇ Bᴜᴛᴛᴏɴ Tᴏ Sᴇᴇ✔"""
 
-  LOGP_TXT="""#NewUser
+  LOGP_TXT="""Kᴜᴛᴛᴜ Bᴏᴛ 2
+#NewUser
 ID - <code>{}</code>
 Name - {}
 """
