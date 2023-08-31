@@ -1,4 +1,6 @@
-import os
+
+
+mport os
 import logging
 import asyncio
 
@@ -102,18 +104,17 @@ async def startmes(bot:Client, mes:CallbackQuery):
         msg = await mes.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
         await asyncio.sleep(1)
         try:
-        total = await Media.count_documents()
-        await msg.edit_text(
-            text=script.STATUS_TXT.format(total, users, monsize, free),
-            reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
-                ]]
-            )
-    except Exception as e:
-        logger.exception('Failed to check total files')
-        await msg.edit(f'Error: {e}')
-        )
+            total = await Media.count_documents()
+            await msg.edit_text(
+                text=script.STATUS_TXT.format(total, users, monsize, free),
+                reply_markup=InlineKeyboardMarkup(
+                    [[
+                        InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                    ]]
+                ))
+        except Exception as e:
+            logger.exception('Failed to check total files')
+            await msg.edit(f'Error: {e}')
     
     elif mes.data=="dev":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
