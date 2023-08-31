@@ -8,7 +8,7 @@ logging.getLogger().setLevel(logging.WARNING)
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from utils import Media
-from info import SESSION, API_ID, API_HASH, BOT_TOKEN
+from info import SESSION, API_ID, API_HASH, BOT_TOKEN, LOG_CHANNEL
 from aiohttp import web as webserver
 from os import environ
 from utils.dbstatus import db
@@ -16,7 +16,7 @@ from plugins.webcode import bot_run
 from Script import script #for restarttxt
 from datetime import date, datetime 
 import pytz
-from info import LOG_CHANNEL
+
 PORT_CODE = environ.get("PORT", "8080")
 
 class Bot(Client):
