@@ -5,7 +5,7 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
-from info import CHANNELS, ADMINS, INVITE_MSG
+from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL
 from utils import Media, Database #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
@@ -33,6 +33,11 @@ async def start(bot, message):
                  )
             )
             return
+        
+        if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await client.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
+        
 #Return then sticker and button            
         s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
         await asyncio.sleep(1)
@@ -50,6 +55,7 @@ async def start(bot, message):
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
             ))
+        return
 #callback
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
@@ -87,19 +93,28 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 ]]
             ))
     elif mes.data=="stats":
+        total = await Media.count_documents()
+        users = await db.total_users_count()
         monsize = await db.get_db_size() #db import from util
         free = 536870912 - monsize
         monsize = size_formatter(monsize) #fn()calling size_formatter
         free = size_formatter(free) #fn()calling size_formatter
         msg = await mes.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
         await asyncio.sleep(1)
+        try:
+        total = await Media.count_documents()
         await msg.edit_text(
-            text=script.STATUS_TXT.format(total, monsize, free),
+            text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
                 ]]
-            ))
+            )
+    except Exception as e:
+        logger.exception('Failed to check total files')
+        await msg.edit(f'Error: {e}')
+        )
+    
     elif mes.data=="dev":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await mes.message.edit(
@@ -166,6 +181,8 @@ async def channel_info(bot, message):
 @Client.on_message(filters.command('stats')) #use all members
 async def total(bot, message):
     """Show total files in database"""
+    total = await Media.count_documents()
+    users = await db.total_users_count()
     monsize = await db.get_db_size() #db import from util
     free = 536870912 - monsize
     monsize = size_formatter(monsize)
@@ -175,7 +192,7 @@ async def total(bot, message):
     try:
         total = await Media.count_documents()
         await msg.edit_text(
-            text=script.STATUS_TXT.format(total, monsize, free)
+            text=script.STATUS_TXT.format(total, users, monsize, free)
         )
     except Exception as e:
         logger.exception('Failed to check total files')
