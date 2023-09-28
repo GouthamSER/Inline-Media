@@ -1,11 +1,12 @@
 import os
 import logging
 import asyncio
+import random
 
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
-from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL
+from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, FORCE_SUB
 from utils import Media #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
@@ -13,7 +14,7 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-FORCE_SUB = "wudixh13"
+
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
@@ -37,15 +38,14 @@ async def start(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-
-        
-#Return then sticker and button            
+    
+    if len(message.command) != 2:
         s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
         await asyncio.sleep(1)
         await s.delete()
         
         await message.reply_photo(
-            photo="https://telegra.ph/file/a3da9285babbf059a665d.jpg",
+            photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
@@ -100,8 +100,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
         free = 536870912 - monsize
         monsize = size_formatter(monsize) #fn()calling size_formatter
         free = size_formatter(free) #fn()calling size_formatter
-        msg = await mes.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
-        await asyncio.sleep(1)
+        msg = await mes.message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎**")
         await msg.edit_text(
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
@@ -182,8 +181,7 @@ async def total(bot, message):
     free = 536870912 - monsize
     monsize = size_formatter(monsize)
     free = size_formatter(free)
-    msg = await message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎** ✔✔✔")
-    await asyncio.sleep(1)
+    msg = await message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎**")
     try:
         total = await Media.count_documents()
         await msg.edit_text(
