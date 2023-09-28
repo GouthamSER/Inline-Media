@@ -6,7 +6,7 @@ import random
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
-from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, FORCE_SUB
+from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS
 from utils import Media #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
@@ -14,7 +14,7 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-
+FORCE_SUB = "@wudixh"
 
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
