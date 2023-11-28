@@ -60,7 +60,7 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
     if mes.data=="start":
-        await mes.message.edit(
+        await mes.edit(
             text=script.START_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
@@ -73,7 +73,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
             ))
     elif mes.data=="help":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
+        await mes.edit(
             text=script.HELP_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
@@ -82,7 +82,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
             ))
     elif mes.data=="about":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
+        await mes.edit(
             text=script.ABOUT_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
@@ -110,7 +110,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
     
     elif mes.data=="dev":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
+        await mes.edit(
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
                 [[
