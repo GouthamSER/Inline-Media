@@ -78,7 +78,7 @@ async def filter(client, message):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
-                await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
             return
 
         data = BUTTONS[keyword]
@@ -90,7 +90,7 @@ async def filter(client, message):
         buttons.append(
             [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
         )
-      await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+        await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
 
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
 async def group(client, message):
@@ -130,8 +130,8 @@ async def group(client, message):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
-          await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
-return
+            await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            return
 
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
