@@ -57,7 +57,7 @@ async def filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"im_kuttu2_bot#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"ELDORADO#{file_id}")]
                     )
         else:
             await client.send_sticker(chat_id=message.from_user.id, sticker='CAADBQADMwIAAtbcmFelnLaGAZhgBwI')
@@ -100,18 +100,18 @@ async def group(client, message):
         btn = []
         search = message.text
         kuttubot = f"**🗂️ Title:** {search}\n**Uploaded by {message.chat.title}**"#kuttubot is the search result
-        temp_bot=BOT.get("username")
-        if not temp_bot:
+        nyva=BOT.get("username")
+        if not nyva:
             botusername=await client.get_me()
-            temp_bot=botusername.username
-            BOT["username"]=temp_bot
+            nyva=botusername.username
+            BOT["username"]=nyva
         files = await get_filter_results(query=search)
         if files:
             for file in files:
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{temp_bot}?start=im_kuttu2_bot_-_-_-_{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=ELDORADO{file_id}")]
                 )
         else:
             return
@@ -248,7 +248,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 return
 
 
-        elif query.data.startswith("im_kuttu2_bot"):
+        elif query.data.startswith("ELDORADO"):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
