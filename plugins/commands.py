@@ -71,7 +71,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
             ))
-    elif mes.data=="help":
+    elif mes.message.data=="help":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await mes.edit(
             text=script.HELP_TXT.format(mes.from_user.mention),
@@ -80,7 +80,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
                 ]]
             ))
-    elif mes.data=="about":
+    elif mes.message.data=="about":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await mes.edit(
             text=script.ABOUT_TXT.format(mes.from_user.mention),
@@ -92,7 +92,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev")
                 ]]
             ))
-    elif mes.data=="stats":
+    elif mes.message.data=="stats":
         total = await Media.count_documents()
         users = await db.total_users_count()
         monsize = await db.get_db_size() #db import from util
@@ -108,7 +108,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     ]]
                 ))
     
-    elif mes.data=="dev":
+    elif mes.message.data=="dev":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await mes.edit(
             text=script.DEV_TXT,
