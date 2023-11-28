@@ -60,7 +60,7 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
     if mes.data=="start":
-        await mes.edit(
+        await mes.message.edit(
             text=script.START_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
@@ -71,18 +71,18 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
             ))
-    elif mes.message.data=="help":
+    elif mes.data=="help":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.edit(
+        await mes.message.edit(
             text=script.HELP_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
                 ]]
             ))
-    elif mes.message.data=="about":
+    elif mes.data=="about":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.edit(
+        await mes.message.edit(
             text=script.ABOUT_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
@@ -92,7 +92,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev")
                 ]]
             ))
-    elif mes.message.data=="stats":
+    elif mes.data=="stats":
         total = await Media.count_documents()
         users = await db.total_users_count()
         monsize = await db.get_db_size() #db import from util
@@ -108,9 +108,9 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     ]]
                 ))
     
-    elif mes.message.data=="dev":
+    elif mes.data=="dev":
         await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.edit(
+        await mes.message.edit(
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
                 [[
