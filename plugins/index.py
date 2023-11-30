@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from info import ADMINS
 import os
-import pyromod
+import pyromod.listen
 from utils import save_file
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
