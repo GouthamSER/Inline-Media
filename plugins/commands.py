@@ -2,8 +2,9 @@ import os
 import logging
 import asyncio
 import random
-
-from pyrogram import Client, filters
+from utils import Media, get_file_details
+from Database import Database
+from pyrogram import Client, filters, StopPropagation
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
 from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS
@@ -16,9 +17,8 @@ logger = logging.getLogger(__name__)
 
 FORCE_SUB = "@wudixh"
 
-@Client.on_message(filters.command('start'))
+@Client.on_message(filters.command("start"))
 async def start(bot, message):
-    """Start command handler"""
     if FORCE_SUB:
         try:
             user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
@@ -34,16 +34,43 @@ async def start(bot, message):
                  )
             )
             return
-        
-    if not await db.is_user_exist(message.from_user.id):
+                return
+        try:
+            ident, file_id = message.text.split("_-_-_-_")
+            filedetails = await get_file_details(file_id)
+            for files in filedetails:
+                title = files.file_name
+                size=files.file_size
+                f_caption=files.caption
+                if CUSTOM_FILE_CAPTION:
+                    try:
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                    except Exception as e:
+                        print(e)
+                        f_caption=f_caption
+                if f_caption is None:
+                    f_caption = f"{files.file_name}"
+                buttons = [[
+                        InlineKeyboardButton('Sʜᴀʀᴇ ʙᴏᴛ💕', url=f'https//:t.me/im_kuttu2_bot')
+        ],[
+            InlineKeyboardButton('Dᴇᴠᴇʟᴏᴘᴇʀ😎', url=f"https://telegram.dog/wudixh13/4")
+        ]]
+                await bot.send_cached_media(
+                    chat_id=message.from_user.id,
+                    file_id=file_id,
+                    caption= f"| Kᴜᴛᴛᴜ Bᴏᴛ 2 ™ |\n📁 Fɪʟᴇ Nᴀᴍᴇ: {file.file_name} \n\n| 📽 Fɪʟᴇ Sɪᴢᴇ: {size_formatter(file.file_size)} | \n\n Fʀᴇᴇ Mᴏᴠɪᴇ Gʀᴏᴜᴘ 🎬- ||@wudixh||",
+                    reply_markup=InlineKeyboardMarkup(buttons)
+                    )
+
+        if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
     
-    if len(message.command) != 2:
+    else:
         s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
         await asyncio.sleep(1)
         await s.delete()
-        
+
         await message.reply_text(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -55,7 +82,8 @@ async def start(bot, message):
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
             ))
-        return
+            return
+        StopPropagation
 #callback
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
