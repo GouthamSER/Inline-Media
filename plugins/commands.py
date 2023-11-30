@@ -20,7 +20,7 @@ FORCE_SUB = "@wudixh"
 @Client.on_message(filters.command("start"))
 async def start(bot, update):
 #FORCE SUB FN()    
-if FORCE_SUB:
+    if FORCE_SUB:
         try:
             user = await bot.get_chat_member(FORCE_SUB, update.from_user.id)
             if user.status == "kicked out":
