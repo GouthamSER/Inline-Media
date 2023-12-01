@@ -18,16 +18,26 @@ logger = logging.getLogger(__name__)
 FORCE_SUB = "@wudixh"
 
 @Client.on_message(filters.command("start"))
-async def start(bot, update):
-#FORCE SUB FN()    
-    if FORCE_SUB:
-        try:
-            user = await bot.get_chat_member(FORCE_SUB, update.from_user.id)
-            if user.status == "kicked out":
-                await update.reply_text("You Are Banned")
-                return
-        except UserNotParticipant :
-            await update.reply_text(
+async def start(bot, message):
+    #USER SAVING IN DB
+    if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
+        return
+    user_cmnd = message.text
+    if user_cmnd.startswith("/start ELDORADO"):
+        
+        if FORCE_SUB:
+            try:
+                user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
+                
+                if user.status == "Kicked Out":
+                    await message.reply_text("You Are Banned")
+                    return
+            
+            except UserNotParticipant :
+                ident, file_id = message.text.split("_-_-_-_")
+                await message.reply_text(
                 text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs? Tʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
                 reply_markup=InlineKeyboardMarkup( [[
                  InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
@@ -35,48 +45,62 @@ async def start(bot, update):
                  )
             )
             return
-    try:
-        ident, file_id = message.text.split("_-_-_-_")
-        filedetails = await get_file_details(file_id)
-    for files in filedetails:   
-        title = files.file_name
-        size=files.file_size
-        f_caption=files.caption
-        if CUSTOM_FILE_CAPTION:
-            try:
-                f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
-                except Exception as e:
-                print(e)
-                f_caption=f_caption
-        if f_caption is None:
-            f_caption = f"{files.file_name}"
-            buttons = [[
-                    InlineKeyboardButton('Sʜᴀʀᴇ ʙᴏᴛ💕', url=f'https//:t.me/im_kuttu2_bot')
-                ],[
-                    InlineKeyboardButton('Dᴇᴠᴇʟᴏᴘᴇʀ😎', url=f"https://telegram.dog/wudixh13/4")
-                ]]
-            await bot.send_cached_media(
+
+        try:
+            ident, file_id = message.text.split("_-_-_-_")
+            filedetails = await get_file_details(file_id)
+            
+            for files in filedetails:
+                title = files.file_name
+                size=files.file_size
+                f_caption=files.caption
+                
+                if CUSTOM_FILE_CAPTION:
+                    try:
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                    
+                    except Exception as e:
+                        print(e)
+                        f_caption=f_caption
+
+                if f_caption is None:
+                    f_caption = f"{files.file_name}"
+                buttons = [[
+                        InlineKeyboardButton('>Movie Group<', url='telegram.dog/wudixh')
+                    ]]
+                
+                await bot.send_cached_media(
+                    chat_id=message.from_user.id,
+                    file_id=file_id,
+                    caption=f_caption,
+                    reply_markup=InlineKeyboardMarkup(buttons)
+                    )
+        
+        except Exception as err:
+            await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+    
+    elif len(message.command) > 1 and message.command[1] == 'subscribe':
+        invite_link = await bot.create_chat_invite_link(FORCE_SUB)
+        await bot.send_message(
             chat_id=message.from_user.id,
-            file_id=file_id,
-            caption= f"| Kᴜᴛᴛᴜ Bᴏᴛ 2 ™ |\n📁 Fɪʟᴇ Nᴀᴍᴇ: {file.file_name} \n\n| 📽 Fɪʟᴇ Sɪᴢᴇ: {size_formatter(file.file_size)} | \n\n Fʀᴇᴇ Mᴏᴠɪᴇ Gʀᴏᴜᴘ 🎬- ||@wudixh||",
-            reply_markup=InlineKeyboardMarkup(buttons))
-if not await db.is_user_exist(message.from_user.id):
-    await db.add_user(message.from_user.id, message.from_user.first_name)
-    await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-else:
-    s=await message.reply_sticker("CAACAgUAAxkBAAIuc2OxMvp4oKa3eqg6zBTCZZdtxFV3AAIvAAPhAAEBGxa4Kik7WjyMHgQ")
-    await asyncio.sleep(1)
-    await s.delete()
-    await message.reply_text(
-        text=script.START_TXT.format(message.from_user.mention),
-        reply_markup=InlineKeyboardMarkup([[
-            InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
-        ],[
-            InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
-            InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")]]))
-    return
-    StopPropagation
+            text="**Please Join My Updates Channel to use this Bot!**",
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
+                ]]
+                ))
+    else:
+        await message.reply_text(
+            text=script.START_TXT.format(message.from_user.mention),
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
+                InlineKeyboardButton('Gᴏ Group ↗', switch_inline_query='')
+            ],[
+                InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
+                InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
+                ]]
+            ))
+            StopPropagation
 #callback
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
