@@ -7,38 +7,28 @@ from pyrogram.errors import UserNotParticipant
 BUTTONS = {}
 BOT = {}
 
-@Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
-async def filter(client, message):
+@Client.on_message(filters.text & filters.private & filters.incoming)
+async def filter(bot, message):
     if message.text.startswith("/"):
         return
-    if AUTH_CHANNEL:
-        invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        try:
-            user = await client.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
-            if user.status == "kicked":
-                await client.send_message(
-                    chat_id=message.from_user.id,
-                    text="Sorry Sir, You are Banned to use me.",
-                    parse_mode="markdown",
-                    disable_web_page_preview=True
-                )
-                return
-        except UserNotParticipant:
-            await client.send_message(
-                chat_id=message.from_user.id,
-                text="**Please Join My Updates Channel to use this Bot!**",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
-                        ]
-                    ]
-                ),
-                parse_mode="markdown"
+    if FORCE_SUB:
+            try:
+                user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
+                if user.status == "Kicked Out":
+                    await message.reply_text("You Are Banned")
+                    return
+            except UserNotParticipant :
+                ident, file_id = message.text.split("_-_-_-_")
+                await message.reply_text(
+                text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs? Tʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
+                reply_markup=InlineKeyboardMarkup( [[
+                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
+                 ]]
+                 )
             )
             return
         except Exception:
-            await client.send_message(
+            await bot.send_message(
                 chat_id=message.from_user.id,
                 text="Something went Wrong.",
                 parse_mode="markdown",
@@ -59,8 +49,6 @@ async def filter(client, message):
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"ELDORADO#{file_id}")]
                     )
-        else:
-            await client.send_sticker(chat_id=message.from_user.id, sticker='CAACAgUAAxkBAAEK1ellZhgQkSuc6oOKthbJzz3Vg9twyAACmgADyJRkFCxl4eFc7yVqMwQ')
             return
 
         if not btn:
@@ -93,7 +81,7 @@ async def filter(client, message):
         await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
 
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
-async def group(client, message):
+async def group(bot, message):
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
     if 2 < len(message.text) < 50:    
@@ -102,7 +90,7 @@ async def group(client, message):
         kuttubot = f"Here is the movie {search}" #kuttubot is the search result
         nyva=BOT.get("username")
         if not nyva:
-            botusername=await client.get_me()
+            botusername=await bot.get_me()
             nyva=botusername.username
             BOT["username"]=nyva
         files = await get_filter_results(query=search)
@@ -111,7 +99,7 @@ async def group(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=ELDORADO{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=ELDORADO<...>{file_id}")]
                 )
         else:
             return
@@ -163,7 +151,7 @@ def split_list(l, n):
 
 
 @Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
+async def cb_handler(bot: Client, query: CallbackQuery):
     clicked = query.from_user.id
     try:
         typed = query.message.reply_to_message.from_user.id
@@ -270,14 +258,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     ]
                 
                 await query.answer()
-                await client.send_cached_media(
+                await bot.reply_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
         elif query.data.startswith("checksub"):
-            if AUTH_CHANNEL and not await is_subscribed(client, query):
+            if FORCE_SUB and not await is_subscribed(bot, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
                 return
             ident, file_id = query.data.split("#")
@@ -296,12 +284,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     f_caption = f"{title}"
                 buttons = [
                     [
-                        InlineKeyboardButton('Movie Group', url=f'https://telegram.dog/wudixh')
+                        InlineKeyboardButton('>Movie Group<', url=f'telegram.dog/wudixh')
                     ]
                     ]
                 
                 await query.answer()
-                await client.send_cached_media(
+                await bot.reply_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
