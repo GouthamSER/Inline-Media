@@ -4,7 +4,6 @@ import asyncio
 import random
 from utils import Media
 from utils.database import get_file_details #forsutofilter
-from Database import Database
 from pyrogram import Client, filters, StopPropagation
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
