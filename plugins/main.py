@@ -34,7 +34,7 @@ async def filter(bot, message):
                 parse_mode="markdown",
                 disable_web_page_preview=True
             )
-            return
+        return
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
     if 2 < len(message.text) < 100:    
