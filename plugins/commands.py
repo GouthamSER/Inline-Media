@@ -100,7 +100,7 @@ async def start(bot, message):
                 InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
                 ]]
             ))
-            StopPropagation
+        StopPropagation
 #callback
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
