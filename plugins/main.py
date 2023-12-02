@@ -111,7 +111,10 @@ async def group(bot, message):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
-            await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_text(
+                text=kuttubot,
+                reply_markup=InlineKeyboardMarkup(buttons)
+            )
             return
 
         data = BUTTONS[keyword]
