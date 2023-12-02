@@ -3,6 +3,7 @@ from info import AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
 import re
+import random
 from pyrogram.errors import UserNotParticipant
 BUTTONS = {}
 BOT = {}
