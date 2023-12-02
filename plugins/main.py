@@ -93,7 +93,7 @@ async def group(bot, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=ELDORADO<...>{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=ELDORADO{file_id}")]
                 )
         else:
             return
@@ -112,10 +112,7 @@ async def group(bot, message):
             buttons.append(
                 [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
             )
-            await message.reply_text(
-                text=kuttubot,
-                reply_markup=InlineKeyboardMarkup(buttons)
-            )
+            await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
             return
 
         data = BUTTONS[keyword]
