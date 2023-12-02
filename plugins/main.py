@@ -255,7 +255,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 await bot.reply_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
-                    caption=f_caption,
+                    caption=f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""",
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
         elif query.data.startswith("checksub"):
@@ -286,7 +286,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 await bot.reply_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
-                    caption=f_caption,
+                    caption=f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""",
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
 
