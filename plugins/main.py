@@ -7,7 +7,7 @@ from pyrogram.errors import UserNotParticipant
 BUTTONS = {}
 BOT = {}
 
-@Client.on_message(filters.text & filters.private & filters.incoming)
+@Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(bot, message):
     if message.text.startswith("/"):
         return
