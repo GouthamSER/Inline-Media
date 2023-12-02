@@ -4,7 +4,7 @@ import asyncio
 import random
 from utils import Media
 from utils.database import get_file_details #forsutofilter
-from pyrogram import Client, filters, StopPropagation
+from pyrogram import Client, filters, StopPropagation, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
 from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, CUSTOM_FILE_CAPTION
@@ -62,18 +62,16 @@ async def start(bot, message):
                     except Exception as e:
                         print(e)
                         f_caption=f_caption
-
-                if f_caption is None:
-                    f_caption = f"{files.file_name}"
                 buttons = [[
                         InlineKeyboardButton('>Movie Group<', url='telegram.dog/wudixh')
                     ]]
                 
-                await bot.send_cached_media(
+                await bot.reply_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
-                    caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons)
+                    caption= f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""" ,
+                    reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=enums.ParseMode.HTML
                     )
         
         except Exception as err:
