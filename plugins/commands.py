@@ -69,7 +69,7 @@ async def start(bot, message):
                 await bot.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
-                    caption= f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""" ,
+                    caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons),
                     parse_mode=enums.ParseMode.HTML
                     )
