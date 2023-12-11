@@ -42,7 +42,7 @@ async def filter(bot, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"ELDORADO#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu#{file_id}")]
                     )
             return
 
@@ -94,7 +94,7 @@ async def group(bot, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=ELDORADO{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu_-_-{file_id}")]
                 )
         else:
             return
@@ -231,7 +231,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 return
 
 
-        elif query.data.startswith("ELDORADO"):
+        elif query.data.startswith("kuttu"):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
