@@ -94,7 +94,7 @@ async def group(bot, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}] {file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu_-_-{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu_-_-_-_{file_id}")] #_-_-_-_ is mes split
                 )
         else:
             return
