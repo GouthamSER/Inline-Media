@@ -28,7 +28,7 @@ async def start(bot, message):
         
         if AUTH_CHANNEL:
             try:
-                user = await bot.get_chat_member(int(AUTH_CHANNEL)), message.from_user.id)
+                user = await bot.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
                 if user.status == "kicked":
                     await bot.send_message(
                         chat_id=message.from_user.id,
