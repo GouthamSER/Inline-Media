@@ -270,7 +270,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     ]
                 
                 await query.answer()
-                await bot.reply_cached_media(
+                await bot.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""",
@@ -301,7 +301,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     ]
                 
                 await query.answer()
-                await bot.reply_cached_media(
+                await bot.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""",
