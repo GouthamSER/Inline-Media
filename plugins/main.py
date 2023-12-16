@@ -148,7 +148,7 @@ async def group(bot, message):
 def get_size(size):
     """Get size in readable format"""
 
-    units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
+    units = ["By", "KB", "MB", "GB", "TB", "PB", "EB"]
     size = float(size)
     i = 0
     while size >= 1024.0 and i < len(units):
@@ -313,13 +313,3 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             await query.answer("hehe", show_alert=True)
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
-
-def get_size(size):
-    if file_size < 1024:
-        file_size = f"[{file_size} B]"
-    elif file_size < (1024**2):
-        file_size = f"[{str(round(file_size/1024, 2))} KB]"
-    elif file_size < (1024**3):
-        file_size = f"[{str(round(file_size/(1024**2), 2))} MB]"
-    elif file_size < (1024**4):
-        file_size = f"[{str(round(file_size/(1024**3), 2))} GB]"
