@@ -273,7 +273,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 await bot.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
-                    caption=f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""",
+                    caption=f_caption,#cap for file setting in environ
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
         elif query.data.startswith("checksub"):
@@ -304,12 +304,21 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 await bot.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
-                    caption=f"""📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ Bot | {title} </code> \n\n🖇 <em>File Size</em>: <code> {size} </code>""",
+                    caption=f_caption,#cap for file setting in environ
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
 
 
         elif query.data == "pages":
-            await query.answer()
+            await query.answer("hehe", show_alert=True)
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
+#FILE COMPRESSOR size
+        if size < 1024:
+            size = f"[{size} B]"
+        elif size < (1024**2):
+            size = f"[{str(round(size/1024, 2))} KB]"
+        elif size < (1024**3):
+            size = f"[{str(round(size/(1024**2), 2))} MB]"
+        elif size < (1024**4):
+            size = f"[{str(round(size/(1024**3), 2))} GB]"
