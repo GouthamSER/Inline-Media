@@ -1,7 +1,7 @@
 class script(object):
-  START_TXT="""**Hey {}, I'm Media Search bot**
+  START_TXT="""**Hey {}, I'm Media Search bot & Auto Filter Bot**
   
-Here you can search files in inline mode. Just press following buttons and start searching.
+Here you can search files in inline mode & Auto FIlter. Just press following buttons and start searching.
 """
   HELP_TXT="""Hᴇʏ {}
 Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
@@ -34,8 +34,8 @@ Name - {}
 """
   RESTART_TXT = """
 <b>𝖡𝗈𝗍 𝖱𝖾𝗌𝗍𝖺𝗋𝗍𝖾𝖽 !</b>
-
+Kuttu Bot 2
 📅 𝖣𝖺𝗍𝖾 : <code>{}</code>
 ⏰ 𝖳𝗂𝗆𝖾 : <code>{}</code>
 🌐 𝖳𝗂𝗆𝖾𝗓𝗈𝗇𝖾 : <code>Asia/Kolkata</code>
-🛠️ 𝖡𝗎𝗂𝗅𝖽 𝖲𝗍𝖺𝗍𝗎𝗌 : <code>𝗏2.3 [ 𝖲𝗍able 😁 ]</code></b>"""
+🛠️ 𝖡𝗎𝗂𝗅𝖽 𝖲𝗍𝖺𝗍𝗎𝗌 : <code>𝗏2 [ 𝖲𝗍able 😁 ]</code></b>"""
