@@ -253,7 +253,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
-                size=files.file_size
+                size=get_size(files.file_size)#get_size(files.file_size) fn() calling in size compresor
                 f_caption=files.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
@@ -284,7 +284,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
-                size=files.file_size
+                size=get_size(files.file_size)#get_size(files.file_size) fn() calling in size compresor
                 f_caption=files.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
@@ -313,12 +313,13 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             await query.answer("hehe", show_alert=True)
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
-#FILE COMPRESSOR size
-        if size < 1024:
-            size = f"[{size} B]"
-        elif size < (1024**2):
-            size = f"[{str(round(size/1024, 2))} KB]"
-        elif size < (1024**3):
-            size = f"[{str(round(size/(1024**2), 2))} MB]"
-        elif size < (1024**4):
-            size = f"[{str(round(size/(1024**3), 2))} GB]"
+
+def get_size(size):
+    if file_size < 1024:
+        file_size = f"[{file_size} B]"
+    elif file_size < (1024**2):
+        file_size = f"[{str(round(file_size/1024, 2))} KB]"
+    elif file_size < (1024**3):
+        file_size = f"[{str(round(file_size/(1024**2), 2))} MB]"
+    elif file_size < (1024**4):
+        file_size = f"[{str(round(file_size/(1024**3), 2))} GB]"
