@@ -6,6 +6,7 @@ Here you can search files in inline mode & Auto FIlter. Just press following but
   HELP_TXT="""Hᴇʏ {}
 Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
 /add - to use index the files from channel (admin)
+/index - to index the files (admin)
 /stats - to see how many files are in db
 /log - to see the errors
 /channel - to see how many channels connected
