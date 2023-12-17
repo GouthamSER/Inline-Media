@@ -253,7 +253,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
-                size=get_size(files.file_size)#get_size(files.file_size) fn() calling in size compresor
+                size=[{get_size(file.file_size)}]#get_size(files.file_size) fn() calling in size compresor
                 f_caption=files.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
@@ -284,7 +284,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
-                size=get_size(files.file_size)#get_size(files.file_size) fn() calling in size compresor
+                size=[{get_size(file.file_size)}]#get_size(files.file_size) fn() calling in size compresor
                 f_caption=files.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
