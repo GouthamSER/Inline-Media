@@ -70,7 +70,7 @@ async def start(bot, message):
             
             for files in filedetails:
                 title = files.file_name
-                size=files.file_size
+                size=size_formatter(files.file_size) #fn()call size_formatter is mb gb converter
                 f_caption=files.caption
                 
                 if CUSTOM_FILE_CAPTION:
