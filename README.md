@@ -1,6 +1,8 @@
 <p align="Center">
-  <a href="github.com/Inline-Media" alt='Auto'><h2 align='center'>Aᴜᴛᴏ Fɪʟᴛᴇʀ Wɪᴛʜ Iɴʟɪɴᴇ Mᴇᴅɪᴀ Bᴏᴛ</a></h2>
+  <a href="github.com/Inline-Media" alt='Auto'><h2 align='center'><i>Aᴜᴛᴏ Fɪʟᴛᴇʀ Wɪᴛʜ Iɴʟɪɴᴇ Mᴇᴅɪᴀ Bᴏᴛ</i><br>
+  <br>©&nbsp;Aʟʟ Rɪɢʜᴛ Rᴇsᴇʀᴠᴇᴅ Tᴏ Oᴡɴᴇʀ</a></h2>
 </p>
+
 <p align = "center">
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Aerial+Code&size=20&pause=1000&width=435&lines=Welcome+To+AutoFilter+with+Inline+Media+Bot;Created+by+GouthamSER;Thiz+bot+Use+Indexes+Files+above+2GB;Simple+features!" alt="Typing SVG" /></a>
 </p>
