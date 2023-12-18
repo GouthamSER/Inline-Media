@@ -41,9 +41,9 @@ log - Get log file
 
 ## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
 ## Thanks to [Mahesh](https://github.com/Mahesh0253)
-## Thanks to [Me](github.com/GouthamSER)
+## Thanks to [Me✔](https://github.com/GouthamSER)
 
-## Support [Channel](t.me/wudixh13)
+## Support💕 [Channel](https://t.me/wudixh13)
 
 ## License
 Code released under [The GNU v3 General Public License](LICENSE).
