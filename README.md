@@ -1,19 +1,18 @@
-# [Inline-Media](https://github.com/GouthamSER/Inline-Media)
+# [AutoFilter WITH InlineMedia](https://github.com/GouthamSER/Inline-Media)
 <p align = "center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=17&pause=1000&width=435&lines=Welcome+To+Inline+Media+Bot;Created+by+GouthamSER;Inline+Media+bot+Use+Indexes+Files+above+2GB;+A+Bot+with+double+button+Start+message+with+pic+Simple+features!" alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Aerial+Code&size=20&pause=1000&width=435&lines=Welcome+To+AutoFilter+with+Inline+Media+Bot;Created+by+GouthamSER;Thiz+bot+Use+Indexes+Files+above+2GB;Simple+features!" alt="Typing SVG" /></a>
 </p>
 
-* Index channel or group files for inline search.
+* Index channel or group files for inline search and Auth Groups.
 * When you post file on telegram channel or group this bot will save that file in database, so you can search easily in inline mode.
 * Supports document, video and audio file formats with caption support.
 * Db Space Showing feature some cb added
 
-## Installation
-
-
-
 ### Required Variables
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
+* `CUSTOM_FILE_CAPTION`: Environ set [etc-(Filename,Filesize)]
+* `AUTH_CHANNEL`: Force SUB to channel
+* `AUTH_GROUP`:**Supourt Group AutoFIlter**
 * `API_ID`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `CHANNELS`: Username or ID of channel or group. Separate multiple IDs by space
@@ -29,7 +28,7 @@
 * `AUTH_CHANNEL`: Username or ID of channel. Without subscribing this channel users cannot use bot.
 * `START_MSG`: Welcome message for start command.
 * `INVITE_MSG`: Auth channel invitation message.
-* `USERBOT_STRING_SESSION`: User bot string session.
+
 ## Admin commands
 ```
 channel - Get basic infomation about channels
@@ -39,20 +38,13 @@ index - Index all files from channel or group
 log - Get log file
 ```
 
-## Tips
-* Use `index` command or run [one_time_indexer.py](one_time_indexer.py) file to save old files in the database that are not indexed yet.
-* You can use `|` to separate query and file type while searching for specific type of file. For example: `Avengers | video`
-* If you don't want to create a channel or group, use your chat ID / username as the channel ID. When you send a file to a bot, it will be saved in the database.
-
-## Contributions
-Contributions are welcome.
 
 ## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
-## Thanks to[Mahesh](https://github.com/Mahesh0253)
+## Thanks to [Mahesh](https://github.com/Mahesh0253)
+## Thanks to [Me](github.com/GouthamSER)
 
-## Support
-[Update Channel](https://t.me/wudixh13)
+## Support [Channel](t.me/wudixh13)
 
 ## License
-Code released under [The GNU General Public License](LICENSE).
+Code released under [The GNU v3 General Public License](LICENSE).
 
