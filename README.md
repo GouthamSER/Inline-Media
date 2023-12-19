@@ -1,5 +1,5 @@
 <p align="Center">
-  <a href="github.com/Inline-Media" alt='Auto'><h2 align='center'><i>Aᴜᴛᴏ Fɪʟᴛᴇʀ Wɪᴛʜ Iɴʟɪɴᴇ Mᴇᴅɪᴀ Bᴏᴛ</i><br>
+  <a href="github.com/Inline-Media" alt='Auto'><h2 align='center'><i>Iɴʟɪɴᴇ Mᴇᴅɪᴀ Bᴏᴛ Cᴏɴᴠᴇʀᴛed Aᴜᴛᴏ Fɪʟᴛᴇʀ🤳</i><br>
   <br>©&nbsp;Aʟʟ Rɪɢʜᴛ Rᴇsᴇʀᴠᴇᴅ Tᴏ Oᴡɴᴇʀ</a></h2>
 </p>
 
@@ -7,10 +7,10 @@
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Aerial+Code&size=20&pause=1000&width=435&lines=Welcome+To+AutoFilter+with+Inline+Media+Bot;Created+by+GouthamSER;Thiz+bot+Use+Indexes+Files+above+2GB;Simple+features!" alt="Typing SVG" /></a>
 </p>
 
-* Index channel or group files for inline search and Auth Groups.
-* When you post file on telegram channel or group this bot will save that file in database, so you can search easily in inline mode.
-* Supports document, video and audio file formats with caption support.
-* Db Space Showing feature some cb added
+* Iɴᴅᴇx ᴄʜᴀɴɴᴇʟ ᴏʀ ɢʀᴏᴜᴘ ғɪʟᴇs ғᴏʀ ɪɴʟɪɴᴇ sᴇᴀʀᴄʜ ᴀɴᴅ Aᴜᴛʜ Gʀᴏᴜᴘs.
+* Wʜᴇɴ ʏᴏᴜ ᴘᴏsᴛ ғɪʟᴇ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟ ᴏʀ ɢʀᴏᴜᴘ ᴛʜɪs ʙᴏᴛ ᴡɪʟʟ sᴀᴠᴇ ᴛʜᴀᴛ ғɪʟᴇ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ, sᴏ ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ᴇᴀsɪʟʏ ɪɴ ɪɴʟɪɴᴇ ᴍᴏᴅᴇ.
+* Sᴜᴘᴘᴏʀᴛs ᴅᴏᴄᴜᴍᴇɴᴛ, ᴠɪᴅᴇᴏ ᴀɴᴅ ᴀᴜᴅɪᴏ ғɪʟᴇ ғᴏʀᴍᴀᴛs ᴡɪᴛʜ ᴄᴀᴘᴛɪᴏɴ sᴜᴘᴘᴏʀᴛ.
+* Dʙ Sᴘᴀᴄᴇ Sʜᴏᴡɪɴɢ ғᴇᴀᴛᴜʀᴇ sᴏᴍᴇ ᴄʙ ᴀᴅᴅᴇᴅ
 
 ### Required Variables
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
@@ -43,12 +43,12 @@ log - Get log file
 ```
 
 
-## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
-## Thanks to [Mahesh](https://github.com/Mahesh0253)
-## Thanks to [Me✔](https://github.com/GouthamSER)
+## Thanks to [Pʏʀᴏɢʀᴀᴍ](https://github.com/pyrogram/pyrogram)
+## Thanks to [Mᴀʜᴇsʜ](https://github.com/Mahesh0253)
+## Thanks to [Mᴇ✔](https://github.com/GouthamSER)
 
 ## Support💕 [Channel](https://t.me/wudixh13)
 
 ## License
-Code released under [The GNU v3 General Public License](LICENSE).
+Code released under [Tʜᴇ GNU ᴠ3 Gᴇɴᴇʀᴀʟ Pᴜʙʟɪᴄ Lɪᴄᴇɴsᴇ](LICENSE).
 
