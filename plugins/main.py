@@ -52,7 +52,7 @@ async def filter(bot, message):
     if 2 < len(message.text) < 100:    
         btn = []
         search = message.text
-        kuttubot = f"Here is the movie {search}" #kuttubot is the search result
+        kuttubot = f"Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search}" #kuttubot is the search result
         files = await get_filter_results(query=search)
         if files:
             for file in files:
@@ -68,7 +68,7 @@ async def filter(bot, message):
 
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message.message.id}"
+            keyword = f"{message.chat.id}-{message.id}"
             BUTTONS[keyword] = {
                 "total" : len(btns),
                 "buttons" : btns
@@ -99,7 +99,7 @@ async def group(bot, message):
     if 2 < len(message.text) < 50:    
         btn = []
         search = message.text
-        kuttubot = f"Here is the movie {search}" #kuttubot is the search result
+        kuttubot = f"Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search}" #kuttubot is the search result
         nyva=BOT.get("username")
         if not nyva:
             botusername=await bot.get_me()
@@ -120,7 +120,7 @@ async def group(bot, message):
 
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message.message.id}"
+            keyword = f"{message.chat.id}-{message.id}"
             BUTTONS[keyword] = {
                 "total" : len(btns),
                 "buttons" : btns
