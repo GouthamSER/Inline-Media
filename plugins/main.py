@@ -173,11 +173,11 @@ async def cb_handler(bot: Client, query: CallbackQuery):
     if (clicked == typed):
 
         if query.data.startswith("next"):
-            ident, index, keyword = query.data.split("_")
+            ident, index, keyword = query.data.split("-_-")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
-                await query.answer("You are using this for one of my old message, please send the request again.",show_alert=True)
+                await query.answer("Yᴏᴜ ᴀʀᴇ ᴜsɪɴɢ ᴛʜɪs ғᴏʀ ᴏɴᴇ ᴏғ ᴍʏ ᴏʟᴅ ᴍᴇssᴀɢᴇ, ᴘʟᴇᴀsᴇ sᴇɴᴅ ᴛʜᴇ ʀᴇᴏ̨ᴜᴇsᴛ ᴀɢᴀɪɴ.",show_alert=True)
                 return
 
             if int(index) == int(data["total"]) - 2:
@@ -211,7 +211,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
 
 
         elif query.data.startswith("back"):
-            ident, index, keyword = query.data.split("_")
+            ident, index, keyword = query.data.split("-_-")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
