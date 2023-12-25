@@ -24,6 +24,7 @@ async def start(bot, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
         return
+    
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
         
