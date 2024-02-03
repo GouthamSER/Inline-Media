@@ -27,45 +27,22 @@ async def start(bot, message):
     
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
-        
-        if AUTH_CHANNEL:
-            invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
-            try:
-                user = await bot.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
-                if user.status == "kicked":
-                    await bot.send_message(
-                        chat_id=message.from_user.id,
-                        text="Sorry Sir, You are Banned to use me😢.",
-                        parse_mode="markdown",
-                        disable_web_page_preview=True
-                    )
-                    return
-            except UserNotParticipant :
-                ident, file_id = message.text.split("-_-")
-                await bot.send_message(
-                    chat_id=message.from_user.id,
-                    text="**Please Join My Updates Channel to use this Bot!**",
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
-                            ],
-                            [
-                                InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
-                            ]
-                        ]
-                    ),
-                    parse_mode="markdown"
-                )
+        if FORCE_SUB:
+        try:
+            user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
+            if user.status == "kicked out":
+                await message.reply_text("You Are Banned")
                 return
-            except Exception:
-                await bot.send_message(
-                    chat_id=message.from_user.id,
-                    text="Something went Wrong.❌",
-                    parse_mode="markdown",
-                    disable_web_page_preview=True
-                )
-                return
+        except UserNotParticipant :
+            ident, file_id = message.text.split("-_-")
+            await message.reply_text(
+                text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs? Tʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
+                reply_markup=InlineKeyboardMarkup( [[
+                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
+                 ]]
+                 )
+            )
+            return
         try:
             ident, file_id = message.text.split("-_-")
             filedetails = await get_file_details(file_id)
@@ -98,12 +75,11 @@ async def start(bot, message):
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     
     elif len(message.command) > 1 and message.command[1] == 'subscribe':
-        invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
         await bot.send_message(
             chat_id=message.from_user.id,
             text="**Please Join My Updates Channel to use this Bot!**",
             reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
+                InlineKeyboardButton("📢 Join Updates Channel 📢", url=f"t.me/{FORCE_SUB}")
                 ]]
                 ))
     else:
