@@ -28,11 +28,11 @@ async def start(bot, message):
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
         if FORCE_SUB:
-        try:
-            user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
-            if user.status == "kicked out":
-                await message.reply_text("You Are Banned")
-                return
+            try:
+                user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
+                if user.status == "kicked out":
+                    await message.reply_text("You Are Banned")
+            return
         except UserNotParticipant :
             ident, file_id = message.text.split("-_-")
             await message.reply_text(
