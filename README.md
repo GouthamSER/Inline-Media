@@ -12,6 +12,14 @@
 * Sᴜᴘᴘᴏʀᴛs ᴅᴏᴄᴜᴍᴇɴᴛ, ᴠɪᴅᴇᴏ ᴀɴᴅ ᴀᴜᴅɪᴏ ғɪʟᴇ ғᴏʀᴍᴀᴛs ᴡɪᴛʜ ᴄᴀᴘᴛɪᴏɴ sᴜᴘᴘᴏʀᴛ.
 * Dʙ Sᴘᴀᴄᴇ Sʜᴏᴡɪɴɢ ғᴇᴀᴛᴜʀᴇ sᴏᴍᴇ ᴄʙ ᴀᴅᴅᴇᴅ
 
+### Deploy VIa
+<details><summary>Deploy To Render</summary>
+<br>
+<a href="https://render.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
+<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
+</a>
+</details>
+
 ### Required Variables
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 * `CUSTOM_FILE_CAPTION`: Environ set [etc-(Filename,Filesize)]
