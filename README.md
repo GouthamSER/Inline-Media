@@ -11,15 +11,15 @@
 * Wʜᴇɴ ʏᴏᴜ ᴘᴏsᴛ ғɪʟᴇ ᴏɴ ᴛᴇʟᴇɢʀᴀᴍ ᴄʜᴀɴɴᴇʟ ᴏʀ ɢʀᴏᴜᴘ ᴛʜɪs ʙᴏᴛ ᴡɪʟʟ sᴀᴠᴇ ᴛʜᴀᴛ ғɪʟᴇ ɪɴ ᴅᴀᴛᴀʙᴀsᴇ, sᴏ ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ᴇᴀsɪʟʏ ɪɴ ɪɴʟɪɴᴇ ᴍᴏᴅᴇ.
 * Sᴜᴘᴘᴏʀᴛs ᴅᴏᴄᴜᴍᴇɴᴛ, ᴠɪᴅᴇᴏ ᴀɴᴅ ᴀᴜᴅɪᴏ ғɪʟᴇ ғᴏʀᴍᴀᴛs ᴡɪᴛʜ ᴄᴀᴘᴛɪᴏɴ sᴜᴘᴘᴏʀᴛ.
 * Dʙ Sᴘᴀᴄᴇ Sʜᴏᴡɪɴɢ ғᴇᴀᴛᴜʀᴇ sᴏᴍᴇ ᴄʙ ᴀᴅᴅᴇᴅ
-
-### Deploy VIa
+<hr>
+<h3> Deploy VIa </h3>
 <details><summary>Deploy To Render</summary>
 <br>
 <a href="https://render.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
 </details>
-
+<hr>
 ### Required Variables
 * `BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 * `CUSTOM_FILE_CAPTION`: Environ set [etc-(Filename,Filesize)]
