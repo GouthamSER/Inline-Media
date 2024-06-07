@@ -121,7 +121,7 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
     if mes.data=="start":
-        m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
+        m=await mes.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
         await asyncio.sleep(1)
         await m.delete()
         await mes.message.edit(
@@ -163,7 +163,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
         free = 536870912 - monsize
         monsize = size_formatter(monsize) #fn()calling size_formatter
         free = size_formatter(free) #fn()calling size_formatter
-        await replymsg.edit_text(
+        await mes.edit_text(
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                     [[
