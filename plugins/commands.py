@@ -121,6 +121,9 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
     if mes.data=="start":
+        m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
+        await asyncio.sleep(1)
+        await m.delete()
         await mes.message.edit(
             text=script.START_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -160,7 +163,6 @@ async def startmes(bot:Client, mes:CallbackQuery):
         free = 536870912 - monsize
         monsize = size_formatter(monsize) #fn()calling size_formatter
         free = size_formatter(free) #fn()calling size_formatter
-        replymsg = await mes.message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎**")
         await replymsg.edit_text(
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
@@ -177,7 +179,7 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
                 ],[
-                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://telegram.dog/wudixh13/4")
+                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://gouthamser.github.io/GouthamJosh/")
                 ]]
             ))
  #CB ENDED               
