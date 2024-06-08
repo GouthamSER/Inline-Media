@@ -10,7 +10,7 @@ from utils import save_file
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
-@Client.on_callback_query(filters.regex(r'^index'))
+@Client.on_callback_query(filters.regex(r'^indexfiles'))
 async def index_files(bot, query):
     if query.data.startswith('index_cancel'):
         True
