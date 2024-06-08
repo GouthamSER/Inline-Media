@@ -122,10 +122,10 @@ async def start(bot, message):
         StopPropagation
 #callback
 @Client.on_callback_query()
-async def startmes(bot:Client, mes:CallbackQuery):
-    if mes.data=="start":
-        await mes.message.edit(
-            text=script.START_TXT.format(mes.from_user.mention),
+async def startquery(client: Client, query: CallbackQuery):
+    if query.data=="start":
+        await query.message.edit_text(
+            text=script.START_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
                 InlineKeyboardButton('🎉 𝗔𝗱𝗱 𝗠𝗲 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗚𝗿𝗼𝘂𝗽𝘀 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
@@ -137,19 +137,19 @@ async def startmes(bot:Client, mes:CallbackQuery):
                 InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
                 ]]
             ))
-    elif mes.data=="help":
-        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
-            text=script.HELP_TXT.format(mes.from_user.mention),
+    elif query.data=="help":
+        await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await query.message.edit_text(
+            text=script.HELP_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
                 ]]
             ))
-    elif mes.data=="about":
-        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
-            text=script.ABOUT_TXT.format(mes.from_user.mention),
+    elif query.data=="about":
+        await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+       await query.message.edit_text(
+            text=script.ABOUT_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start"),
@@ -158,14 +158,14 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev")
                 ]]
             ))
-    elif mes.data=="stats":
+    elif query.data=="stats":
         total = await Media.count_documents()
         users = await db.total_users_count()
         monsize = await db.get_db_size() #db import from util
         free = 536870912 - monsize
         monsize = size_formatter(monsize) #fn()calling size_formatter
         free = size_formatter(free) #fn()calling size_formatter
-        await mes.edit_text(
+        await query.message.edit_text(
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                     [[
@@ -173,9 +173,9 @@ async def startmes(bot:Client, mes:CallbackQuery):
                     ]]
                 ))
     
-    elif mes.data=="dev":
-        await mes.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-        await mes.message.edit(
+    elif query.data=="dev":
+        await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await query.message.edit_text(
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
                 [[
