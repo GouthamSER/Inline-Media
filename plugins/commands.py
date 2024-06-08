@@ -114,7 +114,6 @@ async def start(bot, message):
                 [[
                 InlineKeyboardButton('🎉 𝗔𝗱𝗱 𝗠𝗲 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗚𝗿𝗼𝘂𝗽𝘀 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
             ],[
-                [[
                 InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
                 InlineKeyboardButton('Gᴏ Group ↗', switch_inline_query='')
             ],[
