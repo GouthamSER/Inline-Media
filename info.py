@@ -37,7 +37,7 @@ FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "")
 if FILE_CAPTION.strip() == "":
     CUSTOM_FILE_CAPTION=None
 else:
-    CUSTOM_FILE_CAPTION=FILE_CAPTION
+    CUSTOM_FILE_CAPTION=environ.get("CUSTOM_FILE_CAPTION", "📂 <em>File Name</em>: <code>{file_name}</code>\n\n ♻ <em>File Size</em>:{file_size} \n\n <b><i>Latest Movies -</i> [ELDORADO](https://t.me/wudixh) </b>")
 
 # MongoDB information
 DATABASE_URI = environ['DATABASE_URI']
