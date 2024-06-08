@@ -105,6 +105,9 @@ async def start(bot, message):
                 ]]
                 ))
     else:
+        m=await mes.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
+        await asyncio.sleep(1)
+        await m.delete()
         await message.reply_text(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -121,18 +124,17 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def startmes(bot:Client, mes:CallbackQuery):
     if mes.data=="start":
-        m=await mes.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
-        await asyncio.sleep(1)
-        await m.delete()
         await mes.message.edit(
             text=script.START_TXT.format(mes.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
+                InlineKeyboardButton('🎉 𝗔𝗱𝗱 𝗠𝗲 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗚𝗿𝗼𝘂𝗽𝘀 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
+            ],[
                 InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
                 InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
             ],[
-                InlineKeyboardButton("Hᴇʟᴘ📒", callback_data="help"),
-                InlineKeyboardButton("Aʙᴏᴜᴛ😶", callback_data="about")       
+                InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
+                InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
                 ]]
             ))
     elif mes.data=="help":
