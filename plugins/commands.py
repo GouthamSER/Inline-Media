@@ -148,7 +148,7 @@ async def startquery(client: Client, query: CallbackQuery):
             ))
     elif query.data=="about":
         await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
-       await query.message.edit_text(
+        await query.message.edit_text(
             text=script.ABOUT_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
