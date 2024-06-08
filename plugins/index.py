@@ -10,44 +10,10 @@ from utils import save_file
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
-@Client.on_callback_query(filters.regex(r'^indexfiles'))
-async def index_files(bot, query):
-    if query.data.startswith('index_cancel'):
-        True
-        return await query.answer("Cancelling Indexing")
-    _, raju, chat, lst_msg_id, from_user = query.data.split("#")
-    if raju == 'reject':
-        await query.message.delete()
-        await bot.send_message(int(from_user),
-                               f'Your Submission for indexing {chat} has been decliened by our moderators.',
-                               reply_to_message_id=int(lst_msg_id))
-        return
-
-    if lock.locked():
-        return await query.answer('Wait until previous process complete.', show_alert=True)
-    msg = query.message
-
-    await query.answer('Processing...⏳', show_alert=True)
-    if int(from_user) not in ADMINS:
-        await bot.send_message(int(from_user),
-                               f'Your Submission for indexing {chat} has been accepted by our moderators and will be added soon.',
-                               reply_to_message_id=int(lst_msg_id))
-    await msg.edit(
-        "Starting Indexing",
-        reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton('Cancel', callback_data='index_cancel')]]
-        )
-    )
-    try:
-        chat = int(chat)
-    except:
-        chat = chat
-    await index_files(int(lst_msg_id), chat, msg, bot)
-
-
 @Client.on_message(filters.command(['index']) & filters.user(ADMINS))
 async def index_files(bot, message):
-    """Save channel or group files"""  
+    """Save channel or group files""" 
+    
     if lock.locked():
         await message.reply('Wait until previous process complete.')
     else:
@@ -63,8 +29,9 @@ async def index_files(bot, message):
                 break
             except Exception as e:
                 await last_msg.reply_text(f"This Is An Invalid Message, Either the channel is private and bot is not an admin in the forwarded chat, or you forwarded message as copy.\nError caused Due to <code>{e}</code>")
-                continue
-
+                break #break here forwared link is or nonetype
+                else:
+                    continue #continue here forwarded is file link
         msg = await message.reply('Processing...⏳')
         total_files = 0
         async with lock:
@@ -114,16 +81,3 @@ async def index_files(bot, message):
             else:
                 await msg.edit(f'Total {total_files} Saved To DataBase!')
 
-@Client.on_message(filters.command('setskip') & filters.user(ADMINS))
-async def set_skip_number(bot, message):
-    "TO SKIP THE file movie Messages "
-    if ' ' in message.text:
-        _, skip = message.text.split(" ")
-        try:
-            skip = int(skip)
-        except:
-            return await message.reply("Skip number should be an integer.")
-        await message.reply(f"Successfully set SKIP number as {skip}")
-        current=int(os.environ.get("SKIP", 2))
-    else:
-        await message.reply("Give me a skip number")
