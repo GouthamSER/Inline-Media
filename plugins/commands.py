@@ -105,7 +105,7 @@ async def start(bot, message):
                 ]]
                 ))
     else:
-        m=await mes.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
+        m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
         await asyncio.sleep(1)
         await m.delete()
         await message.reply_text(
