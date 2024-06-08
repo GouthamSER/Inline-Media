@@ -21,7 +21,7 @@ USERBOT_STRING_SESSION = environ.get('USERBOT_STRING_SESSION')
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
 PORT = environ.get("PORT", "8000")
-USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', '📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ|{file_name}</code> \n\n🖇 <em>File Size</em>: <code>{file_size}</code> \n\n❤️‍🔥 <i>Movie Requests</i> - ||@wudixh|| '))
+USE_CAPTION_FILTER = bool(environ.get('USE_CAPTION_FILTER', '📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ|{file_name}</code> <br><br>🖇 <em>File Size</em>: <code>{file_size}</code> <br><br>❤️‍🔥 <i>Movie Requests</i> - ||@wudixh|| '))
 
 # Admins, Channels & Users
 ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ['ADMINS'].split()]
