@@ -15,7 +15,7 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-FORCE_SUB = "@wudixh"
+FORCE_SUB = "@wudixh13"
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
@@ -24,13 +24,12 @@ async def start(bot, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
         return
-
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
         if AUTH_CHANNEL:
-            invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
+            invite_link = await bot.create_chat_invite_link(FORCE_SUB)
             try:
-                user = await bot.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
+                user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
                 if user.status == "kicked":
                     await bot.send_message(
                         chat_id=message.from_user.id,
