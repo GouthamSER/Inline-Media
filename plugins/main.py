@@ -7,15 +7,16 @@ import random
 from pyrogram.errors import UserNotParticipant
 BUTTONS = {}
 BOT = {}
+FORCE_SUB="@wudixh13"
 
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(bot, message):
     if message.text.startswith("/"):
         return
-    if AUTH_CHANNEL:
-        invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
+    if FORCE_SUB:
+        invite_link = await bot.create_chat_invite_link(FORCE_SUB)
         try:
-            user = await bot.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
+            user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
             if user.status == "kicked":
                 await bot.send_message(
                     chat_id=message.from_user.id,
