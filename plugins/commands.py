@@ -26,7 +26,7 @@ async def start(bot, message):
         return
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
-        if AUTH_CHANNEL:
+        if FORCE_SUB:
             invite_link = await bot.create_chat_invite_link(FORCE_SUB)
             try:
                 user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
