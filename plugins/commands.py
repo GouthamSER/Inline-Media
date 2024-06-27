@@ -197,7 +197,7 @@ async def startquery(client: Client, query: CallbackQuery):
 
 @Client.on_message(filters.command('help'))
 async def help(bot, message):
-    await query.message.reply_chat_action("Typing")
+    await message.reply_chat_action("Typing")
     await asyncio.sleep(1)
     await message.reply_text(
         text=script.HELP_TXT.format(message.from_user.mention),
@@ -209,7 +209,7 @@ async def help(bot, message):
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
-    await query.message.reply_chat_action("Typing")
+    await message.reply_chat_action("Typing")
     await asyncio.sleep(1)
     await message.reply_text(
         text=script.ABOUT_TXT.format(message.from_user.mention),
