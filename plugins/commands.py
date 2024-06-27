@@ -125,6 +125,8 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def startquery(client: Client, query: CallbackQuery):
     if query.data=="start":
+        await query.message.reply_chat_action("Typing")
+        await asyncio sleep(1)
         await query.message.edit_text(
             text=script.START_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -139,6 +141,8 @@ async def startquery(client: Client, query: CallbackQuery):
                 ]]
             ))
     elif query.data=="help":
+        await query.message.reply_chat_action("Typing")
+        await asyncio sleep(1)
         await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await query.message.edit_text(
             text=script.HELP_TXT.format(query.from_user.mention),
@@ -148,6 +152,8 @@ async def startquery(client: Client, query: CallbackQuery):
                 ]]
             ))
     elif query.data=="about":
+        await query.message.reply_chat_action("Typing")
+        await asyncio sleep(1)
         await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(query.from_user.mention),
@@ -175,6 +181,8 @@ async def startquery(client: Client, query: CallbackQuery):
                 ))
     
     elif query.data=="dev":
+        await query.message.reply_chat_action("Typing")
+        await asyncio sleep(1)
         await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
         await query.message.edit_text(
             text=script.DEV_TXT,
@@ -188,7 +196,9 @@ async def startquery(client: Client, query: CallbackQuery):
  #CB ENDED               
 
 @Client.on_message(filters.command('help'))
-async def help(bot, message):  
+async def help(bot, message):
+    await query.message.reply_chat_action("Typing")
+    await asyncio sleep(1)
     await message.reply_text(
         text=script.HELP_TXT.format(message.from_user.mention),
         reply_markup=InlineKeyboardMarkup(
@@ -199,6 +209,8 @@ async def help(bot, message):
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
+    await query.message.reply_chat_action("Typing")
+    await asyncio sleep(1)
     await message.reply_text(
         text=script.ABOUT_TXT.format(message.from_user.mention),
         reply_markup=InlineKeyboardMarkup(
