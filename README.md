@@ -1,10 +1,11 @@
 <p align="Center">
   <a href="github.com/Inline-Media" alt='Auto'><h2 align='center'><i>Iɴʟɪɴᴇ Mᴇᴅɪᴀ Bᴏᴛ Cᴏɴᴠᴇʀᴛed Aᴜᴛᴏ Fɪʟᴛᴇʀ🤳</i><br>
-  <br>©&nbsp;Aʟʟ Rɪɢʜᴛ Rᴇsᴇʀᴠᴇᴅ Tᴏ Oᴡɴᴇʀ</a></h2>
+  <br>©&nbsp;Aʟʟ Rɪɢʜᴛ Rᴇsᴇʀᴠᴇᴅ Tᴏ <a href="telegram.dog/wudixh13/4">Oᴡɴᴇʀ</a></a></h2>
 </p>
 
+<!Typing svg>
 <p align = "center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Aerial+Code&size=20&pause=1000&width=435&lines=Welcome+To+AutoFilter+with+Inline+Media+Bot;Created+by+GouthamSER;Thiz+bot+Use+Indexes+Files+above+2GB;Simple+features!" alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Monospace&weight=100&size=25&pause=2500&color=F7F7F7&width=435&lines=We%CA%9F%E1%B4%84%E1%B4%8F%E1%B4%8D%E1%B4%87+T%E1%B4%8F+G%E1%B4%8F%E1%B4%9C%E1%B4%9B%CA%9Ca%E1%B4%8D+Se%CA%80+G%C9%AA%E1%B4%9BH%E1%B4%9C%CA%99;T%CA%9C%C9%AAs+%C9%AAs+S%C9%AA%E1%B4%8D%E1%B4%98%CA%9F%E1%B4%87+A%E1%B4%9C%E1%B4%9B%E1%B4%8F%D2%93%C9%AA%CA%9F%E1%B4%9B%E1%B4%87%CA%80+B%E1%B4%8F%E1%B4%9B+;R%E1%B4%87-E%E1%B4%85%C9%AA%E1%B4%9B%E1%B4%87%E1%B4%85+W%C9%AA%E1%B4%9B%CA%9C+S%C9%AA%E1%B4%8D%E1%B4%98%CA%9F%E1%B4%87+C%E1%B4%8F%E1%B4%85%E1%B4%87s;D%E1%B4%87%E1%B4%98%CA%9F%E1%B4%8F%CA%8F+%C9%AA%C9%B4+Va%CA%80%C9%AA%E1%B4%8F%E1%B4%9Cs+S%E1%B4%9B%CA%80ea%E1%B4%8Ds" alt="Typing SVG" /></a>
 </p>
 
 * Iɴᴅᴇx ᴄʜᴀɴɴᴇʟ ᴏʀ ɢʀᴏᴜᴘ ғɪʟᴇs ғᴏʀ ɪɴʟɪɴᴇ sᴇᴀʀᴄʜ ᴀɴᴅ Aᴜᴛʜ Gʀᴏᴜᴘs.
@@ -12,11 +13,17 @@
 * Sᴜᴘᴘᴏʀᴛs ᴅᴏᴄᴜᴍᴇɴᴛ, ᴠɪᴅᴇᴏ ᴀɴᴅ ᴀᴜᴅɪᴏ ғɪʟᴇ ғᴏʀᴍᴀᴛs ᴡɪᴛʜ ᴄᴀᴘᴛɪᴏɴ sᴜᴘᴘᴏʀᴛ.
 * Dʙ Sᴘᴀᴄᴇ Sʜᴏᴡɪɴɢ ғᴇᴀᴛᴜʀᴇ sᴏᴍᴇ ᴄʙ ᴀᴅᴅᴇᴅ
 
-### Deploy VIa 
+### Deploy Via 
 <details><summary>Deploy To Render</summary>
 <br>
-<a href="https://render.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
-<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
+<a href="https://heroku.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
+<img src="https://heroku.com/images/deploy-to-heroku-button.svg" alt="Deploy to Render">
+</a>
+</details>
+<details><summary>Deploy To Heroku</summary>
+<br>
+<a href="https://heroku.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
+<img src="https://heroku.com/images/deploy-to-heroku-button.svg" alt="Deploy to Heroku">
 </a>
 </details>
 
