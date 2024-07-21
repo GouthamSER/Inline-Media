@@ -16,15 +16,34 @@
 ### Deploy Via 
 <details><summary>Deploy To Render</summary>
 <br>
-<a href="https://heroku.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
-<img src="https://heroku.com/images/deploy-to-heroku-button.svg" alt="Deploy to Render">
+<a href="https://render.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
+<img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a>
 </details>
+
 <details><summary>Deploy To Heroku</summary>
 <br>
 <a href="https://heroku.com/deploy?repo=https://github.com/GouthamSER/Inline-Media">
-<img src="https://heroku.com/images/deploy-to-heroku-button.svg" alt="Deploy to Heroku">
+<img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
+</details>
+
+<details><summary>Deploy To Scalingo</summary>
+<a href="https://dashboard.scalingo.com/create/app?source=https://github.com/GouthamSER/KuttuBot">
+<img src="https://cdn.scalingo.com/deploy/button.svg"
+</a>
+</details>
+
+<details><summary>Deploy To VPS</summary>
+<p>
+<pre>
+git clone https://github.com/GouthamSER/Inline-Media
+# Install Packages
+pip3 install -U -r requirements.txt
+Edit info.py with variables as given below then run bot
+python3 bot.py
+</pre>
+</p>
 </details>
 
 ### Required Variables
