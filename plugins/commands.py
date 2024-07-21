@@ -44,14 +44,11 @@ async def start(bot, message):
                     chat_id=message.from_user.id,
                     text="**Please Join My Updates Channel to use this Bot!**",
                     reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
+                        [[
                                 InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
-                            ],
-                            [
+                            ],[
                                 InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
-                            ]
-                        ]
+                            ]]
                     ),
                     parse_mode="markdown"
                 )
@@ -82,6 +79,8 @@ async def start(bot, message):
                         f_caption=f_caption
                 buttons = [[
                         InlineKeyboardButton('Movie Group🎥', url='telegram.dog/wudixh')
+                ],[
+                        InlineKeyboardButton('Kᴜᴛᴛᴜ Bᴏᴛ ™ <Uᴘᴅᴀᴛᴇs>', url='telegram.dog/wudixh13')
                     ]]
                 
                 await bot.send_cached_media(
@@ -111,7 +110,7 @@ async def start(bot, message):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton('🎉 𝗔𝗱𝗱 𝗠𝗲 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗚𝗿𝗼𝘂𝗽𝘀 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
+                InlineKeyboardButton('🎉 Aᴅᴅ Mᴇ ᴛᴏ ᴜʀ Gʀᴏᴜᴘ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
             ],[
                 InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
                 InlineKeyboardButton('Gᴏ Group ↗', switch_inline_query='')
@@ -129,7 +128,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.START_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton('🎉 𝗔𝗱𝗱 𝗠𝗲 𝗧𝗼 𝗬𝗼𝘂𝗿 𝗚𝗿𝗼𝘂𝗽𝘀 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
+                InlineKeyboardButton('🎉 Aᴅᴅ Mᴇ ᴛᴏ ᴜʀ Gʀᴏᴜᴘ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
             ],[
                 InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
                 InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
@@ -182,7 +181,7 @@ async def startquery(client: Client, query: CallbackQuery):
                 [[
                     InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
                 ],[
-                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://gouthamser.github.io/GouthamJosh/")
+                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://t.me/wudixh13/4")
                 ]]
             ))
  #CB ENDED               
@@ -246,7 +245,7 @@ async def total(bot, message):
     free = 536870912 - monsize
     monsize = size_formatter(monsize)
     free = size_formatter(free)
-    msg = await message.reply("**𝐴𝑐𝑐𝑒𝑠𝑠𝑖𝑛𝑔 𝑆𝑡𝑎𝑡𝑢𝑠 𝐷𝑎𝑡𝑎**")
+    msg = await message.reply("Aᴄᴄᴇssɪɴɢ Dᴀᴛᴀ Cᴇɴᴛᴇʀ ⏳⏳⏳")
     try:
         total = await Media.count_documents()
         await msg.edit_text(
@@ -293,6 +292,6 @@ async def delete(bot, message):
     })
 
     if result.deleted_count:
-        await msg.edit('File is successfully deleted from database')
+        await msg.edit('Fɪʟᴇ ɪs Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ғʀᴏᴍ DᴀᴛᴀBᴀsᴇ')
     else:
-        await msg.edit('File not found in database')
+        await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
