@@ -77,7 +77,7 @@ async def filter(bot, message):
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="📃 Pᴀɢᴇs 1/1",callback_data="pages")]
             )
             await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
             return
@@ -86,7 +86,7 @@ async def filter(bot, message):
         buttons = data['buttons'][0].copy()
 
         buttons.append(
-            [InlineKeyboardButton(text="ɴxᴛ ⏩",callback_data=f"next_0_{keyword}")]
+            [InlineKeyboardButton(text="ɴexᴛ ⏩",callback_data=f"next_0_{keyword}")]
         )    
         buttons.append(
             [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
@@ -138,7 +138,7 @@ async def group(bot, message):
         buttons = data['buttons'][0].copy()
 
         buttons.append(
-            [InlineKeyboardButton(text="ɴxᴛ ⏩",callback_data=f"next_0_{keyword}")]
+            [InlineKeyboardButton(text="ɴexᴛ ⏩",callback_data=f"next_0_{keyword}")]
         )    
         buttons.append(
             [InlineKeyboardButton(text=f"📃 Pᴀɢᴇs 1/{data['total']}",callback_data="pages")]
@@ -185,7 +185,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 buttons = data['buttons'][int(index)+1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ ʙᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
@@ -199,7 +199,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 buttons = data['buttons'][int(index)+1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ ʙᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
@@ -223,7 +223,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 buttons = data['buttons'][int(index)-1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("ɴxᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
+                    [InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
@@ -237,7 +237,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 buttons = data['buttons'][int(index)-1].copy()
 
                 buttons.append(
-                    [InlineKeyboardButton("⏪ ʙᴄᴋ", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
+                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
                     [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
@@ -250,7 +250,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
 
 
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -281,7 +281,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             if FORCE_SUB and not await is_subscribed(bot, query):
                 await query.answer("I Lɪᴋᴇ Yᴏᴜʀ Sᴍᴀʀᴛɴᴇss, Bᴜᴛ Dᴏɴ'ᴛ Bᴇ Oᴠᴇʀsᴍᴀʀᴛ 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -313,4 +313,4 @@ async def cb_handler(bot: Client, query: CallbackQuery):
         elif query.data == "pages":
             await query.answer()
     else:
-        await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
+        await query.answer("I SEE :) ",show_alert=True)
