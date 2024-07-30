@@ -31,8 +31,8 @@ async def start(bot, message):
             try:
                 user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
                 if user.status == "kicked out":
-                await message.reply_text("You Are Banned")
-                return
+                    await message.reply_text("You Are Banned")
+                    return
             except UserNotParticipant :
             ident, file_id = message.text.split("-_-")
             await message.reply_text(
