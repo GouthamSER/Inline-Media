@@ -36,8 +36,9 @@ async def start(bot, message):
                 reply_markup=InlineKeyboardMarkup( [[
                  InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
                  ]]
-                 ))
-                 return
+                 )
+            )
+            return
         try:
             ident, file_id = message.text.split("-_-")
             filedetails = await get_file_details(file_id)
