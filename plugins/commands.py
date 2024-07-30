@@ -25,7 +25,7 @@ async def start(bot, message):
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
         return
     user_cmnd = message.text
-    if user_cmnd.startswith("/start kuttu"):
+    if user_cmnd.startswith("/start"):
         if FORCE_SUB:
             invite_link = await bot.create_chat_invite_link(FORCE_SUB)
             try:
