@@ -73,7 +73,7 @@ async def start(bot, message):
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
             break #for break file snt and nxt step start pm
     elif:
-        continue #continue ???? hehe
+         continue #continue ???? hehe
     else:
         m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
         await asyncio.sleep(1)
