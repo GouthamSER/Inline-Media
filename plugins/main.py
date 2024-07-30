@@ -14,37 +14,18 @@ async def filter(bot, message):
     if message.text.startswith("/"):
         return
     if FORCE_SUB:
-        invite_link = await bot.create_chat_invite_link(FORCE_SUB)
         try:
             user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
-            if user.status == "kicked":
-                await bot.send_message(
-                    chat_id=message.from_user.id,
-                    text="Sorry Sir, You are Banned to use me.",
-                    parse_mode="markdown",
-                    disable_web_page_preview=True
-                )
+            if user.status == "kicked out":
+                await message.reply_text("You Are Banned")
                 return
-        except UserNotParticipant:
-            await bot.send_message(
-                chat_id=message.from_user.id,
-                text="**Please Join My Updates Channel to use this Bot!**",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton("📢 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ 📢", url=invite_link.invite_link)
-                        ]
-                    ]
-                ),
-                parse_mode="markdown"
-            )
-            return
-        except Exception:
-            await bot.send_message(
-                chat_id=message.from_user.id,
-                text="Something went Wrong❌.",
-                parse_mode="markdown",
-                disable_web_page_preview=True
+        except UserNotParticipant :
+            await message.reply_text(
+                text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs? Tʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
+                reply_markup=InlineKeyboardMarkup( [[
+                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
+                 ]]
+                 )
             )
             return
     
@@ -53,7 +34,7 @@ async def filter(bot, message):
     if 2 < len(message.text) < 100:    
         btn = []
         search = message.text
-        kuttubot = f"Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search}" #kuttubot is the search result
+        kuttubot = f"🔍Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search} 🎬" #kuttubot is the search result
         files = await get_filter_results(query=search)
         if files:
             for file in files:
