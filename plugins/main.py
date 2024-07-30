@@ -7,7 +7,7 @@ import random
 from pyrogram.errors import UserNotParticipant
 BUTTONS = {}
 BOT = {}
-FORCE_SUB="@wudixh13"
+FORCE_SUB= "wudixh13"
 
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(bot, message):
