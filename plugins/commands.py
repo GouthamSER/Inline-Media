@@ -71,15 +71,6 @@ async def start(bot, message):
         
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
-    
-    elif len(message.command) > 1 and message.command[1] == 'subscribe':
-        await bot.send_message(
-            chat_id=message.from_user.id,
-            text="**Please Join My Updates Channel to use this Bot!**",
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("📢 Join Updates Channel 📢", url=f"t.me/{FORCE_SUB}")
-                ]]
-                ))
     else:
         m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
         await asyncio.sleep(1)
