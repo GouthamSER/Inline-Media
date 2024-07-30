@@ -24,21 +24,27 @@ async def start(bot, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
         return
-    if FORCE_SUB:
-        try:
-            user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
-            if user.status == "kicked out":
+    user_cmnd = message.text
+    if user_cmnd.startswith("/start kuttu"):
+        if FORCE_SUB:
+            try:
+                user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
+                if user.status == "kicked out":
                 await message.reply_text("You Are Banned")
                 return
-        except UserNotParticipant :
+            except UserNotParticipant :
+            ident, file_id = message.text.split("-_-")
             await message.reply_text(
                 text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs?\nTʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
                 reply_markup=InlineKeyboardMarkup( [[
-                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
-                 ]]
+                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}"),
+                ],[
+                    InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
+                ]]
                  )
             )
             return
+
         try:
             ident, file_id = message.text.split("-_-")
             filedetails = await get_file_details(file_id)
@@ -71,8 +77,7 @@ async def start(bot, message):
         
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
-            break #for break file snt and nxt step start pm  
-    try:
+    else:
         m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
         await asyncio.sleep(1)
         await m.delete()
