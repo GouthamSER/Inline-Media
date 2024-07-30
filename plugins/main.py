@@ -81,7 +81,7 @@ async def group(bot, message):
     if 2 < len(message.text) < 50:    
         btn = []
         search = message.text
-        kuttubot = f"Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search}" #kuttubot is the search result
+        kuttubot = f"🔍Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search} 🎬" #kuttubot is the search result
         nyva=BOT.get("username")
         if not nyva:
             botusername=await bot.get_me()
