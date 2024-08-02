@@ -25,7 +25,7 @@ async def filter(bot, message):
                 reply_markup=InlineKeyboardMarkup( [[
                  InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
                 ],[
-                    InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
+                    InlineKeyboardButton("🔄 Try Again", callback_data=f"kuttu-_-{file_id}")
                 ]]
                     )
             )
