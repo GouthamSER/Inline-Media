@@ -25,7 +25,7 @@ async def filter(bot, message):
                 reply_markup=InlineKeyboardMarkup( [[
                  InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
                 ],[
-                    InlineKeyboardButton("🔄 Try Again", callback_data=f"kuttu-_-{file_id}")
+                    InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
                 ]]
                     )
             )
@@ -157,7 +157,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
     if (clicked == typed):
 
         if query.data.startswith("next"):
-            ident, index, keyword = query.data.split("-_-")
+            ident, index, keyword = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
@@ -195,7 +195,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
 
 
         elif query.data.startswith("back"):
-            ident, index, keyword = query.data.split("-_-")
+            ident, index, keyword = query.data.split("_")
             try:
                 data = BUTTONS[keyword]
             except KeyError:
@@ -264,7 +264,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             if FORCE_SUB and not await is_subscribed(bot, query):
                 await query.answer("I Lɪᴋᴇ Yᴏᴜʀ Sᴍᴀʀᴛɴᴇss, Bᴜᴛ Dᴏɴ'ᴛ Bᴇ Oᴠᴇʀsᴍᴀʀᴛ 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("-_-")
+            ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
