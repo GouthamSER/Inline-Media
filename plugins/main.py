@@ -294,6 +294,6 @@ async def cb_handler(bot: Client, query: CallbackQuery):
 
 
         elif query.data == "pages":
-            await query.answer("I SEE :) ",show_alert=True)
+            await query.answer("I SEE : ",show_alert=True)
     else:
-        await query.answer("I SEE :) ",show_alert=True)
+        await query.answer("I SEE : ",show_alert=True)
