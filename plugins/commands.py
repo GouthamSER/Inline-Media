@@ -1,3 +1,4 @@
+import re
 import os
 import logging
 import asyncio
@@ -40,9 +41,17 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup( [[
                         InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
                     ],[
-                        InlineKeyboardButton("🔄 Try Again", callback_data=f"kuttu-_-{file_id}")
+                        InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}") #checksub is callback_data
                     ]]
              )
+                )
+                return
+            except Exception:
+                await bot.send_message(
+                    chat_id=message.from_user.id,
+                    text="Something went Wrong.",
+                    parse_mode="markdown",
+                    disable_web_page_preview=True
                 )
                 return
         try:
@@ -164,22 +173,12 @@ async def startquery(client: Client, query: CallbackQuery):
 @Client.on_message(filters.command('help'))
 async def help(bot, message):
     await message.reply_text(
-        text=script.HELP_TXT.format(message.from_user.mention),
-        reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
-                ]]
-            ))
+        text=script.HELP_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
     await message.reply_text(
-        text=script.ABOUT_TXT.format(message.from_user.mention),
-        reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
-                ]]
-            ))
+        text=script.ABOUT_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
 async def channel_info(bot, message):
