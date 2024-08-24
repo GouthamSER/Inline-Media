@@ -34,7 +34,7 @@ AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_chan
 PICS=environ.get('PICS', 'PhoTO Link here')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', 0))
 FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "")
-CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "")
+CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CUSTOM_FILE_CAPTION}")
 
 # MongoDB information
 DATABASE_URI = environ['DATABASE_URI']
