@@ -42,7 +42,7 @@ async def filter(bot, message):
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}] {file.file_name}"
+                filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu#{file_id}")]
                     )
@@ -61,7 +61,7 @@ async def filter(bot, message):
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pᴀɢᴇs 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="🔰Pᴀɢᴇs 1/1🔰",callback_data="pages")]
             )
             await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
             return
@@ -73,7 +73,7 @@ async def filter(bot, message):
             [InlineKeyboardButton(text="ɴexᴛ ⏩",callback_data=f"next_0_{keyword}")]
         )    
         buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
+            [InlineKeyboardButton(text=f"🔰Pages 1/{data['total']}",callback_data="pages")]
         )
         await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
 
@@ -94,7 +94,7 @@ async def group(bot, message):
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}] {file.file_name}"
+                filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu-_-{file_id}")] #./.is mes split
                 )
@@ -113,7 +113,7 @@ async def group(bot, message):
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pᴀɢᴇs 1/1",callback_data="pages")]
+                [InlineKeyboardButton(text="🔰Pᴀɢᴇs 1/1🔰",callback_data="pages")]
             )
             await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
             return
@@ -125,7 +125,7 @@ async def group(bot, message):
             [InlineKeyboardButton(text="ɴexᴛ ⏩",callback_data=f"next_0_{keyword}")]
         )    
         buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pᴀɢᴇs 1/{data['total']}",callback_data="pages")]
+            [InlineKeyboardButton(text=f"🔰Pᴀɢᴇs 1/{data['total']}",callback_data="pages")]
         )
         await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
 
@@ -172,7 +172,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
                 )
 
                 await query.edit_message_reply_markup( 
@@ -186,7 +186,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
                 )
 
                 await query.edit_message_reply_markup( 
@@ -210,7 +210,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     [InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
                 )
 
                 await query.edit_message_reply_markup( 
@@ -224,7 +224,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
                 )
                 buttons.append(
-                    [InlineKeyboardButton(f"📃 Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
                 )
 
                 await query.edit_message_reply_markup( 
