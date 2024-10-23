@@ -13,3 +13,4 @@ parse-torrent-name
 aiofiles
 dnspython
 schedule
+asyncio
