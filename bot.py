@@ -14,7 +14,8 @@ from os import environ
 from utils.dbstatus import db
 from plugins.webcode import bot_run
 from Script import script #for restarttxt
-from datetime import date, datetime 
+from datetime import date, datetime, timedelta
+import asyncio
 import pytz
 import pyromod.listen
 
@@ -52,9 +53,24 @@ class Bot(Client):
         bind_address = "0.0.0.0"
         await webserver.TCPSite(client, bind_address,
         PORT_CODE).start()
-        
-        
+       
+        # Schedule the restart every 24 hours
+        schedule.every(24).hours.do(lambda: asyncio.create_task(self.restart()))
 
+        #----------- Start the scheduler in a background task
+        asyncio.create_task(self.run_scheduler())
+  
+    async def restart(self):
+        logging.info(" Is it 12pm!! Bot is restarting...")
+        await self.stop()
+        await self.start()  # Restart the bot
+
+    async def run_scheduler(self):
+        while True:
+            schedule.run_pending()
+            await asyncio.sleep(1)  # Prevent busy-waiting--------------
+     
+    #Bot stopped 
     async def stop(self, *args):
         await super().stop()
         print("Bot stopped. Bye.")
