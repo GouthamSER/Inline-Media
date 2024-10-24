@@ -235,7 +235,7 @@ async def usage(bot, message):
     cpu_usage = psutil.cpu_percent(interval=1)
     
     # CPU info
-    cpu_info = psutil.cpu_info()
+    cpu_info = psutil.cpu_times()
     cpu_count = psutil.cpu_count(logical=True)
 
     # Memory usage
