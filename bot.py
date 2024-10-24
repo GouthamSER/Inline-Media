@@ -55,21 +55,16 @@ class Bot(Client):
         await webserver.TCPSite(client, bind_address,
         PORT_CODE).start()
        
-        # Schedule the restart every 24 hours
-        schedule.every(24).hours.do(lambda: asyncio.create_task(self.restart()))
+        # Start the auto-restart task
+        asyncio.create_task(self.auto_restart())
 
-        #----------- Start the scheduler in a background task
-        asyncio.create_task(self.run_scheduler())
-  
-    async def restart(self):
-        logging.info(" Is it 12pm!! Bot is restarting...")
-        await self.stop()
-        await self.start()  # Restart the bot
-
-    async def run_scheduler(self):
+    async def auto_restart(self):
         while True:
-            schedule.run_pending()
-            await asyncio.sleep(1)  # Prevent busy-waiting--------------
+            await asyncio.sleep(86400)  # Sleep for 24 hours (86400 seconds)
+            logging.info("Restarting bot...")
+            await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+            await self.stop()
+            await self.start() 
      
     #Bot stopped 
     async def stop(self, *args):
