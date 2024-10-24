@@ -152,87 +152,44 @@ async def cb_handler(bot: Client, query: CallbackQuery):
     clicked = query.from_user.id
     try:
         typed = query.message.reply_to_message.from_user.id
-    except:
+    except AttributeError:
         typed = query.from_user.id
-        pass
-    if (clicked == typed):
+
+    if clicked == typed:
+        ident, index, keyword = query.data.split("_")
+        index = int(index)
+
+        try:
+            data = BUTTONS[keyword]
+        except KeyError:
+            await query.answer("Yᴏᴜ ᴀʀᴇ ᴜsɪɴɢ ᴛʜɪs ғᴏʀ ᴏɴᴇ ᴏf ᴍʏ ᴏʟᴅ ᴍᴇssᴀɢᴇ, ᴘʟᴇᴀsᴇ sᴇɴᴅ ᴛʜᴇ ʀᴇᴏ̨ᴜᴇsᴛ ᴀɢᴀɪɴ.", show_alert=True)
+            return
 
         if query.data.startswith("next"):
-            ident, index, keyword = query.data.split("_")
-            try:
-                data = BUTTONS[keyword]
-            except KeyError:
-                await query.answer("Yᴏᴜ ᴀʀᴇ ᴜsɪɴɢ ᴛʜɪs ғᴏʀ ᴏɴᴇ ᴏғ ᴍʏ ᴏʟᴅ ᴍᴇssᴀɢᴇ, ᴘʟᴇᴀsᴇ sᴇɴᴅ ᴛʜᴇ ʀᴇᴏ̨ᴜᴇsᴛ ᴀɢᴀɪɴ.",show_alert=True)
-                return
-
-            if int(index) == int(data["total"]) - 2:
-                buttons = data['buttons'][int(index)+1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
-                )
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-                return
+            if index < data["total"] - 1:
+                new_index = index + 1
+                buttons = data['buttons'][new_index].copy()
+                buttons.append([InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{new_index}_{keyword}"),
+                                InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{new_index}_{keyword}")])
+                buttons.append([InlineKeyboardButton(f"🔰Pᴀɢᴇs {new_index + 1}/{data['total']}", callback_data="pages")])
             else:
-                buttons = data['buttons'][int(index)+1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)+1}_{keyword}"),InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)+1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)+2}/{data['total']}", callback_data="pages")]
-                )
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
+                await query.answer("This is the last page.", show_alert=True)
                 return
-
 
         elif query.data.startswith("back"):
-            ident, index, keyword = query.data.split("_")
-            try:
-                data = BUTTONS[keyword]
-            except KeyError:
-                await query.answer("You are using this for one of my old message, please send the request again.",show_alert=True)
-                return
-
-            if int(index) == 1:
-                buttons = data['buttons'][int(index)-1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
-                )
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-                return   
+            if index > 0:
+                new_index = index - 1
+                buttons = data['buttons'][new_index].copy()
+                buttons.append([InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{new_index}_{keyword}"),
+                                InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{new_index}_{keyword}")])
+                buttons.append([InlineKeyboardButton(f"🔰Pᴀɢᴇs {new_index + 1}/{data['total']}", callback_data="pages")])
             else:
-                buttons = data['buttons'][int(index)-1].copy()
-
-                buttons.append(
-                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{int(index)-1}_{keyword}"),InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{int(index)-1}_{keyword}")]
-                )
-                buttons.append(
-                    [InlineKeyboardButton(f"🔰Pᴀɢᴇs {int(index)}/{data['total']}", callback_data="pages")]
-                )
-
-                await query.edit_message_reply_markup( 
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
+                await query.answer("This is the first page.", show_alert=True)
                 return
 
-
+        await query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(buttons))
+        return
+        
         elif query.data.startswith("kuttu"):
             ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
