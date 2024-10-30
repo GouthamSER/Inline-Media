@@ -10,7 +10,7 @@ from utils import save_file
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
-@Client.on_message(filters.command(['index']) & filters.user(ADMINS))
+@Client.on_message(filters.command(['add']) & filters.user(ADMINS))
 async def index_files(bot, message):
     """Save channel or group files""" 
     
