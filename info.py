@@ -35,7 +35,6 @@ auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_GROUPS = [int(admin) for admin in environ.get("AUTH_GROUPS", "").split()]
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else auth_channel
 PICS=environ.get('PICS', 'PhoTO Link here')
-INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', 0))
 FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", "")
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CUSTOM_FILE_CAPTION}")
