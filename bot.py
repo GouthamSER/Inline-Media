@@ -5,6 +5,14 @@ import logging.config
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.WARNING)
 
+# for prevent stoping the bot after 1 week
+logging.getLogger("asyncio").setLevel(logging.CRITICAL -1)
+
+# peer id invaild fixxx
+from pyrogram import utils as pyroutils
+pyroutils.MIN_CHAT_ID = -999999999999
+pyroutils.MIN_CHANNEL_ID = -100999999999999
+
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from utils import Media
@@ -62,7 +70,7 @@ class Bot(Client):
         while True:
             await asyncio.sleep(86400)  # Sleep for 24 hours (86400 seconds)
             logging.info("Restarting bot...")
-            await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+            await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART24_TXT.format(today, time))
             await self.stop()
             await self.start() 
      
