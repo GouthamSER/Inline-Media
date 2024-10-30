@@ -13,8 +13,7 @@ from utils import Media #class 2 are there dbstatus.py and database.py class Dat
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
 from plugins.inline import size_formatter
-import psutil
-from ping3 import ping
+
 logger = logging.getLogger(__name__)
 
 FORCE_SUB = "wudixh13"
@@ -229,37 +228,6 @@ async def total(bot, message):
         logger.exception('Failed to check total files')
         await msg.edit(f'Error: {e}')
 
-@Client.on_message(filters.command('usage'))
-async def usage(bot, message):
-    # CPU usage
-    cpu_usage = psutil.cpu_percent(interval=1)
-    
-    # CPU info
-    cpu_info = psutil.cpu_times()
-    cpu_count = psutil.cpu_count(logical=True)
-
-    # Memory usage
-    memory_info = psutil.virtual_memory()
-    total_memory = memory_info.total / (1024 ** 2)  # Convert bytes to MB
-    used_memory = memory_info.used / (1024 ** 2)    # Convert bytes to MB
-
-    # Ping (to Google's DNS)
-    ping_time = ping("8.8.8.8", timeout=1)
-    ping_time_ms = ping_time * 1000 if ping_time is not None else "Ping failed"
-
-    # Prepare the response message
-    usage_message = (
-        f"🔍 **System Usage:**\n"
-        f"**CPU Usage:** {cpu_usage}%\n"
-        f"**CPU Count:** {cpu_count} cores\n"
-        f"**CPU Info:** {cpu_info}\n"
-        f"**Total Memory:** {total_memory:.2f} MB\n"
-        f"**Used Memory:** {used_memory:.2f} MB\n"
-        f"**Ping:** {ping_time_ms} ms"
-    )
-
-    await message.reply_text(usage_message)
-
 
 @Client.on_message(filters.command('log') & filters.user(ADMINS))
 async def log_file(bot, message):
@@ -268,7 +236,6 @@ async def log_file(bot, message):
         await message.reply_document('TelegramBot.log')
     except Exception as e:
         await message.reply(str(e))
-
 
 @Client.on_message(filters.command('delete') & filters.user(ADMINS))
 async def delete(bot, message):
