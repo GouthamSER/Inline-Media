@@ -6,13 +6,11 @@ marshmallow==3.14.1
 umongo==3.0.1
 aiohttp
 datetime
-pytz
 pyromod
 requests
 parse-torrent-name
 aiofiles
 dnspython
-schedule
 asyncio
-psutil
-ping3
+pytz
+psutil==5.9.4
