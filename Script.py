@@ -42,7 +42,7 @@ Kuttu Bot 2 :)
 🌐 𝖳𝗂𝗆𝖾𝗓𝗈𝗇𝖾 : <code>Asia/Kolkata</code>
 🛠️ 𝖡𝗎𝗂𝗅𝖽 𝖲𝗍𝖺𝗍𝗎𝗌 : <code>𝗏2 [ 𝖲𝗍able 😁 ]</code></b>"""
 
-    RESTART24_TXT = """
+  RESTART24_TXT = """
 <b><u>𝖡𝗈𝗍 𝖱𝖾𝗌𝗍𝖺𝗋𝗍𝖾𝖽 24 hrs Completed✅</u></b>"""
     
   CUSTOM_FILE_CAPTION = """📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ 2|{file_name}</code>
