@@ -77,7 +77,7 @@ async def filter(bot, message):
         )
         await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
 
-@Client.on_message(filters.group | filters.private & filters.text & filters.incoming & filters.user(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming | filters.private)
+@Client.on_message(filters.group | filters.private & filters.text & filters.incoming) #GIVE FILTER IN PM BRO IDEA OF GOUTHAM SER
 async def group(bot, message):
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
