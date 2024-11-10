@@ -180,7 +180,7 @@ async def startquery(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text=script.USG_TXT.format(currentTime, cpu_usage, ram_usage, total, used, disk_usage, free),
             show_alert="true"
-            ))
+        )
  #CB ENDED               
 
 @Client.on_message(filters.command('help'))
