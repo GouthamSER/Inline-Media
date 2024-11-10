@@ -2,7 +2,7 @@ from utils.database import get_filter_results, get_file_details, is_subscribed #
 from info import AUTH_CHANNEL, AUTH_USERS, CUSTOM_FILE_CAPTION, AUTH_GROUPS
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram import Client, filters
-import re
+import re, asyncio
 from Script import script
 import random
 from pyrogram.errors import UserNotParticipant
