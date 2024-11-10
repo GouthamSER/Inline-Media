@@ -84,7 +84,7 @@ async def group(bot, message):
     if 2 < len(message.text) < 50:    
         btn = []
         search = message.text
-        kuttubot = f"🔍Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search} 🎬" #kuttubot is the search result
+        kuttubot = f"🔍Here is ur result {search} 🎬" #kuttubot is the search result
         nyva=BOT.get("username")
         if not nyva:
             botusername=await bot.get_me()
@@ -96,7 +96,7 @@ async def group(bot, message):
                 file_id = file.file_id
                 filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu-_-{file_id}")] #./.is mes split
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu#{file_id}")] #./.is mes split
                 )
         else:
             return
@@ -127,8 +127,10 @@ async def group(bot, message):
         buttons.append(
             [InlineKeyboardButton(text=f"🔰Pᴀɢᴇs 1/{data['total']}",callback_data="pages")]
         )
-        await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
-
+        autodel = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+        await asyncio.sleep(600)
+        await autodel.delete()
+#-----del after 10min filter button result-----
     
 def get_size(size):
     """Get size in readable format"""
