@@ -1,14 +1,11 @@
-import re
-import os
-import logging
-import asyncio
-import random
+import re, os, logging, asyncio, random
+import time, shutil, psutil, sys #for cb usage alert in startcmnd cb
 from utils import Media
 from utils.database import get_file_details #forsutofilter
 from pyrogram import Client, filters, StopPropagation, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserNotParticipant
-from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, CUSTOM_FILE_CAPTION, AUTH_CHANNEL
+from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, CUSTOM_FILE_CAPTION, AUTH_CHANNEL, BOT_START_TIME
 from utils import Media #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
@@ -100,6 +97,8 @@ async def start(bot, message):
             ],[
                 InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
                 InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
+            ],[
+                InlineKeyboardButton('📈 Usage', callback_data='usg')
                 ]]
             ))
         StopPropagation
@@ -118,6 +117,8 @@ async def startquery(client: Client, query: CallbackQuery):
             ],[
                 InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
                 InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
+            ],[
+                InlineKeyboardButton('📈 Usage', callback_data='usg')
                 ]]
             ))
     elif query.data=="help":
@@ -166,6 +167,19 @@ async def startquery(client: Client, query: CallbackQuery):
                 ],[
                     InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://t.me/wudixh13/4")
                 ]]
+            ))
+    elif query.data=="usg":
+        currentTime = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - BOT_START_TIME))
+        total, used, free = shutil.disk_usage(".")
+        total = size_formatter(total)
+        used = size_formatter(used)
+        free = size_formatter(free)
+        cpu_usage = psutil.cpu_percent()
+        ram_usage = psutil.virtual_memory().percent
+        disk_usage = psutil.disk_usage('/').percent
+        await query.message.edit_text(
+            text=script.USG_TXT.format(currentTime, cpu_usage, ram_usage, total, used, disk_usage, free),
+            show_alert="true"
             ))
  #CB ENDED               
 
