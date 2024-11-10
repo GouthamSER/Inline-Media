@@ -26,7 +26,7 @@ async def filter(bot, message):
                 reply_markup=InlineKeyboardMarkup( [[
                  InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
                 ],[
-                    InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
+                    InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub-_-{file_id}")
                 ]]
                     )
             )
@@ -37,14 +37,14 @@ async def filter(bot, message):
     if 2 < len(message.text) < 100:    
         btn = []
         search = message.text
-        kuttubot = f"🔍Hᴇʀᴇ ɪs ᴛʜᴇ ᴍᴏᴠɪᴇ {search} 🎬" #kuttubot is the search result
+        kuttubot = f"🔍Here is ur result {search} 🎬" #kuttubot is the search result
         files = await get_filter_results(query=search)
         if files:
             for file in files:
                 file_id = file.file_id
                 filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu-_-{file_id}")]
                     )
             return
 
@@ -96,7 +96,7 @@ async def group(bot, message):
                 file_id = file.file_id
                 filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu#{file_id}")] #./.is mes split
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu-_-{file_id}")] # -_- is mes split
                 )
         else:
             return
@@ -211,7 +211,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
 
         
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -242,7 +242,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             if FORCE_SUB and not await is_subscribed(bot, query):
                 await query.answer("I Lɪᴋᴇ Yᴏᴜʀ Sᴍᴀʀᴛɴᴇss, Bᴜᴛ Dᴏɴ'ᴛ Bᴇ Oᴠᴇʀsᴍᴀʀᴛ 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
