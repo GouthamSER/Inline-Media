@@ -49,8 +49,8 @@ Kuttu Bot 2 :)
 🖇 <em>File Size</em>: <code>{file_size}</code>
 ❤️‍🔥 <i>Movie Requests</i> - <a href="t.me/wudixh">Click Me 👈</a> """
 
-  USG_TXT=""""<b>⚙️ 𝖡𝗈𝗍 𝖲𝗍𝖺𝗍𝗎𝗌</b>
+  USG_TXT=""""⚙️ 𝖡𝗈𝗍 𝖲𝗍𝖺𝗍𝗎𝗌
   
-🕔 𝖴𝗉𝗍𝗂𝗆𝖾: <i>{}</i>
-🛠 𝖢𝖯𝖴 𝖴𝗌𝖺𝗀𝖾: <i>{}%</i>
-🗜 𝖱𝖠𝖬 𝖴𝗌𝖺𝗀𝖾: <i>{}%</i>"""
+🕔 𝖴𝗉𝗍𝗂𝗆𝖾: {}
+🛠 𝖢𝖯𝖴 𝖴𝗌𝖺𝗀𝖾: {}%
+🗜 𝖱𝖠𝖬 𝖴𝗌𝖺𝗀𝖾: {}%"""
