@@ -177,7 +177,7 @@ async def startquery(client: Client, query: CallbackQuery):
         cpu_usage = psutil.cpu_percent()
         ram_usage = psutil.virtual_memory().percent
         disk_usage = psutil.disk_usage('/').percent
-        await query.message.edit_text(
+        await query.answer(#query answer no edit msg
             text=script.USG_TXT.format(currentTime, cpu_usage, ram_usage, total, used, disk_usage, free),
             show_alert="true"
         )
