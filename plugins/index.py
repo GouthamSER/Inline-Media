@@ -7,7 +7,7 @@ from info import ADMINS
 import os
 import pyromod.listen
 from utils import save_file
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
@@ -25,7 +25,7 @@ async def set_skip_command(bot, message):
     except (IndexError, ValueError):
         await message.reply("Please provide a valid skip value. Usage: /setskip <number>")
 
-@Client.on_message(filters.command(['add']) & filters.user(ADMINS))
+@Client.on_message(filters.command(['index']) & filters.user(ADMINS))
 async def index_files(bot, message):
     """Save channel or group files""" 
     
@@ -38,7 +38,7 @@ async def index_files(bot, message):
         
         await message.reply("Would you like to start indexing files?", reply_markup=confirmation_buttons)
 
-@Client.on_callback_query(filters.regex("confirm_"))
+@Client.on_callback_query(filters.regex(r"^confirm_"))
 async def confirm_index_files(bot, query):
     if query.data == "confirm_no":
         await query.message.edit_text("Indexing process cancelled.")
@@ -46,7 +46,12 @@ async def confirm_index_files(bot, query):
 
     await query.message.edit_text("Forward the last message of a channel which I should save to my database.\n\nYou can forward posts from any public channel, but for private channels, the bot should be an admin.")
     
-    last_msg = await bot.ask(chat_id=query.from_user.id, text="Please forward with quotes (Not as a copy)")
+    try:
+        last_msg = await bot.ask(chat_id=query.from_user.id, text="Please forward with quotes (Not as a copy)")
+    except Exception as e:
+        logger.exception("Failed to get response for last message: %s", e)
+        await query.message.reply("Failed to start indexing. Please try again.")
+        return
     
     while True:
         try:
