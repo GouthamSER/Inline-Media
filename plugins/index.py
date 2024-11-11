@@ -8,6 +8,7 @@ from info import ADMINS
 import os
 import pyromod.listen
 from utils import save_file
+
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
@@ -40,6 +41,8 @@ async def index_files(bot, message):
 
 @Client.on_callback_query(filters.regex(r"^confirm_"))
 async def confirm_index_files(bot, query: CallbackQuery):
+    await query.answer("Indexing...")  # Acknowledge the callback query to avoid "button not responding" issues
+
     if query.data == "confirm_no":
         await query.message.edit_text("Indexing process cancelled.")
         return
