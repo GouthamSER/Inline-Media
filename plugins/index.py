@@ -3,11 +3,11 @@ import asyncio
 import re
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from info import ADMINS
 import os
 import pyromod.listen
 from utils import save_file
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
@@ -39,7 +39,7 @@ async def index_files(bot, message):
         await message.reply("Would you like to start indexing files?", reply_markup=confirmation_buttons)
 
 @Client.on_callback_query(filters.regex(r"^confirm_"))
-async def confirm_index_files(bot, query):
+async def confirm_index_files(bot, query: CallbackQuery):
     if query.data == "confirm_no":
         await query.message.edit_text("Indexing process cancelled.")
         return
