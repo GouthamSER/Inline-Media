@@ -8,9 +8,6 @@ aiohttp
 datetime
 pyromod
 requests
-parse-torrent-name
-aiofiles
-dnspython
 asyncio
 pytz
 psutil==5.9.4
