@@ -37,12 +37,12 @@ async def filter(bot, message):
     if 2 < len(message.text) < 100:    
         btn = []
         search = message.text
-        kuttubot = f"🔍Here is ur result {search} 🎬" #kuttubot is the search result
+        kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u>" #kuttubot is the search result
         files = await get_filter_results(query=search)
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
+                filename = f"[{get_size(file.file_size)}]>{file.file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu-_-{file_id}")]
                     )
@@ -75,8 +75,10 @@ async def filter(bot, message):
         buttons.append(
             [InlineKeyboardButton(text=f"🔰Pages 1/{data['total']}",callback_data="pages")]
         )
-        await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
-
+        autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+        await asyncio.sleep(300)
+        await autodelete.delete()
+#-----del after 10min filter button result-----
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming) #GIVE FILTER IN PM BRO IDEA OF GOUTHAM SER
 async def group(bot, message):
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
@@ -84,7 +86,7 @@ async def group(bot, message):
     if 2 < len(message.text) < 50:    
         btn = []
         search = message.text
-        kuttubot = f"🔍Here is ur result {search} 🎬" #kuttubot is the search result
+        kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u>" #kuttubot is the search result
         nyva=BOT.get("username")
         if not nyva:
             botusername=await bot.get_me()
@@ -94,7 +96,7 @@ async def group(bot, message):
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = f"🎭[{get_size(file.file_size)}]🔸{file.file_name}"
+                filename = f"[{get_size(file.file_size)}]>{file.file_name}"
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu-_-{file_id}")] # -_- is mes split
                 )
@@ -128,7 +130,7 @@ async def group(bot, message):
             [InlineKeyboardButton(text=f"🔰Pᴀɢᴇs 1/{data['total']}",callback_data="pages")]
         )
         autodel = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
-        await asyncio.sleep(600)
+        await asyncio.sleep(300)
         await autodel.delete()
 #-----del after 10min filter button result-----
     
