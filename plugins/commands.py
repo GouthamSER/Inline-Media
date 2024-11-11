@@ -37,7 +37,7 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup( [[
                         InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
                     ],[
-                        InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}") #checksub is callback_data
+                        InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub-_-{file_id}") #checksub is callback_data
                     ]]
              )
                 )
@@ -82,10 +82,10 @@ async def start(bot, message):
         
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
-    else:
-        m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
-        await asyncio.sleep(1)
-        await m.delete()
+    else: #sticker removed if u want just dlete only hash tag
+        #m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
+        #await asyncio.sleep(1)
+        #await m.delete()
         await message.reply_text(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -122,7 +122,7 @@ async def startquery(client: Client, query: CallbackQuery):
                 ]]
             ))
     elif query.data=="help":
-        await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await query.answer("Helping..⚙️..")
         await query.message.edit_text(
             text=script.HELP_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -131,7 +131,7 @@ async def startquery(client: Client, query: CallbackQuery):
                 ]]
             ))
     elif query.data=="about":
-        await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await query.answer("About..💀..")
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
@@ -158,7 +158,7 @@ async def startquery(client: Client, query: CallbackQuery):
                 ))
     
     elif query.data=="dev":
-        await query.answer("Pʀᴏᴄᴇssɪɴɢ...⏳")
+        await query.answer("Developer..👻..")
         await query.message.edit_text(
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
@@ -228,6 +228,7 @@ async def total(bot, message):
     monsize = size_formatter(monsize)
     free = size_formatter(free)
     msg = await message.reply("Aᴄᴄᴇssɪɴɢ Dᴀᴛᴀ Cᴇɴᴛᴇʀ ⏳⏳⏳")
+    await asyncio.sleep(1)
     try:
         total = await Media.count_documents()
         await msg.edit_text(
