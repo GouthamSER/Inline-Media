@@ -21,7 +21,7 @@ async def set_skip(bot, message):
     except (IndexError, ValueError):
         await message.reply("Please provide a valid message ID to skip to. Example: /setskip 7000")
 
-@Client.on_message(filters.command(['ind1') & filters.user(ADMINS))
+@Client.on_message(filters.command(['ind1']) & filters.user(ADMINS))
 async def index_files(bot, message):
     """Prompt the user to forward the last message of a channel"""
 
