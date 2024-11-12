@@ -95,5 +95,6 @@ async def index_files(bot, message):
             finally:
                 bot.remove_handler(capture_forwarded_message, group=1)
 
+    # Use `add_handler` with only filters and callback
     bot.add_handler(filters.user(message.from_user.id) & filters.forwarded, 
-                    lambda client, forwarded_message: capture_forwarded_message(client, forwarded_message, lock), group=1)
+                    lambda client, forwarded_message: capture_forwarded_message(client, forwarded_message, lock))
