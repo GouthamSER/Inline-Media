@@ -169,7 +169,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
         try:
             data = BUTTONS[keyword]
         except KeyError:
-            await query.answer("You are using this for one of my old messages, please send the request again.", show_alert=True)
+            await query.answer("You are using this for one of my old messages, please send the request again.", show_alert="true")
             return
 
         # Pagination - Next button
@@ -251,7 +251,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
 
         elif query.data.startswith("checksub"):
             if FORCE_SUB and not await is_subscribed(bot, query):
-                await query.answer("I Lɪᴋᴇ Yᴏᴜʀ Sᴍᴀʀᴛɴᴇss, Bᴜᴛ Dᴏɴ'ᴛ Bᴇ Oᴠᴇʀsᴍᴀʀᴛ 😒", show_alert=True)
+                await query.answer("I Lɪᴋᴇ Yᴏᴜʀ Sᴍᴀʀᴛɴᴇss, Bᴜᴛ Dᴏɴ'ᴛ Bᴇ Oᴠᴇʀsᴍᴀʀᴛ 😒", show_alert="true")
                 return
             ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
@@ -280,6 +280,6 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 )
 
         elif query.data == "pages":
-            await query.answer("I SEE : ", show_alert=True)
+            await query.answer("what do u wnt 🧐 : ", show_alert="true")
     else:
-        await query.answer("I SEE : ", show_alert=True)
+        await query.answer("what 😶‍🌫 : ", show_alert="true")
