@@ -1,193 +1,104 @@
 import logging
 import asyncio
-from pyrogram import Client, filters, enums
+from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
-from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, ChatAdminRequired, UsernameInvalid, UsernameNotModified
-from info import ADMINS, LOG_CHANNEL
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import re
+from info import ADMINS
+import os
+from utils.database import save_file
 
-# Set up logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-# Lock for managing async tasks
 lock = asyncio.Lock()
 
-# Global state variables for indexing and skipping
-CANCEL = False
-CURRENT_SKIP = 0
+# Command to set the skip message ID
+@Client.on_message(filters.command(['set1']) & filters.user(ADMINS))
+async def set_skip(bot, message):
+    """Set the starting message ID"""
+    try:
+        # Get the skip value from the command argument
+        skip_value = int(message.text.split(" ", 1)[1])
+        os.environ["SKIP"] = str(skip_value)  # Store it in the environment
+        await message.reply(f"Starting message ID set to {skip_value}")
+    except (IndexError, ValueError):
+        await message.reply("Please provide a valid message ID to skip to. Example: /setskip 7000")
 
-
-@Client.on_callback_query(filters.regex(r'^index'))
-async def index_files(bot, query):
-    global CANCEL
-    if query.data.startswith('index_cancel'):
-        CANCEL = True
-        return await query.answer("Cancelling Indexing")
-    
-    _, action, chat, lst_msg_id, from_user = query.data.split("-_-")
-    if action == 'reject':
-        await query.message.delete()
-        await bot.send_message(
-            int(from_user),
-            f'Your Submission for indexing {chat} has been declined by our moderators.',
-            reply_to_message_id=int(lst_msg_id)
-        )
-        return
+@Client.on_message(filters.command(['ind1') & filters.user(ADMINS))
+async def index_files(bot, message):
+    """Prompt the user to forward the last message of a channel"""
 
     if lock.locked():
-        return await query.answer('Wait until previous process completes.', show_alert=True)
-
-    msg = query.message
-    await query.answer('Processing...⏳', show_alert=True)
-    if int(from_user) not in ADMINS:
-        await bot.send_message(
-            int(from_user),
-            f'Your Submission for indexing {chat} has been accepted by our moderators and will be added soon.',
-            reply_to_message_id=int(lst_msg_id)
-        )
-    
-    await msg.edit(
-        "Starting Indexing",
-        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Cancel', callback_data='index_cancel')]])
-    )
-    
-    try:
-        chat = int(chat)
-    except ValueError:
-        pass
-    
-    await index_files_to_db(int(lst_msg_id), chat, msg, bot)
-
-
-@Client.on_message((filters.forwarded | (filters.regex("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")) & filters.text) & filters.private & filters.incoming)
-async def send_for_index(bot, message):
-    if message.text:
-        regex = re.compile("(https://)?(t\.me/|telegram\.me/|telegram\.dog/)(c/)?(\d+|[a-zA-Z_0-9]+)/(\d+)$")
-        match = regex.match(message.text)
-        if not match:
-            return await message.reply('Invalid link')
-        
-        chat_id = match.group(4)
-        last_msg_id = int(match.group(5))
-        if chat_id.isnumeric():
-            chat_id = int("-100" + chat_id)
-    elif message.forward_from_chat.type == enums.ChatType.CHANNEL:
-        last_msg_id = message.forward_from_message_id
-        chat_id = message.forward_from_chat.username or message.forward_from_chat.id
-    else:
+        await message.reply("Wait until the previous process completes.")
         return
-
-    try:
-        await bot.get_chat(chat_id)
-    except ChannelInvalid:
-        return await message.reply('This may be a private channel/group. Make me an admin to index files.')
-    except (UsernameInvalid, UsernameNotModified):
-        return await message.reply('Invalid Link specified.')
-    except Exception as e:
-        logger.exception(e)
-        return await message.reply(f'Error: {e}')
-
-    try:
-        message_check = await bot.get_messages(chat_id, last_msg_id)
-    except:
-        return await message.reply('Make sure I am an admin in the channel, if private.')
-
-    if message_check.empty:
-        return await message.reply('This may be a group, and I am not an admin of it.')
-
-    if message.from_user.id in ADMINS:
-        buttons = [
-            [InlineKeyboardButton('Yes', callback_data=f'index#accept#{chat_id}#{last_msg_id}#{message.from_user.id}')],
-            [InlineKeyboardButton('close', callback_data='close_data')]
-        ]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        return await message.reply(
-            f'Do you want to index this channel/group?\n\nChat ID/Username: <code>{chat_id}</code>\nLast Message ID: <code>{last_msg_id}</code>',
-            reply_markup=reply_markup
-        )
-
-    link = f"@{message.forward_from_chat.username}" if isinstance(chat_id, str) else await bot.create_chat_invite_link(chat_id).invite_link
-    buttons = [
-        [InlineKeyboardButton('Accept Index', callback_data=f'index#accept#{chat_id}#{last_msg_id}#{message.from_user.id}')],
-        [InlineKeyboardButton('Reject Index', callback_data=f'index#reject#{chat_id}#{message.id}#{message.from_user.id}')]
-    ]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await bot.send_message(
-        LOG_CHANNEL,
-        f'#IndexRequest\n\nBy: {message.from_user.mention} (<code>{message.from_user.id}</code>)\nChat ID/Username: <code>{chat_id}</code>\nLast Message ID: <code>{last_msg_id}</code>\nInviteLink: {link}',
-        reply_markup=reply_markup
+    
+    await message.reply(
+        "Please forward the last message of the channel you want to index.\n\n"
+        "The bot can index messages from public channels or private channels where it is an admin."
     )
-    await message.reply('Thank you for your contribution. Please wait for moderator verification.')
+   # break
+#else:
+    #continue
 
+    # Define a listener to capture the forwarded message
+    async def capture_forwarded_message(client, forwarded_message):
+        nonlocal lock  # Ensure we're accessing the outer lock
 
-@Client.on_message(filters.command('setsk') & filters.user(ADMINS))
-async def set_skip_number(bot, message):
-    global CURRENT_SKIP
-    if ' ' in message.text:
-        _, skip = message.text.split(" ")
         try:
-            CURRENT_SKIP = int(skip)
-        except ValueError:
-            return await message.reply("Skip number should be an integer.")
-        
-        await message.reply(f"Successfully set SKIP number as {CURRENT_SKIP}")
-    else:
-        await message.reply("Provide a skip number.")
-
-
-async def index_files_to_db(lst_msg_id, chat, msg, bot):
-    global CANCEL, CURRENT_SKIP
-    total_files = duplicate = errors = deleted = no_media = unsupported = 0
-
-    async with lock:
-        try:
-            current = CURRENT_SKIP
-            CANCEL = False
-            async for message in bot.iter_messages(chat, lst_msg_id, CURRENT_SKIP):
-                if CANCEL:
-                    await msg.edit(
-                        f"Cancelled!\n\nSaved <code>{total_files}</code> files to database!\nDuplicate Files Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media messages skipped: <code>{no_media + unsupported}</code> (Unsupported Media: `{unsupported}`)\nErrors: <code>{errors}</code>"
-                    )
-                    break
-                
-                current += 1
-                if current % 20 == 0:
-                    await msg.edit_text(
-                        f"Fetched messages: <code>{current}</code>\nSaved messages: <code>{total_files}</code>\nDuplicates Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media skipped: <code>{no_media + unsupported}</code> (Unsupported: `{unsupported}`)\nErrors: <code>{errors}</code>",
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Cancel', callback_data='index_cancel')]])
-                    )
-                    await asyncio.sleep(2)
-
-                if message.empty:
-                    deleted += 1
-                    continue
-                elif not message.media:
-                    no_media += 1
-                    continue
-                elif message.media not in [enums.MessageMediaType.VIDEO, enums.MessageMediaType.AUDIO, enums.MessageMediaType.DOCUMENT]:
-                    unsupported += 1
-                    continue
-                
-                media = getattr(message, message.media.value, None)
-                if not media:
-                    unsupported += 1
-                    continue
-                media.file_type = message.media.value
-                media.caption = message.caption
-
-                saved, status = await save_file(media)
-                if saved:
-                    total_files += 1
-                elif status == 0:
-                    duplicate += 1
-                elif status == 2:
-                    errors += 1
-        except Exception as e:
-            logger.exception(e)
-            await msg.edit(f'Error: {e}')
-        else:
-            await msg.edit(
-                f'Successfully saved <code>{total_files}</code> files to database!\nDuplicates Skipped: <code>{duplicate}</code>\nDeleted Messages Skipped: <code>{deleted}</code>\nNon-Media skipped: <code>{no_media + unsupported}</code> (Unsupported: `{unsupported}`)\nErrors: <code>{errors}</code>'
+            last_msg_id = forwarded_message.forward_from_message_id
+            chat_id = (
+                forwarded_message.forward_from_chat.username
+                if forwarded_message.forward_from_chat.username
+                else forwarded_message.forward_from_chat.id
             )
+            await bot.get_messages(chat_id, last_msg_id)
+        except Exception as e:
+            await forwarded_message.reply(
+                f"This is an invalid message. Either the channel is private and the bot is not an admin, or the message was forwarded incorrectly.\n"
+                f"Error: <code>{e}</code>"
+            )
+            return
+
+        msg = await message.reply("Processing...⏳")
+        total_files = 0
+        async with lock:
+            try:
+                total = last_msg_id + 1
+                current = int(os.environ.get("SKIP", 2))
+                nyav = 0
+                while current < total:
+                    try:
+                        fetched_message = await bot.get_messages(chat_id=chat_id, message_ids=current, replies=0)
+                    except FloodWait as e:
+                        await asyncio.sleep(e.value)
+                        continue
+                    except Exception as e:
+                        logger.exception(e)
+                        break
+
+                    media = None
+                    for file_type in ("document", "video", "audio"):
+                        media = getattr(fetched_message, file_type, None)
+                        if media:
+                            media.file_type = file_type
+                            media.caption = fetched_message.caption
+                            try:
+                                await save_file(media)
+                                total_files += 1
+                            except Exception as e:
+                                logger.exception(e)
+                            break
+
+                    current += 1
+                    nyav += 1
+                    if nyav == 20:
+                        await msg.edit(f"Total messages fetched: {current}\nTotal messages saved: {total_files}")
+                        nyav = 0
+
+                await msg.edit(f"Total {total_files} files saved to the database!")
+            except Exception as e:
+                logger.exception(e)
+                await msg.edit(f"Error: {e}")
+            finally:
+                # Remove the listener after use
+                bot.remove_handler(capture_forwarded_message, group=1)
+
+    # Add the listener for the forwarded message
+    bot.add_handler(filters.user(message.from_user.id) & filters.forwarded, capture_forwarded_message, group=1)
