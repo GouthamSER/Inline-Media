@@ -169,7 +169,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
         try:
             data = BUTTONS[keyword]
         except KeyError:
-            await query.answer("You are using this for one of my old messages, please send the request again.", show_alert="true")
+            await query.answer("You are using this for one of my old messages, please send the request again.")
             return
 
         # Pagination - Next button
@@ -191,7 +191,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             buttons.append(
                 [InlineKeyboardButton(f"🔰Pᴀɢᴇs {index + 2}/{data['total']}", callback_data="pages")]
             )
-
+            await query.answer("page☣️")
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
@@ -215,7 +215,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             buttons.append(
                 [InlineKeyboardButton(f"🔰Pᴀɢᴇs {index + 1}/{data['total']}", callback_data="pages")]
             )
-
+            await query.answer("page☣️")
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
@@ -280,6 +280,6 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 )
 
         elif query.data == "pages":
-            await query.answer("what do u wnt 🧐 : ", show_alert="true")
+            await query.answer("what do u wnt 😶‍🌫")
     else:
-        await query.answer("what 😶‍🌫 : ", show_alert="true")
+        await query.answer("what 😶‍🌫 ")
