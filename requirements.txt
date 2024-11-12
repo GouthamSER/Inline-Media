@@ -11,3 +11,6 @@ requests
 asyncio
 pytz
 psutil==5.9.4
+parse-torrent-name
+aiofiles
+dnspython
