@@ -63,7 +63,9 @@ async def filter(bot, message):
             buttons.append(
                 [InlineKeyboardButton(text="🔰Pᴀɢᴇs 1/1🔰",callback_data="pages")]
             )
-            await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            audel2 = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            await asyncio.sleep(300)
+            await audel2.delete()
             return
 
         data = BUTTONS[keyword]
@@ -117,9 +119,11 @@ async def group(bot, message):
             buttons.append(
                 [InlineKeyboardButton(text="🔰Pᴀɢᴇs 1/1🔰",callback_data="pages")]
             )
-            await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            audel1 = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
+            await asyncio.sleep(300)
+            await audel1.delete() 
             return
-
+        
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
 
