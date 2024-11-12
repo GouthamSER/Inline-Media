@@ -24,6 +24,8 @@ async def set_skip(bot, message):
 @Client.on_message(filters.command(['ind1']) & filters.user(ADMINS))
 async def index_files(bot, message):
     """Prompt the user to forward the last message of a channel"""
+    
+    lock = asyncio.Lock()
 
     if lock.locked():
         await message.reply("Wait until the previous process completes.")
@@ -33,14 +35,8 @@ async def index_files(bot, message):
         "Please forward the last message of the channel you want to index.\n\n"
         "The bot can index messages from public channels or private channels where it is an admin."
     )
-   # break
-#else:
-    #continue
 
-    # Define a listener to capture the forwarded message
-    async def capture_forwarded_message(client, forwarded_message):
-        nonlocal lock  # Ensure we're accessing the outer lock
-
+    async def capture_forwarded_message(client, forwarded_message, lock):  # Pass lock as argument
         try:
             last_msg_id = forwarded_message.forward_from_message_id
             chat_id = (
@@ -97,8 +93,7 @@ async def index_files(bot, message):
                 logger.exception(e)
                 await msg.edit(f"Error: {e}")
             finally:
-                # Remove the listener after use
                 bot.remove_handler(capture_forwarded_message, group=1)
 
-    # Add the listener for the forwarded message
-    bot.add_handler(filters.user(message.from_user.id) & filters.forwarded, capture_forwarded_message, group=1)
+    bot.add_handler(filters.user(message.from_user.id) & filters.forwarded, 
+                    lambda client, forwarded_message: capture_forwarded_message(client, forwarded_message, lock), group=1)
