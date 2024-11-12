@@ -6,42 +6,33 @@ from info import ADMINS
 import os
 from utils.database import save_file
 import pyromod.listen
+
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
 
-# Global variable to hold the skip value for this session
-skip_message_id = int(os.environ.get("SKIP", 2))
-
+# Command to set the skip message ID
 @Client.on_message(filters.command(['setskip']) & filters.user(ADMINS))
 async def set_skip(bot, message):
-    """Set the starting message ID for indexing."""
-    global skip_message_id
+    """Set the starting message ID"""
     try:
-        # Extract and validate the message ID from the command argument
-        skip_value = int(message.text.split()[1])
-        if skip_value < 1:
-            await message.reply("Please provide a positive integer as the starting message ID.")
-            return
-        skip_message_id = skip_value
-        await message.reply(f"Starting message ID set to {skip_message_id}.")
+        # Get the skip value from the command argument
+        skip_value = int(message.text.split(" ", 1)[1])
+        os.environ["SKIP"] = str(skip_value)  # Store it in the environment
+        await message.reply(f"Starting message ID set to {skip_value}")
     except (IndexError, ValueError):
-        await message.reply("Usage: /setskip <starting_message_id>")
-    except Exception as e:
-        logger.exception(e)
-        await message.reply(f"Error: {e}")
+        await message.reply("Please provide a valid message ID to skip to. Example: /setskip 7000")
 
 @Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
 async def index_files(bot, message):
-    """Save channel or group files, starting from a specific message ID."""
-    global skip_message_id
+    """Save channel or group files"""
     if lock.locked():
-        await message.reply('Wait until the previous process completes.')
+        await message.reply("Wait until the previous process completes.")
     else:
         while True:
             last_msg = await bot.ask(
                 text="Forward me the last message of a channel which I should save to my database.\n\n"
                      "You can forward posts from any public channel, but for private channels, the bot should be an admin in the channel.\n\n"
-                     "Make sure to forward with quotes (not as a copy).",
+                     "Make sure to forward with quotes (Not as a copy)",
                 chat_id=message.from_user.id
             )
             try:
@@ -54,16 +45,20 @@ async def index_files(bot, message):
                 break
             except Exception as e:
                 await last_msg.reply_text(
-                    f"This is an invalid message. Either the channel is private, and the bot is not an admin in the forwarded chat, or you forwarded the message as a copy.\nError caused due to <code>{e}</code>"
+                    f"This is an invalid message. Either the channel is private and the bot is not an admin, or you forwarded the message as copy.\n"
+                    f"Error: <code>{e}</code>"
                 )
-                continue
+                break  #forward file is txt stop index
+            else: 
+                continue #continue is file 
 
-        msg = await message.reply('Processing...⏳')
+        msg = await message.reply("Processing...⏳")
         total_files = 0
         async with lock:
             try:
                 total = last_msg_id + 1
-                current = skip_message_id  # Start from the set skip message ID
+                # Use the skip value from environment or default to 2 if not set
+                current = int(os.environ.get("SKIP", 2))
                 nyav = 0
                 while True:
                     try:
@@ -74,18 +69,13 @@ async def index_files(bot, message):
                     except Exception as e:
                         print(e)
                         pass
-
-                    # Check for text-only messages
-                    if not any(getattr(message, file_type, None) for file_type in ("document", "video", "audio")):
-                        await msg.edit("Text message encountered. Indexing canceled.")
-                        return  # Exit the function, canceling the indexing
-
                     try:
-                        # Determine the type of media (document, video, or audio)
                         for file_type in ("document", "video", "audio"):
                             media = getattr(message, file_type, None)
                             if media is not None:
                                 break
+                            else:
+                                continue
                         media.file_type = file_type
                         media.caption = message.caption
                         await save_file(media)
@@ -100,9 +90,10 @@ async def index_files(bot, message):
                         nyav -= 20
                     if current == total:
                         break
+                    else:
+                        continue
             except Exception as e:
                 logger.exception(e)
-                await msg.edit(f'Error: {e}')
+                await msg.edit(f"Error: {e}")
             else:
-                await msg.edit(f'Total {total_files} files saved to the database!')
-
+                await msg.edit(f"Total {total_files} files saved to the database!")
