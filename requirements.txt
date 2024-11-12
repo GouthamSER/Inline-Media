@@ -1,4 +1,4 @@
-PyroTGFork==2.1.32.15
+pyrogram==2.0
 tgcrypto
 pymongo[srv]==3.12.3
 motor==2.5.1
@@ -6,7 +6,6 @@ marshmallow==3.14.1
 umongo==3.0.1
 aiohttp
 datetime
-pyromod
 requests
 asyncio
 pytz
