@@ -5,10 +5,10 @@ import logging.config
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.WARNING)
 
-# for prevent stopping the bot after 1 week
+# for prevent stoping the bot after 1 week
 logging.getLogger("asyncio").setLevel(logging.CRITICAL -1)
 
-# peer id invalid fix
+# peer id invaild fixxx
 from pyrogram import utils as pyroutils
 pyroutils.MIN_CHAT_ID = -999999999999
 pyroutils.MIN_CHANNEL_ID = -100999999999999
@@ -21,10 +21,11 @@ from aiohttp import web as webserver
 from os import environ
 from utils.dbstatus import db
 from plugins.webcode import bot_run
-from Script import script  # for restarttxt
+from Script import script #for restarttxt
 from datetime import date, datetime, timedelta
 import asyncio
 import pytz
+import pyromod.listen
 
 PORT_CODE = environ.get("PORT", "8080")
 
@@ -47,7 +48,7 @@ class Bot(Client):
         me = await self.get_me()
         self.username = '@' + me.username
         print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
-        print("Recoded By Goutham SER <!>")
+        print("Recoded By Goutham SER </>")
 
         tz = pytz.timezone('Asia/Kolkata')
         today = date.today()
@@ -60,7 +61,7 @@ class Bot(Client):
         bind_address = "0.0.0.0"
         await webserver.TCPSite(client, bind_address,
         PORT_CODE).start()
-
+       
         # Start the auto-restart task
         asyncio.create_task(self.auto_restart())
 
@@ -70,13 +71,13 @@ class Bot(Client):
             logging.info("Restarting bot...")
             await self.send_message(chat_id=LOG_CHANNEL, text=script.RESTART24_TXT.format(today, time))
             await self.stop()
-            await self.start()
-
-    # Bot stopped 
+            await self.start() 
+     
+    #Bot stopped 
     async def stop(self, *args):
         await super().stop()
         print("Bot stopped. Bye.")
 
-# Running the bot
+
 app = Bot()
 app.run()
