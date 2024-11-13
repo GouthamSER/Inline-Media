@@ -13,7 +13,8 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-FORCE_SUB = "wudixh13"
+FORCE_SUB1 = "wudixh13"
+FORCE_SUB2 = "wudixh"
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
@@ -24,24 +25,31 @@ async def start(bot, message):
         return
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
-        if FORCE_SUB:
-            try:
-                user = await bot.get_chat_member(FORCE_SUB, message.from_user.id)
-                if user.status == "kicked out":
-                    await message.reply_text("You Are Banned")
-                    return
-            except UserNotParticipant :
-                ident, file_id = message.text.split("-_-")
-                await message.reply_text(
-                    text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs?\nTʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
-                    reply_markup=InlineKeyboardMarkup( [[
-                        InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
-                    ],[
-                        InlineKeyboardButton("Try Again", callback_data=f"checksub-_-{message.message_id}") #checksub is callback_data
-                    ]]
-             )
-                )
+        if FORCE_SUB1 or FORCE_SUB2:
+        try:
+            # Check subscription status for the first channel
+            user1 = await bot.get_chat_member(FORCE_SUB1, message.from_user.id)
+            if user1.status == "kicked":
+                await message.reply_text("You are banned from the first required channel.")
                 return
+
+            # Check subscription status for the second channel
+            user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
+            if user2.status == "kicked":
+                await message.reply_text("You are banned from the second required channel.")
+                return
+
+        except UserNotParticipant:
+            # Prompt user to join both channels
+            await message.reply_text(
+                text="🔊 Please join our required channels to use this bot.\n\nJoin both channels and then try again.",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
+                    [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
+                    [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub-_-{message_id}")]
+                ])
+            )
+            return
             except Exception:
                 await bot.send_message(
                     chat_id=message.from_user.id,
@@ -277,3 +285,22 @@ async def delete(bot, message):
         await msg.edit('Fɪʟᴇ ɪs Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ғʀᴏᴍ DᴀᴛᴀBᴀsᴇ')
     else:
         await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
+
+#checksun callback 2 channel fsub
+@Client.on_callback_query(filters.regex("checksub"))
+async def recheck_subscription(bot: Client, query: CallbackQuery):
+    try:
+        # Check again if the user is subscribed to both channels
+        user1 = await bot.get_chat_member(FORCE_SUB1, query.from_user.id)
+        user2 = await bot.get_chat_member(FORCE_SUB2, query.from_user.id)
+
+        if user1.status != "member" or user2.status != "member":
+            await query.answer("You still need to join the required channels.", show_alert=True)
+            return
+
+        await query.answer("Thank you for joining the channels!", show_alert=True)
+        # You can continue processing the query or show more options if needed
+
+    except UserNotParticipant:
+        await query.answer("Please join both channels to use this bot.", show_alert=True)
+
