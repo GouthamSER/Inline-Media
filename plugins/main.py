@@ -39,7 +39,7 @@ async def send_search_result(bot, message, search, private=True):
     
     if len(btn) > 10:
         btns = list(split_list(btn, 10))
-        keyword = f"{message.chat.id}-{message.message_id}"
+        keyword = f"{message.chat.id}-{message.id}"
         BUTTONS[keyword] = {
             "total": len(btns),
             "buttons": btns
@@ -80,7 +80,7 @@ async def filter_message(bot, message):
                 text="🔊 Join our main channel to access the bot.",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton("Join Channel", url=f"t.me/{FORCE_SUB}")],
-                    [InlineKeyboardButton("Try Again", callback_data=f"checksub-_-{message.message_id}")]
+                    [InlineKeyboardButton("Try Again", callback_data=f"checksub-_-{message_id}")]
                 ])
             )
             return
