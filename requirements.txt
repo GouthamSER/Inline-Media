@@ -1,5 +1,4 @@
-
-pyrofork==2.3.45
+pyrogram>=2.0.30
 pyromod
 tgcrypto
 pymongo[srv]==3.12.3
