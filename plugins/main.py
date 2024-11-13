@@ -35,7 +35,7 @@ async def send_search_result(bot, message, search, private=True):
                 )
 
     if not btn:
-       nres = await message.reply_text("No results found ❌")
+        nres = await message.reply_text("No results found ❌")
         await asyncio.sleep(25)
         await nres.delete()
         return
