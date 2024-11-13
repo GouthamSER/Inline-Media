@@ -35,7 +35,9 @@ async def send_search_result(bot, message, search, private=True):
                 )
 
     if not btn:
-        await message.reply_text("No results found.")
+       nres = await message.reply_text("No results found ❌")
+        await asyncio.sleep(25)
+        await nres.delete()
         return
     
     if len(btn) > 10:
@@ -91,7 +93,7 @@ async def filter_message(bot, message):
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
                     [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
-                    [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub-_-{message_id}")]
+                    [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub-_-{message.message_id}")]
                 ])
             )
             return
