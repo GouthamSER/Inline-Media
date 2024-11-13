@@ -18,38 +18,38 @@ FORCE_SUB2 = "wudixh"
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
-    #USER SAVING IN DB
+    # USER SAVING IN DB
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-        return
+    
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
         if FORCE_SUB1 or FORCE_SUB2:
-        try:
-            # Check subscription status for the first channel
-            user1 = await bot.get_chat_member(FORCE_SUB1, message.from_user.id)
-            if user1.status == "kicked":
-                await message.reply_text("You are banned from the first required channel.")
-                return
+            try:
+                # Check subscription status for the first channel
+                user1 = await bot.get_chat_member(FORCE_SUB1, message.from_user.id)
+                if user1.status == "kicked":
+                    await message.reply_text("You are banned from the first required channel.")
+                    return
 
-            # Check subscription status for the second channel
-            user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
-            if user2.status == "kicked":
-                await message.reply_text("You are banned from the second required channel.")
-                return
+                # Check subscription status for the second channel
+                user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
+                if user2.status == "kicked":
+                    await message.reply_text("You are banned from the second required channel.")
+                    return
 
-        except UserNotParticipant:
-            # Prompt user to join both channels
-            await message.reply_text(
-                text="🔊 Please join our required channels to use this bot.\n\nJoin both channels and then try again.",
-                reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
-                    [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
-                    [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub-_-{message_id}")]
-                ])
-            )
-            return
+            except UserNotParticipant:
+                # Prompt user to join both channels
+                await message.reply_text(
+                    text="🔊 Please join our required channels to use this bot.\n\nJoin both channels and then try again.",
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
+                        [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
+                        [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub-_-{message_id}")]
+                    ])
+                )
+                return
             except Exception:
                 await bot.send_message(
                     chat_id=message.from_user.id,
@@ -64,21 +64,20 @@ async def start(bot, message):
             
             for files in filedetails:
                 title = files.file_name
-                size=size_formatter(files.file_size) #fn()call size_formatter is mb gb converter
-                f_caption=files.caption
+                size = size_formatter(files.file_size)  # fn() call size_formatter is mb gb converter
+                f_caption = files.caption
                 
                 if CUSTOM_FILE_CAPTION:
                     try:
-                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
-                    
+                        f_caption = CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
                     except Exception as e:
                         print(e)
-                        f_caption=f_caption
+                        f_caption = f_caption
                 buttons = [[
                         InlineKeyboardButton('Movie Group🎥', url='telegram.dog/wudixh')
-                ],[
+                ], [
                         InlineKeyboardButton('Kᴜᴛᴛᴜ Bᴏᴛ ™ <Uᴘᴅᴀᴛᴇs>', url='telegram.dog/wudixh13')
-                    ]]
+                ]]
                 
                 await bot.send_cached_media(
                     chat_id=message.from_user.id,
@@ -86,30 +85,29 @@ async def start(bot, message):
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons),
                     parse_mode=enums.ParseMode.HTML
-                    )
+                )
         
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
-    else: #sticker removed if u want just dlete only hash tag
-        #m=await message.reply_sticker("CAACAgUAAxkBAAEK1F5lZIxPat45EenEwdaHKT-5dp_8HgACiwUAAn3d6Va3WZ2LySsnbTME") 
-        #await asyncio.sleep(1)
-        #await m.delete()
+    else:
         await message.reply_text(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton('🎉 Aᴅᴅ Mᴇ ᴛᴏ ᴜʀ Gʀᴏᴜᴘ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
-            ],[
-                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
-                InlineKeyboardButton('Gᴏ Group ↗', switch_inline_query='')
-            ],[
-                InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
-                InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
-            ],[
-                InlineKeyboardButton('📈 Usage', callback_data='usg')
+                    InlineKeyboardButton('🎉 Aᴅᴅ Mᴇ ᴛᴏ ᴜʀ Gʀᴏᴜᴘ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
+                ], [
+                    InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
+                    InlineKeyboardButton('Gᴏ Group ↗', switch_inline_query='')
+                ], [
+                    InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
+                    InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
+                ], [
+                    InlineKeyboardButton('📈 Usage', callback_data='usg')
                 ]]
-            ))
-        StopPropagation
+            )
+        )
+    StopPropagation
+
 #callback
 @Client.on_callback_query()
 async def startquery(client: Client, query: CallbackQuery):
