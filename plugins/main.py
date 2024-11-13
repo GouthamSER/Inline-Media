@@ -163,8 +163,6 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
             return
-        else:
-            await query.answer("Unauthorized action.", show_alert=True)
             
         # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
