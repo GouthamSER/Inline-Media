@@ -37,7 +37,7 @@ async def filter(bot, message):
     if 2 < len(message.text) < 100:    
         btn = []
         search = message.text
-        kuttubot = f"<blockquote><u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u> </blockquote>" #kuttubot is the search result
+        kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u> " #kuttubot is the search result
         files = await get_filter_results(query=search)
         if files:
             for file in files:
@@ -88,7 +88,7 @@ async def group(bot, message):
     if 2 < len(message.text) < 50:    
         btn = []
         search = message.text
-        kuttubot = f"<blockquote><u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u> </blockquote>" #kuttubot is the search result
+        kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u>" #kuttubot is the search result
         nyva=BOT.get("username")
         if not nyva:
             botusername=await bot.get_me()
