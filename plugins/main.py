@@ -10,6 +10,9 @@ BUTTONS = {}
 BOT = {}
 FORCE_SUB= "wudixh13"
 
+from fuzzywuzzy import process
+
+# In your filter and group functions, add spell-checking functionality.
 @Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
 async def filter(bot, message):
     if message.text.startswith("/"):
@@ -20,33 +23,54 @@ async def filter(bot, message):
             if user.status == "kicked out":
                 await message.reply_text("You Are Banned")
                 return
-        except UserNotParticipant :
+        except UserNotParticipant:
             await message.reply_text(
-                text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs?\nTʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
-                reply_markup=InlineKeyboardMarkup( [[
-                 InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
-                ],[
+                text="🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗖𝗵𝗮𝗻𝗻𝗲𝗹 🤭.\n\nDᴏ Yᴏᴜ Wᴀɴᴛ Mᴏᴠɪᴇs?\nTʜᴇɴ Jᴏɪɴ Oᴜʀ Mᴀɪɴ Cʜᴀɴɴᴇʟ Aɴᴅ Wᴀᴛᴄʜ ɪᴛ.😂\n Tʜᴇɴ ɢᴏ ᴛᴏ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀɴᴅ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀɢᴀɪɴ ᴀɴᴅ ɢɪᴠᴇ ɪᴛ ᴀ sᴛᴀʀᴛ...!😁",
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔊 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗖𝗵𝗮𝗻𝗻𝗲𝗹 🤭", url=f"t.me/{FORCE_SUB}")
+                ], [
                     InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub-_-{file_id}")
-                ]]
-                    )
+                ]])
             )
             return
     
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
+
     if 2 < len(message.text) < 100:    
-        btn = []
         search = message.text
-        kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u> " #kuttubot is the search result
         files = await get_filter_results(query=search)
-        if files:
-            for file in files:
-                file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}]>{file.file_name}"
-                btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu-_-{file_id}")]
+        
+        # If no exact matches, try to find approximate matches
+        if not files:
+            all_file_names = [file.file_name for file in await get_all_files()]  # Assuming get_all_files() fetches all file names from DB
+            suggested_files = process.extract(search, all_file_names, limit=5)  # Returns list of closest matches
+            
+            if suggested_files:
+                suggestions = [name for name, score in suggested_files if score > 70]  # Adjust threshold as needed
+                
+                if suggestions:
+                    btn = [[InlineKeyboardButton(suggestion, callback_data=f"search_{suggestion}")] for suggestion in suggestions]
+                    await message.reply_text(
+                        "🔍 Did you mean?",
+                        reply_markup=InlineKeyboardMarkup(btn)
                     )
+                    return
+
+            # If no suggestions, let the user know
+            await message.reply_text("Sorry, no results found.")
             return
+
+        # If exact matches are found, continue with normal flow
+        btn = []
+        for file in files:
+            file_id = file.file_id
+            filename = f"[{get_size(file.file_size)}]>{file.file_name}"
+            btn.append([InlineKeyboardButton(text=f"{filename}", callback_data=f"kuttu-_-{file_id}")]
+                      )
+            return
+        # Display results as in your original code...
+        # [Your existing code for pagination and response display goes here]
 
         if not btn:
             return
