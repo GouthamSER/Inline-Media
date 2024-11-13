@@ -169,36 +169,29 @@ async def cb_handler(bot: Client, query: CallbackQuery):
         try:
             data = BUTTONS[keyword]
         except KeyError:
-            await query.answer("You are using this for one of my old messages, please send the request again.", show_alert=True)
+            await query.answer("You are using this for one of my old messages, please send the request again.")
             return
 
         # Pagination - Next button
         if ident == "next":
             if index < data["total"] - 1:
-                new_index = index + 1
-                buttons = data['buttons'][new_index].copy()
-                # Append pagination buttons
-                if new_index < data["total"] - 1:
-                    buttons.append(
-                        [InlineKeyboardButton("⏪ Back", callback_data=f"back_{new_index}_{keyword}"),
-                         InlineKeyboardButton("Next ⏩", callback_data=f"next_{new_index}_{keyword}")]
-                    )
-                else:
-                    buttons.append(
-                        [InlineKeyboardButton("⏪ Back", callback_data=f"back_{new_index}_{keyword}")]
-                    )
+                buttons = data['buttons'][index + 1].copy()
+                buttons.append(
+                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{index + 1}_{keyword}"),
+                     InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{index + 1}_{keyword}")]
+                )
             else:
-                # If on the last page, only display back button
+                # If on the last page, disable the Next button
                 buttons = data['buttons'][index].copy()
                 buttons.append(
-                    [InlineKeyboardButton("⏪ Back", callback_data=f"back_{index}_{keyword}")]
+                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{index}_{keyword}")]
                 )
 
             # Update with total page count info
             buttons.append(
-                [InlineKeyboardButton(f"🔰 Pages {new_index + 1}/{data['total']}", callback_data="pages")]
+                [InlineKeyboardButton(f"🔰Pᴀɢᴇs {index + 2}/{data['total']}", callback_data="pages")]
             )
-
+            await query.answer("page☣️")
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
@@ -206,43 +199,27 @@ async def cb_handler(bot: Client, query: CallbackQuery):
         # Pagination - Back button
         elif ident == "back":
             if index > 0:
-                new_index = index - 1
-                buttons = data['buttons'][new_index].copy()
-                # Append pagination buttons
-                if new_index > 0:
-                    buttons.append(
-                        [InlineKeyboardButton("⏪ Back", callback_data=f"back_{new_index}_{keyword}"),
-                         InlineKeyboardButton("Next ⏩", callback_data=f"next_{new_index}_{keyword}")]
-                    )
-                else:
-                    buttons.append(
-                        [InlineKeyboardButton("Next ⏩", callback_data=f"next_{new_index}_{keyword}")]
-                    )
+                buttons = data['buttons'][index - 1].copy()
+                buttons.append(
+                    [InlineKeyboardButton("⏪ ʙaᴄᴋ", callback_data=f"back_{index - 1}_{keyword}"),
+                     InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{index - 1}_{keyword}")]
+                )
             else:
-                # If on the first page, only display next button
+                # If on the first page, disable the Back button
                 buttons = data['buttons'][0].copy()
                 buttons.append(
-                    [InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")]
+                    [InlineKeyboardButton("ɴexᴛ ⏩", callback_data=f"next_{index}_{keyword}")]
                 )
 
             # Update with total page count info
             buttons.append(
-                [InlineKeyboardButton(f"🔰 Pages {new_index + 1}/{data['total']}", callback_data="pages")]
+                [InlineKeyboardButton(f"🔰Pᴀɢᴇs {index + 1}/{data['total']}", callback_data="pages")]
             )
-
+            await query.answer("page☣️")
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup(buttons)
             )
-
-        elif query.data == "pages":
-            await query.answer(f"You are on page {index + 1} of {data['total']}")
-
-        else:
-            await query.answer("Invalid action.")
-
-    else:
-        await query.answer("This button is not for you!", show_alert=True)
-
+            return 
 
         # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
@@ -301,5 +278,8 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
+
+        elif query.data == "pages":
+            await query.answer("what do u wnt 😶‍🌫")
     else:
         await query.answer("what 😶‍🌫 ")
