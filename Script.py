@@ -1,7 +1,7 @@
 class script(object):
-  START_TXT="""**Hey {}, I'm Media Search bot & Auto Filter Bot**
+  START_TXT="""__**Hey {}, I'm Media Search bot & Auto Filter Bot**__
   
-Here you can search files in inline mode & Auto FIlter. Just press following buttons and start searching.
+Here you can search files in inline mode & Auto Filter. Just press following buttons and start searching.
 """
   HELP_TXT="""Hᴇʏ {}
 Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
@@ -22,7 +22,7 @@ Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
 
   STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
 🤵Usᴇʀs: <code>{}</code>
-📜 Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
+📜Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
 ♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
 """ # [ "{}" - size_formater fn() import from inline ]
   
@@ -47,9 +47,11 @@ Kuttu Bot 2 :)
     
   CUSTOM_FILE_CAPTION = """📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ 2|{file_name}</code>
 🖇 <em>File Size</em>: <code>{file_size}</code>
-❤️‍🔥 <i>Movie Requests</i> - <a href="t.me/wudixh">Click Me 👈</a> """
+--------------------
+❤️‍🔥 <i>Movie Requests</i> - <a href="t.me/wudixh">Click Me 👈</a> 
+--------------------"""
 
-  USG_TXT=""""⚙️ 𝖡𝗈𝗍 𝖲𝗍𝖺𝗍𝗎𝗌
+  USG_TXT="""⚙️ 𝖡𝗈𝗍 𝖲𝗍𝖺𝗍𝗎𝗌
   
 🕔 𝖴𝗉𝗍𝗂𝗆𝖾: {}
 🛠 𝖢𝖯𝖴 𝖴𝗌𝖺𝗀𝖾: {}%
