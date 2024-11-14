@@ -5,11 +5,10 @@ from pyrogram import Client, filters
 import re, asyncio
 from Script import script
 import random
-from pyrogram.errors import UserNotParticipant
+from pyrogram.errors import *
 BUTTONS = {}
 BOT = {}
-FORCE_SUB1= "wudixh13"
-FORCE_SUB2= "wudixh"
+
 
 async def send_search_result(bot, message, search, private=True):
     btn = []
@@ -71,60 +70,12 @@ async def send_search_result(bot, message, search, private=True):
 async def filter_message(bot, message):
     if message.text.startswith("/"):
         return
-
-    if FORCE_SUB1 or FORCE_SUB2:
-        try:
-            # Check subscription status for the first channel
-            user1 = await bot.get_chat_member(FORCE_SUB1, message.from_user.id)
-            if user1.status == "kicked":
-                await message.reply_text("You are banned from the first required channel.")
-                return
-
-            # Check subscription status for the second channel
-            user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
-            if user2.status == "kicked":
-                await message.reply_text("You are banned from the second required channel.")
-                return
-
-        except UserNotParticipant:
-            # Prompt user to join both channels
-            await message.reply_text(
-                text="🔊 Please join our required channels to use this bot.\n\nJoin both channels and then try again.",
-                reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
-                    [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
-                    [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub-_-{message.message_id}")]
-                ])
-            )
-            return
-
-    # Process the message as normal if the user is subscribed
-    # Your regular message processing code goes here...
 #filter for group from pm to group
     if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
         return
 
     if 2 < len(message.text) < 100:
         await send_search_result(bot, message, message.text, private=message.chat.type == "private")
-
-#for checksub 2 channels cb
-@Client.on_callback_query(filters.regex("checksub"))
-async def recheck_subscription(bot: Client, query: CallbackQuery):
-    try:
-        # Check again if the user is subscribed to both channels
-        user1 = await bot.get_chat_member(FORCE_SUB1, query.from_user.id)
-        user2 = await bot.get_chat_member(FORCE_SUB2, query.from_user.id)
-
-        if user1.status != "member" or user2.status != "member":
-            await query.answer("You still need to join the required channels.", show_alert=True)
-            return
-
-        await query.answer("Thank you for joining the channels!", show_alert=True)
-        # You can continue processing the query or show more options if needed
-
-    except UserNotParticipant:
-        await query.answer("Please join both channels to use this bot.", show_alert=True)
-#cb ended for checksub
 
 def get_size(size):
     units = ["By", "KB", "MB", "GB", "TB", "PB", "EB"]
@@ -200,36 +151,6 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             
         # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("-_-")
-            filedetails = await get_file_details(file_id)
-            for files in filedetails:
-                title = files.file_name
-                size=[{get_size(file.file_size)}]#get_size(files.file_size) fn() calling in size compresor
-                f_caption = files.caption or f"{title}"
-                if CUSTOM_FILE_CAPTION:
-                    try:
-                        f_caption = CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
-                    except Exception as e:
-                        print(e)
-                
-                buttons = [[
-                    InlineKeyboardButton('Movie Group🎥', url='telegram.dog/wudixh')
-                ], [
-                    InlineKeyboardButton('Kᴜᴛᴛᴜ Bᴏᴛ ™ <Uᴘᴅᴀᴛᴇs>', url='telegram.dog/wudixh13')
-                ]]
-
-                await query.answer()
-                await bot.send_cached_media(
-                    chat_id=query.from_user.id,
-                    file_id=file_id,
-                    caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons)
-                )
-
-        elif query.data.startswith("checksub"):
-            if FORCE_SUB and not await is_subscribed(bot, query):
-                await query.answer("I Lɪᴋᴇ Yᴏᴜʀ Sᴍᴀʀᴛɴᴇss, Bᴜᴛ Dᴏɴ'ᴛ Bᴇ Oᴠᴇʀsᴍᴀʀᴛ 😒", show_alert="true")
-                return
             ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
