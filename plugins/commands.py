@@ -4,7 +4,7 @@ from utils import Media
 from utils.database import get_file_details #forsutofilter
 from pyrogram import Client, filters, StopPropagation, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from pyrogram.errors import UserNotParticipant
+from pyrogram.errors import *
 from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, CUSTOM_FILE_CAPTION, AUTH_CHANNEL, BOT_START_TIME
 from utils import Media #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
@@ -22,6 +22,7 @@ async def start(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
+        return
     
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
