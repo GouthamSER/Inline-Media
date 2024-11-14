@@ -9,6 +9,7 @@ import pyromod.listen
 
 logger = logging.getLogger(__name__)
 lock = asyncio.Lock()
+INDEX_STOP = False  # Global flag to stop the index process
 
 # Command to set the skip message ID
 @Client.on_message(filters.command(['setskip']) & filters.user(ADMINS))
@@ -22,9 +23,20 @@ async def set_skip(bot, message):
     except (IndexError, ValueError):
         await message.reply("Please provide a valid message ID to skip to. Example: /setskip 7000")
 
+# Command to stop indexing
+@Client.on_message(filters.command(['stopindex']) & filters.user(ADMINS))
+async def stop_index(bot, message):
+    """Stop the ongoing index process"""
+    global INDEX_STOP
+    INDEX_STOP = True
+    await message.reply("Indexing process has been stopped.")
+
 @Client.on_message(filters.command(['index', 'indexfiles']) & filters.user(ADMINS))
 async def index_files(bot, message):
     """Save channel or group files"""
+    global INDEX_STOP
+    INDEX_STOP = False  # Reset stop flag at the start of the command
+
     if lock.locked():
         await message.reply("Wait until the previous process completes.")
     else:
@@ -61,6 +73,11 @@ async def index_files(bot, message):
                 current = int(os.environ.get("SKIP", 2))
                 nyav = 0
                 while True:
+                    # Check if the stop command has been issued
+                    if INDEX_STOP:
+                        await msg.edit("Indexing process stopped by admin.")
+                        break
+
                     try:
                         message = await bot.get_messages(chat_id=chat_id, message_ids=current, replies=0)
                     except FloodWait as e:
@@ -96,4 +113,5 @@ async def index_files(bot, message):
                 logger.exception(e)
                 await msg.edit(f"Error: {e}")
             else:
-                await msg.edit(f"Total {total_files} files saved to the database!")
+                if not INDEX_STOP:
+                    await msg.edit(f"Total {total_files} files saved to the database!")
