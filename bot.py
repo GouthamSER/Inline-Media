@@ -12,7 +12,7 @@ logging.getLogger("asyncio").setLevel(logging.CRITICAL -1)
 from pyrogram import utils as pyroutils
 pyroutils.MIN_CHAT_ID = -999999999999
 pyroutils.MIN_CHANNEL_ID = -100999999999999
-
+import tgcrypto
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from utils import Media
