@@ -1,5 +1,5 @@
 class script(object):
-  START_TXT="""<blockquote>**Hey {}, I'm Media Search bot & Auto Filter Bot**</blockquote>
+  START_TXT="""**Hey {}, I'm Media Search bot & Auto Filter Bot**
   
 Here you can search files in inline mode & Auto FIlter. Just press following buttons and start searching.
 """
