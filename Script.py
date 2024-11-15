@@ -4,18 +4,16 @@ class script(object):
 Here you can search files in inline mode & Auto Filter. Just press following buttons and start searching.
 """
   HELP_TXT="""Hᴇʏ {}
-Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..
+__Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..__
+
+/alive - check alive bot
 /start - start the bot
-/index - to index the files (admin)
-/stats - to see how many files are in db
-/log - to see the errors
-/channel - to see how many channels connected
-/usage - to see how the bot use cpu & mem
+
 """
   ABOUT_TXT=""" Hey {} ,
 ✯ Mʏ Nᴀᴍᴇ: Kᴜᴛᴛᴜ Bᴏᴛ 2 ™
 ✯ Cʀᴇᴀᴛᴏʀ: Gᴏᴜᴛʜᴀᴍ Sᴇʀ
-✯ Lɪʙʀᴀʀʏ: Pʏʀᴏɢʀᴀᴍ
+✯ Lɪʙʀᴀʀʏ: Pʏʀᴏɢʀᴀᴍ 2
 ✯ Lᴀɴɢᴜᴀɢᴇ: Pʏᴛʜᴏɴ 3
 ✯ DᴀᴛᴀBᴀsᴇ: MᴏɴɢᴏDB
 ✯ Bᴏᴛ Sᴇʀᴠᴇʀ: Koyeb"""
@@ -47,9 +45,9 @@ Kuttu Bot 2 :)
     
   CUSTOM_FILE_CAPTION = """📂 <em>File Name</em>: <code>Kᴜᴛᴛᴜ 2|{file_name}</code>
 🖇 <em>File Size</em>: <code>{file_size}</code>
---------------------
+------------------------     -------
 ❤️‍🔥 <i>Movie Requests</i> - <a href="t.me/wudixh">Click Me 👈</a> 
---------------------"""
+------------------------     -------"""  
 
   USG_TXT="""⚙️ 𝖡𝗈𝗍 𝖲𝗍𝖺𝗍𝗎𝗌
   
