@@ -136,7 +136,19 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.HELP_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start")
+                    InlineKeyboardButton('Index 📂', callback_data="index")
+                ],[
+                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start")
+                ]]
+            ))
+    elif query.data=="index":
+        await query.answer("Admin Use Only <!>")
+        await query.message.edit_text(
+            text=script.INDEX_TXT,
+            reply_markup=InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="help"),
+                    InlineKeyboardButton('Home', callback_data="start"),
                 ]]
             ))
     elif query.data=="about":
@@ -145,10 +157,10 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.ABOUT_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="start"),
-                    InlineKeyboardButton("Sᴛᴀᴛᴜs💹", callback_data="stats")
+                    InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev"),
+                    InlineKeyboardButton("Sᴛᴀᴛᴜs 💹", callback_data="stats")
                 ],[
-                    InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev")
+                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start"),
                 ]]
             ))
     elif query.data=="stats":
@@ -162,7 +174,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about")
                     ]]
                 ))
     
@@ -172,7 +184,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('🔙Bᴀᴄᴋ', callback_data="about")
+                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about")
                 ],[
                     InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://t.me/wudixh13/4")
                 ]]
