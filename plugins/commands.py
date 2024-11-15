@@ -91,6 +91,9 @@ async def start(bot, message):
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     else:
+        emo=await message.reply_text("👀")
+        await asyncio.sleep(1)
+        await emo.delete()
         await message.reply_text(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
