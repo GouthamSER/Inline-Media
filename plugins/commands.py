@@ -22,8 +22,7 @@ async def start(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-        return
-    
+        
     user_cmnd = message.text
     if user_cmnd.startswith("/start kuttu"):
         if FORCE_SUB1 or FORCE_SUB2:
@@ -289,20 +288,33 @@ async def delete(bot, message):
         await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
 
 #checksun callback 2 channel fsub
-@Client.on_callback_query(filters.regex("checksub"))
+@Client.on_callback_query(filters.regex(r"checksub-_-"))
 async def recheck_subscription(bot: Client, query: CallbackQuery):
     try:
-        # Check again if the user is subscribed to both channels
+        # Extract the message ID from callback data
+        _, message_id = query.data.split("-_-")
+        
+        # Check subscription status for both required channels
         user1 = await bot.get_chat_member(FORCE_SUB1, query.from_user.id)
         user2 = await bot.get_chat_member(FORCE_SUB2, query.from_user.id)
 
-        if user1.status != "member" or user2.status != "member":
-            await query.answer("You still need to join the required channels.", show_alert=True)
+        if user1.status not in ["member", "administrator", "creator"] or user2.status not in ["member", "administrator", "creator"]:
+            # If the user is not subscribed to any channel
+            await query.answer("You still need to join the required channels.", show_alert='true')
             return
 
-        await query.answer("Thank you for joining the channels!", show_alert=True)
-        # You can continue processing the query or show more options if needed
+        # If subscribed, acknowledge and delete the "Check Again" message
+        await bot.delete_messages(chat_id=query.message.chat.id, message_ids=[query.message.id])
+        await bot.send_message(
+            chat_id=query.message.chat.id,
+            text="✅ Thank you for joining the required channels! You can now use the bot.",
+        )
 
     except UserNotParticipant:
-        await query.answer("Please join both channels to use this bot.", show_alert=True)
+        # If the user is still not a member, prompt again
+        await query.answer("Please join both channels to use this bot.", show_alert='true')
+    except Exception as e:
+        # Handle unexpected errors
+        await query.answer(f"An error occurred: {str(e)}", show_alert='true')
+
 
