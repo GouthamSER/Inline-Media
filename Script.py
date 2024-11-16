@@ -8,6 +8,8 @@ __Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..__
 
 /alive - check alive bot
 /start - start the bot
+/movie - movie req format
+/series - series req format
 
 """
   ABOUT_TXT=""" Hey {} ,
