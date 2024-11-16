@@ -165,8 +165,6 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 
                 buttons = [[
                     InlineKeyboardButton('Movie Group🎥', url='telegram.dog/wudixh')
-                ], [
-                    InlineKeyboardButton('Kᴜᴛᴛᴜ Bᴏᴛ ™ <Uᴘᴅᴀᴛᴇs>', url='telegram.dog/wudixh13')
                 ]]
 
                 await query.answer()
