@@ -181,23 +181,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about"),
-                        InlineKeyboardButton('Refresh', callback_data="refresh")
-                    ]]
-                ))
-    elif query.data=="refresh":
-        total = await Media.count_documents()
-        users = await db.total_users_count()
-        monsize = await db.get_db_size() #db import from util
-        free = 536870912 - monsize
-        monsize = size_formatter(monsize) #fn()calling size_formatter
-        free = size_formatter(free) #fn()calling size_formatter
-        await query.message.edit_text(
-            text=script.STATUS_TXT.format(total, users, monsize, free),
-            reply_markup=InlineKeyboardMarkup(
-                    [[            
-                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about"),
-                        InlineKeyboardButton('Refresh', callback_data="refresh")
+                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about")
                     ]]
                 ))
     
