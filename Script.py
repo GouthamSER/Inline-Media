@@ -18,6 +18,12 @@ __Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..__
 ✯ DᴀᴛᴀBᴀsᴇ: MᴏɴɢᴏDB
 ✯ Bᴏᴛ Sᴇʀᴠᴇʀ: Koyeb"""
 
+  INDEX_TXT=""" **__Hi__**
+  /index - index the file
+  /stopindex - stopindex via cmnd
+  /setskip - skip the msg
+  """
+
   STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
 🤵Usᴇʀs: <code>{}</code>
 📜Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
