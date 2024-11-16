@@ -13,7 +13,7 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-FORCE_SUB1 = "wudixh13"
+FORCE_SUB1 = "wudixh14"
 FORCE_SUB2 = "wudixh"
 
 @Client.on_message(filters.command("start"))
@@ -207,10 +207,10 @@ async def startquery(client: Client, query: CallbackQuery):
         )
  #CB ENDED               
 
-@Client.on_message(filters.command('help'))
-async def help(bot, message):
-    await message.reply_text(
-        text=script.HELP_TXT.format(message.from_user.mention))
+#@Client.on_message(filters.command('help'))
+#async def help(bot, message):
+ #   await message.reply_text(
+ #       text=script.HELP_TXT.format(message.from_user.mention))
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
