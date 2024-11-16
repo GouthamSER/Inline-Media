@@ -141,16 +141,22 @@ async def startquery(client: Client, query: CallbackQuery):
                     InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start")
                 ]]
             ))
-    elif query.data=="index":
-        await query.answer("Admin Use Only <!>")
-        await query.message.edit_text(
-            text=script.INDEX_TXT,
-            reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="help"),
-                    InlineKeyboardButton('Home', callback_data="start"),
-                ]]
-            ))
+    elif query.data == "index":
+        # Check if the user is an admin
+        if query.from_user.id in ADMINS:
+            await query.answer("Admin Use Only <!>")
+            await query.message.edit_text(
+                text=script.INDEX_TXT,
+                reply_markup=InlineKeyboardMarkup(
+                    [[
+                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="help"),
+                        InlineKeyboardButton('Home 🏠', callback_data="start")
+                    ]]
+                ))
+        else:
+            # Notify the user that they are not authorized
+            await query.answer("You are not authorized to access this section.", show_alert=True)
+    
     elif query.data=="about":
         await query.answer("About..💀..")
         await query.message.edit_text(
@@ -161,6 +167,7 @@ async def startquery(client: Client, query: CallbackQuery):
                     InlineKeyboardButton("Sᴛᴀᴛᴜs 💹", callback_data="stats")
                 ],[
                     InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start"),
+                    InlineKeyboardButton('Home 🏠', callback_data="start")
                 ]]
             ))
     elif query.data=="stats":
@@ -174,7 +181,23 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about")
+                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about"),
+                        InlineKeyboardButton('Refresh', callback_data="refresh")
+                    ]]
+                ))
+    elif query.data=="refresh":
+        total = await Media.count_documents()
+        users = await db.total_users_count()
+        monsize = await db.get_db_size() #db import from util
+        free = 536870912 - monsize
+        monsize = size_formatter(monsize) #fn()calling size_formatter
+        free = size_formatter(free) #fn()calling size_formatter
+        await query.message.edit_text(
+            text=script.STATUS_TXT.format(total, users, monsize, free),
+            reply_markup=InlineKeyboardMarkup(
+                    [[            
+                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about"),
+                        InlineKeyboardButton('Refresh', callback_data="refresh")
                     ]]
                 ))
     
@@ -184,9 +207,10 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about")
-                ],[
                     InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://t.me/wudixh13/4")
+                ],[
+                    InlineKeyboardButton('< Back', callback_data="about"),
+                    InlineKeyboardButton('Home 🏠', callback_data="start")
                 ]]
             ))
     elif query.data=="usg":
