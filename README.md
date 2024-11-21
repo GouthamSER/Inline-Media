@@ -1,6 +1,6 @@
 <p align="Center">
   <a href="github.com/Inline-Media" alt='Auto'><h2 align='center'><i>Iɴʟɪɴᴇ Mᴇᴅɪᴀ Bᴏᴛ Cᴏɴᴠᴇʀᴛed Aᴜᴛᴏ Fɪʟᴛᴇʀ🤳</i><br>
-  <br>©&nbsp;Aʟʟ Rɪɢʜᴛ Rᴇsᴇʀᴠᴇᴅ Tᴏ <a href="telegram.dog/wudixh13/4">Oᴡɴᴇʀ</a></a></h2>
+  <br>©&nbsp;Aʟʟ Rɪɢʜᴛ Rᴇsᴇʀᴠᴇᴅ Tᴏ <a href="github.com/GouthamSER">Oᴡɴᴇʀ</a></a></h2>
 </p>
 
 <hr>
