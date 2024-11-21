@@ -90,7 +90,7 @@ async def start(bot, message):
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
     else:
-        await message.react(emoji="🤖")
+        await message.react(emoji="🔥")
         emo=await message.reply_text("👀")
         await asyncio.sleep(1)
         await emo.delete()
@@ -215,7 +215,6 @@ async def startquery(client: Client, query: CallbackQuery):
 
 @Client.on_message(filters.command('about'))
 async def about(bot, message):
-    await message.react(emoji="✅")
     await message.reply_text(
         text=script.ABOUT_TXT.format(message.from_user.mention))
 
@@ -258,7 +257,6 @@ async def total(bot, message):
     free = 536870912 - monsize
     monsize = size_formatter(monsize)
     free = size_formatter(free)
-    await message.react(emoji="📈")
     msg = await message.reply("Aᴄᴄᴇssɪɴɢ Dᴀᴛᴀ Cᴇɴᴛᴇʀ ⏳⏳⏳")
     await asyncio.sleep(1)
     try:
