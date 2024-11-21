@@ -34,13 +34,13 @@ async def send_search_result(bot, message, search, private=True):
                 )
 
     if not btn:
-        nres = await message.reply_text("No results found ❌")
-        await asyncio.sleep(25)
+        nres = await message.reply_text(script.NO_RES.format(search)) #no result msg edit on script.py
+        await asyncio.sleep(30)
         await nres.delete()
         return
     
-    if len(btn) > 10:
-        btns = list(split_list(btn, 10))
+    if len(btn) > 15:
+        btns = list(split_list(btn, 15))
         keyword = f"{message.chat.id}-{message.id}"
         BUTTONS[keyword] = {
             "total": len(btns),
