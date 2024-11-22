@@ -39,8 +39,8 @@ async def send_search_result(bot, message, search, private=True):
         await nres.delete()
         return
     
-    if len(btn) > 15:
-        btns = list(split_list(btn, 15))
+    if len(btn) > 10:
+        btns = list(split_list(btn, 10))
         keyword = f"{message.chat.id}-{message.id}"
         BUTTONS[keyword] = {
             "total": len(btns),
