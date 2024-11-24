@@ -30,7 +30,7 @@ async def send_search_result(bot, message, search, private=True):
                     nyva = botusername.username
                     BOT["username"] = nyva
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu={file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu#{file_id}")]
                 )
 
     if not btn:
@@ -49,15 +49,14 @@ async def send_search_result(bot, message, search, private=True):
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
         
-        buttons.append(
-            [InlineKeyboardButton(f"📄/{data['total']}", callback_data="pages")],
-            [InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")]
-        )
+         buttons.append([InlineKeyboardButton(f"Pages 📄/{data['total']}", callback_data="pages")])
+         buttons.append([InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")])
+
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     else:
         buttons = btn
         buttons.append(
-            [InlineKeyboardButton("📄", callback_data="pages")]
+            [InlineKeyboardButton("Pages 📄", callback_data="pages")]
         )
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     
@@ -121,7 +120,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][index].copy()
                 buttons.append(
-                    [InlineKeyboardButton(f"📄 {index + 2}/{data['total']}", callback_data="pages")],
+                    [InlineKeyboardButton(f"Pages 📄 {index + 2}/{data['total']}", callback_data="pages")],
                     [InlineKeyboardButton("⏪ Back", callback_data=f"back_{index}_{keyword}")]
                 )
             await query.answer("Page")
@@ -139,7 +138,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][0].copy()
                 buttons.append(
-                    [InlineKeyboardButton(f"📄 {index + 1}/{data['total']}", callback_data="pages")],
+                    [InlineKeyboardButton(f"Pages 📄 {index + 1}/{data['total']}", callback_data="pages")],
                     [InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")]
                 )
             await query.answer("Page")
@@ -150,7 +149,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             
         # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("=")
+            ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
