@@ -21,7 +21,7 @@ async def send_search_result(bot, message, search, private=True):
             filename = f"[{get_size(file.file_size)}]💿{file.file_name}"
             if private:
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", callback_data=f"kuttu={file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", callback_data=f"kuttu#{file_id}")]
                 )
             else:
                 nyva = BOT.get("username")
@@ -48,9 +48,9 @@ async def send_search_result(bot, message, search, private=True):
         }
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
-        
-        buttons.append([InlineKeyboardButton(f"Pages 📄/{data['total']}", callback_data="pages")])
+
         buttons.append([InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")])
+        buttons.append([InlineKeyboardButton(f"Pages 📄/{data['total']}", callback_data="pages")])
 
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     else:
@@ -138,8 +138,8 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][0].copy()
                 buttons.append(
-                    [InlineKeyboardButton(f"Pages 📄 {index + 1}/{data['total']}", callback_data="pages")],
-                    [InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")]
+                    [InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")],
+                    [InlineKeyboardButton(f"Pages 📄 {index + 1}/{data['total']}", callback_data="pages")]
                 )
             await query.answer("Page")
             await query.edit_message_reply_markup(
