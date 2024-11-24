@@ -64,7 +64,7 @@ async def start(bot, message):
                 )
                 return
         try:
-            ident, file_id = message.text.split("#")
+            ident, file_id = message.text.split("=")
             filedetails = await get_file_details(file_id)
             
             for files in filedetails:
