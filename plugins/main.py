@@ -48,17 +48,16 @@ async def send_search_result(bot, message, search, private=True):
         }
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
+        
         buttons.append(
+            [InlineKeyboardButton(f"📄/{data['total']}", callback_data="pages")],
             [InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")]
-        )
-        buttons.append(
-            [InlineKeyboardButton(f"🔰Pages 1/{data['total']}", callback_data="pages")]
         )
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     else:
         buttons = btn
         buttons.append(
-            [InlineKeyboardButton("🔰Pages 1/1🔰", callback_data="pages")]
+            [InlineKeyboardButton("📄", callback_data="pages")]
         )
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     
@@ -106,7 +105,9 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             data = BUTTONS[keyword]
         except KeyError:
             await query.answer("This message is outdated. Please send the request again.")
-            return
+            return  
+        except Exception as e:
+            print(e)
 
         if ident == "next":
             if index < data["total"] - 1:
@@ -118,11 +119,9 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][index].copy()
                 buttons.append(
+                    [InlineKeyboardButton(f"📄 {index + 2}/{data['total']}", callback_data="pages")],
                     [InlineKeyboardButton("⏪ Back", callback_data=f"back_{index}_{keyword}")]
                 )
-            buttons.append(
-                [InlineKeyboardButton(f"🔰Pages {index + 2}/{data['total']}", callback_data="pages")]
-            )
             await query.answer("Page")
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup(buttons)
@@ -138,11 +137,9 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][0].copy()
                 buttons.append(
+                    [InlineKeyboardButton(f"📄 {index + 1}/{data['total']}", callback_data="pages")],
                     [InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")]
                 )
-            buttons.append(
-                [InlineKeyboardButton(f"🔰Pages {index + 1}/{data['total']}", callback_data="pages")]
-            )
             await query.answer("Page")
             await query.edit_message_reply_markup(
                 reply_markup=InlineKeyboardMarkup(buttons)
