@@ -13,34 +13,32 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-FORCE_SUB1 = "wudixh14"
-FORCE_SUB2 = "wudixh"
+FORCE_SUB1 = "wudixh14"  # Replace with your actual channel username (without @)
+FORCE_SUB2 = "wudixh"    # Replace with your actual channel username (without @)
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
-    # USER SAVING IN DB
-    if not await db.is_user_exist(message.from_user.id):
-        await db.add_user(message.from_user.id, message.from_user.first_name)
-        await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-        
-    user_cmnd = message.text
-    if user_cmnd.startswith("/start kuttu"):
-        if FORCE_SUB1 or FORCE_SUB2:
+    """Handles the /start command and prompts for channel subscription if necessary."""
+    user_cmd = message.text
+
+    if user_cmd.startswith("/start kuttu"):
+        # Check if FORCE_SUB channels are defined
+        if FORCE_SUB1 and FORCE_SUB2:
             try:
-                # Check subscription status for the first channel
+                # Check subscription for both channels
                 user1 = await bot.get_chat_member(FORCE_SUB1, message.from_user.id)
-                if user1.status == "kicked":
-                    await message.reply_text("You are banned from the first required channel.")
+                user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
+
+                if user1.status in ["kicked", "restricted"]:
+                    await message.reply_text("❌ You are banned or restricted from the first required channel.")
                     return
 
-                # Check subscription status for the second channel
-                user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
-                if user2.status == "kicked":
-                    await message.reply_text("You are banned from the second required channel.")
+                if user2.status in ["kicked", "restricted"]:
+                    await message.reply_text("❌ You are banned or restricted from the second required channel.")
                     return
 
             except UserNotParticipant:
-                # Prompt user to join both channels
+                # User is not a member, prompt them to join channels
                 await message.reply_text(
                     text="🔊 Please join our required channels to use this bot.\n\nJoin both channels and then try again.",
                     reply_markup=InlineKeyboardMarkup([
@@ -52,6 +50,7 @@ async def start(bot, message):
                 return
                 await message.reply_text("✅ You have joined the required channels! Processing your request...")
             except Exception as e:
+                print(e) #print on terminal any error
                 # Handle generic exceptions
                 await bot.send_message(
                     chat_id=message.chat.id,
@@ -310,9 +309,9 @@ async def delete(bot, message):
 
 @Client.on_callback_query(filters.regex(r"checksub:"))
 async def recheck_subscription(bot, query: CallbackQuery):
+    """Rechecks the user's subscription to required channels."""
     try:
-        # Extract user ID from callback data
-        user_id = int(query.data.split(":")[1])
+        user_id = int(query.data.split(":")[1])  # Extract user ID from callback data
 
         # Recheck subscription status for both channels
         user1 = await bot.get_chat_member(FORCE_SUB1, user_id)
@@ -326,17 +325,18 @@ async def recheck_subscription(bot, query: CallbackQuery):
             await query.answer("❌ You are not joined to the second required channel.", show_alert=True)
             return
 
-        # If subscribed to both channels, acknowledge success
-        await query.answer("✅ You have joined both channels!", show_alert=True)
-        await query.message.delete()  # Delete the "Check Again" prompt message
+        # If user is subscribed to both channels
+        await query.message.delete()  # Remove the subscription prompt message
+        await query.answer("✅ Thank you for joining both channels!", show_alert=True)
         await bot.send_message(
             chat_id=query.message.chat.id,
-            text="✅ Thank you for joining the required channels! You can now use the bot."
+            text="✅ You are now eligible to use the bot. Proceed with your request!"
         )
 
     except UserNotParticipant:
-        await query.answer("❌ You are not joined to both channels. Please join to continue.", show_alert=True)
+        await query.answer("❌ You are not subscribed to one or both channels.", show_alert=True)
 
     except Exception as e:
-        await query.answer(f"⚠️ An error occurred: {str(e)}", show_alert=True)
+        print(e)
+        await query.answer(f"⚠️ An error occurred: {e}", show_alert=True)
 
