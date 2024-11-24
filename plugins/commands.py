@@ -46,14 +46,15 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup([
                         [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
                         [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
-                        [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub={message.id}")]
+                        [InlineKeyboardButton("✅ Check Again", callback_data="checksub")]
                     ])
                 )
                 return
-            except Exception:
+            except Exception as e:
+                # Handle generic exceptions
                 await bot.send_message(
-                    chat_id=message.from_user.id,
-                    text="Something went Wrong.",
+                    chat_id=message.chat.id,
+                    text=f"⚠️ Something went wrong.\n\n**Error:** `{e}`",
                     parse_mode="markdown",
                     disable_web_page_preview=True
                 )
@@ -307,33 +308,32 @@ async def delete(bot, message):
         await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
 
 #checksun callback 2 channel fsub
-@Client.on_callback_query(filters.regex(r"checksub="))
-async def recheck_subscription(bot: Client, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("checksub"))
+async def recheck_subscription(bot, query: CallbackQuery):
     try:
-        # Extract the message ID from callback data
-        _, message_id = query.data.split("=")
-        
-        # Check subscription status for both required channels
+        # Check subscription status for both channels
         user1 = await bot.get_chat_member(FORCE_SUB1, query.from_user.id)
         user2 = await bot.get_chat_member(FORCE_SUB2, query.from_user.id)
 
-        if user1.status not in ["member", "administrator", "creator"] or user2.status not in ["member", "administrator", "creator"]:
-            # If the user is not subscribed to any channel
-            await query.answer("You still need to join the required channels.", show_alert='true')
+        if user1.status not in ["member", "administrator", "creator"]:
+            await query.answer("❌ You are not joined to the first required channel.", show_alert=True)
             return
 
-        # If subscribed, acknowledge and delete the "Check Again" message
-        await bot.delete_messages(chat_id=query.message.chat.id, message_ids=[query.message.id])
+        if user2.status not in ["member", "administrator", "creator"]:
+            await query.answer("❌ You are not joined to the second required channel.", show_alert=True)
+            return
+
+        # If subscribed to both channels
+        await query.answer("✅ You have joined both channels!", show_alert=True)
+        await query.message.delete()  # Delete the "Check Again" message
         await bot.send_message(
             chat_id=query.message.chat.id,
-            text="✅ Thank you for joining the required channels! You can now use the bot.",
+            text="✅ Thank you for joining the required channels! You can now use the bot."
         )
 
     except UserNotParticipant:
-        # If the user is still not a member, prompt again
-        await query.answer("Please join both channels to use this bot.", show_alert='true')
-    except Exception as e:
-        # Handle unexpected errors
-        await query.answer(f"An error occurred: {str(e)}", show_alert='true')
+        await query.answer("❌ You are not joined to both channels. Please join to continue.", show_alert=True)
 
+    except Exception as e:
+        await query.answer(f"⚠️ An error occurred: {str(e)}", show_alert=True)
 
