@@ -46,10 +46,11 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup([
                         [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
                         [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
-                        [InlineKeyboardButton("✅ Check Again", callback_data="checksub")]
+                        [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub:{message.from_user.id}")]
                     ])
                 )
                 return
+                await message.reply_text("✅ You have joined the required channels! Processing your request...")
             except Exception as e:
                 # Handle generic exceptions
                 await bot.send_message(
@@ -307,13 +308,15 @@ async def delete(bot, message):
     else:
         await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
 
-#checksun callback 2 channel fsub
-@Client.on_callback_query(filters.regex("checksub"))
+@Client.on_callback_query(filters.regex(r"checksub:"))
 async def recheck_subscription(bot, query: CallbackQuery):
     try:
-        # Check subscription status for both channels
-        user1 = await bot.get_chat_member(FORCE_SUB1, query.from_user.id)
-        user2 = await bot.get_chat_member(FORCE_SUB2, query.from_user.id)
+        # Extract user ID from callback data
+        user_id = int(query.data.split(":")[1])
+
+        # Recheck subscription status for both channels
+        user1 = await bot.get_chat_member(FORCE_SUB1, user_id)
+        user2 = await bot.get_chat_member(FORCE_SUB2, user_id)
 
         if user1.status not in ["member", "administrator", "creator"]:
             await query.answer("❌ You are not joined to the first required channel.", show_alert=True)
@@ -323,9 +326,9 @@ async def recheck_subscription(bot, query: CallbackQuery):
             await query.answer("❌ You are not joined to the second required channel.", show_alert=True)
             return
 
-        # If subscribed to both channels
+        # If subscribed to both channels, acknowledge success
         await query.answer("✅ You have joined both channels!", show_alert=True)
-        await query.message.delete()  # Delete the "Check Again" message
+        await query.message.delete()  # Delete the "Check Again" prompt message
         await bot.send_message(
             chat_id=query.message.chat.id,
             text="✅ Thank you for joining the required channels! You can now use the bot."
