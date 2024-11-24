@@ -19,6 +19,10 @@ FORCE_SUB2 = "wudixh"    # Replace with your actual channel username (without @)
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
     """Handles the /start command and prompts for channel subscription if necessary."""
+        # USER SAVING IN DB
+    if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
     user_cmd = message.text
 
     if user_cmd.startswith("/start kuttu"):
