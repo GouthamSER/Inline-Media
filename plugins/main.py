@@ -21,7 +21,7 @@ async def send_search_result(bot, message, search, private=True):
             filename = f"[{get_size(file.file_size)}]💿{file.file_name}"
             if private:
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", callback_data=f"kuttu#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", callback_data=f"kuttu={file_id}")]
                 )
             else:
                 nyva = BOT.get("username")
@@ -30,7 +30,7 @@ async def send_search_result(bot, message, search, private=True):
                     nyva = botusername.username
                     BOT["username"] = nyva
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu={file_id}")]
                 )
 
     if not btn:
@@ -149,7 +149,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             
         # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("=")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
