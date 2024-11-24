@@ -96,6 +96,8 @@ async def cb_handler(bot: Client, query: CallbackQuery):
         typed = query.message.reply_to_message.from_user.id
     except AttributeError:
         typed = query.from_user.id
+    except Exception as e:
+        print(e)
 
     if clicked == typed:
         ident, index, keyword = query.data.split("_", maxsplit=2)
@@ -171,8 +173,10 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
-
         elif query.data == "pages":
-            await query.answer("what do u wnt 😶‍🌫")
+            try:
+                await query.answer("what do u wnt 😶‍🌫")
+            except Exception as e:
+                print(e) 
     else:
         await query.answer("what 😶‍🌫 ")
