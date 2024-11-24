@@ -49,8 +49,8 @@ async def send_search_result(bot, message, search, private=True):
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
         
-         buttons.append([InlineKeyboardButton(f"Pages 📄/{data['total']}", callback_data="pages")])
-         buttons.append([InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")])
+        buttons.append([InlineKeyboardButton(f"Pages 📄/{data['total']}", callback_data="pages")])
+        buttons.append([InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")])
 
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     else:
