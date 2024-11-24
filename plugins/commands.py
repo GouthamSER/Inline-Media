@@ -64,7 +64,7 @@ async def start(bot, message):
                 )
                 return
         try:
-            ident, file_id = message.text.split("=")
+            ident, file_id = message.text.split("#")
             filedetails = await get_file_details(file_id)
             
             for files in filedetails:
@@ -315,8 +315,9 @@ async def delete(bot, message):
 async def recheck_subscription(bot, query: CallbackQuery):
     """Rechecks the user's subscription to required channels."""
     try:
-        user_id = int(query.data.split(":")[1])  # Extract user ID from callback data
-
+        user_id = int(query.data.split(":")[1]) # Extract user ID from callback data
+    except Exception as e:
+        print(e)
         # Recheck subscription status for both channels
         user1 = await bot.get_chat_member(FORCE_SUB1, user_id)
         user2 = await bot.get_chat_member(FORCE_SUB2, user_id)
