@@ -59,7 +59,7 @@ async def start(bot, message):
                 )
                 return
         try:
-            ident, file_id = message.text.split("-_-")
+            ident, file_id = message.text.split("=")
             filedetails = await get_file_details(file_id)
             
             for files in filedetails:
@@ -166,8 +166,7 @@ async def startquery(client: Client, query: CallbackQuery):
                     InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev"),
                     InlineKeyboardButton("Sᴛᴀᴛᴜs 💹", callback_data="stats")
                 ],[
-                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start"),
-                    InlineKeyboardButton('Home 🏠', callback_data="start")
+                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start")
                 ]]
             ))
     elif query.data=="stats":
@@ -308,11 +307,11 @@ async def delete(bot, message):
         await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
 
 #checksun callback 2 channel fsub
-@Client.on_callback_query(filters.regex(r"checksub-_-"))
+@Client.on_callback_query(filters.regex(r"checksub="))
 async def recheck_subscription(bot: Client, query: CallbackQuery):
     try:
         # Extract the message ID from callback data
-        _, message_id = query.data.split("-_-")
+        _, message_id = query.data.split("=")
         
         # Check subscription status for both required channels
         user1 = await bot.get_chat_member(FORCE_SUB1, query.from_user.id)
