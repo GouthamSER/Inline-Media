@@ -48,15 +48,17 @@ async def send_search_result(bot, message, search, private=True):
         }
         data = BUTTONS[keyword]
         buttons = data['buttons'][0].copy()
-
-        buttons.append([InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")])
-        buttons.append([InlineKeyboardButton(f"Pages 📄/{data['total']}", callback_data="pages")])
+        
+        buttons.append(
+            [InlineKeyboardButton(f"📃 Pages/{data['total']}", callback_data="pages")],
+            [InlineKeyboardButton("Next ⏩", callback_data=f"next_0_{keyword}")]
+        )
 
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     else:
         buttons = btn
         buttons.append(
-            [InlineKeyboardButton("Pages 📄", callback_data="pages")]
+            [InlineKeyboardButton("📃 Pages", callback_data="pages")]
         )
         autodelete = await message.reply_text(kuttubot, reply_markup=InlineKeyboardMarkup(buttons))
     
@@ -120,7 +122,7 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][index].copy()
                 buttons.append(
-                    [InlineKeyboardButton(f"Pages 📄 {index + 2}/{data['total']}", callback_data="pages")],
+                    [InlineKeyboardButton(f"📃 Pages {index + 2}/{data['total']}", callback_data="pages")],
                     [InlineKeyboardButton("⏪ Back", callback_data=f"back_{index}_{keyword}")]
                 )
             await query.answer("Page")
@@ -138,14 +140,15 @@ async def cb_handler(bot: Client, query: CallbackQuery):
             else:
                 buttons = data['buttons'][0].copy()
                 buttons.append(
-                    [InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")],
-                    [InlineKeyboardButton(f"Pages 📄 {index + 1}/{data['total']}", callback_data="pages")]
+                    [InlineKeyboardButton(f"📃 Pages {index + 1}/{data['total']}", callback_data="pages")],
+                    [InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")]
+                    
                 )
-            await query.answer("Page")
-            await query.edit_message_reply_markup(
-                reply_markup=InlineKeyboardMarkup(buttons)
-            )
-            return
+            try:
+                await query.edit_message_reply_markup(
+                    reply_markup=InlineKeyboardMarkup(btn)
+                )
+                return
             
         # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
@@ -174,8 +177,9 @@ async def cb_handler(bot: Client, query: CallbackQuery):
                 )
         elif query.data == "pages":
             try:
-                await query.answer("what do u wnt 😶‍🌫")
+                await query.answer("")
             except Exception as e:
                 print(e) 
     else:
-        await query.answer("what 😶‍🌫 ")
+        await query.answer("")
+
