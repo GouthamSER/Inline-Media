@@ -75,7 +75,7 @@ async def index_files(bot, message):
                 while True:
                     # Check if the stop command has been issued
                     if INDEX_STOP:
-                        await msg.edit(f"Total messages fetched: {current}\nTotal messages saved: {total_files} \nIndexing process stopped by admin.")
+                        await msg.edit(f"Total messages fetched: {current}\nTotal messages saved: {total_files} \n\n**Indexing process stopped by admin.**")
                         break
 
                     try:
@@ -102,9 +102,9 @@ async def index_files(bot, message):
                         pass
                     current += 1
                     nyav += 1
-                    if nyav == 60:
+                    if nyav == 100:
                         await msg.edit(f"Total messages fetched: {current}\nTotal messages saved: {total_files}")
-                        nyav -= 60
+                        nyav -= 100
                     if current == total:
                         break
                     else:
