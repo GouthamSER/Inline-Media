@@ -1,7 +1,7 @@
 class script(object):
-  START_TXT="""__**Hey {}, I'm Media Search bot & Auto Filter Bot**__
+  START_TXT=""" <>b<i>Hey {}, I'm Media Search bot & Auto Filter Bot</i></b>
   
-Here you can search files in inline mode & Auto Filter. Just press following buttons and start searching.
+<blockquotes>Here you can search files in inline mode & Auto Filter. Just press following buttons and start searching.</blockquotes>
 """
   HELP_TXT="""Hᴇʏ {}
 __Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..__
@@ -12,11 +12,11 @@ __Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..__
 /movie - movie req format
 /series - series req format
 
-**📯𝗗𝗜𝗦𝗖𝗟𝗔𝗜𝗠𝗘𝗥 :**
-__𝖠𝗅𝗅 𝗍𝗁𝖾 𝖿𝗂𝗅𝖾𝗌 𝗂𝗇 𝗍𝗁𝗂𝗌 𝖻𝗈𝗍 𝖺𝗋𝖾 𝖿𝗋𝖾𝖾𝗅𝗒 𝖺𝗏𝖺𝗂𝗅𝖺𝖻𝗅𝖾 𝗈𝗇 𝗍𝗁𝖾 𝗂𝗇𝗍𝖾𝗋𝗇𝖾𝗍 𝗈𝗋 𝗉𝗈𝗌𝗍𝖾𝖽 𝖻𝗒 𝗌𝗈𝗆𝖾𝖻𝗈𝖽𝗒 𝖾𝗅𝗌𝖾.
+<blockquotes>📯𝗗𝗜𝗦𝗖𝗟𝗔𝗜𝗠𝗘𝗥 :
+A𝗅𝗅 𝗍𝗁𝖾 𝖿𝗂𝗅𝖾𝗌 𝗂𝗇 𝗍𝗁𝗂𝗌 𝖻𝗈𝗍 𝖺𝗋𝖾 𝖿𝗋𝖾𝖾𝗅𝗒 𝖺𝗏𝖺𝗂𝗅𝖺𝖻𝗅𝖾 𝗈𝗇 𝗍𝗁𝖾 𝗂𝗇𝗍𝖾𝗋𝗇𝖾𝗍 𝗈𝗋 𝗉𝗈𝗌𝗍𝖾𝖽 𝖻𝗒 𝗌𝗈𝗆𝖾𝖻𝗈𝖽𝗒 𝖾𝗅𝗌𝖾.
 𝖳𝗁𝗂𝗌 𝖻𝗈𝗍 𝗂𝗌 𝗂𝗇𝖽𝖾𝗑𝗂𝗇𝗀 𝖿𝗂𝗅𝖾𝗌 𝗐𝗁𝗂𝖼𝗁 𝖺𝗋𝖾 𝖺𝗅𝗋𝖾𝖺𝖽𝗒 𝗎𝗉𝗅𝗈𝖺𝖽𝖾𝖽 𝗈𝗇 𝖳𝖾𝗅𝖾𝗀𝗋𝖺𝗆 𝖿𝗈𝗋 𝖾𝖺𝗌𝖾 𝗈𝖿 𝗌𝖾𝖺𝗋𝖼𝗁𝗂𝗇𝗀,
 𝖶𝖾 𝗋𝖾𝗌𝗉𝖾𝖼𝗍 𝖺𝗅𝗅 𝗍𝗁𝖾 𝖼𝗈𝗉𝗒𝗋𝗂𝗀𝗁𝗍 𝗅𝖺𝗐𝗌 𝖺𝗇𝖽 𝗐𝗈𝗋𝗄𝗌 𝗂𝗇 𝖼𝗈𝗆𝗉𝗅𝗂𝖺𝗇𝖼𝖾 𝗐𝗂𝗍𝗁 𝖣𝖬𝖢𝖠 𝖺𝗇𝖽 𝖤𝖴𝖢𝖣.
-𝖨𝖿 𝖺𝗇𝗒𝗍𝗁𝗂𝗇𝗀 𝗂𝗌 𝖺𝗀𝖺𝗂𝗇𝗌𝗍 𝗅𝖺𝗐 𝗉𝗅𝖾𝖺𝗌𝖾 𝖼𝗈𝗇𝗍𝖺𝖼𝗍 𝗎𝗌 𝗌𝗈 𝗍𝗁𝖺𝗍 𝗂𝗍 𝖼𝖺𝗇 𝖻𝖾 𝗋𝖾𝗆𝗈𝗏𝖾𝖽 𝖺𝗌𝖺𝗉.__
+𝖨𝖿 𝖺𝗇𝗒𝗍𝗁𝗂𝗇𝗀 𝗂𝗌 𝖺𝗀𝖺𝗂𝗇𝗌𝗍 𝗅𝖺𝗐 𝗉𝗅𝖾𝖺𝗌𝖾 𝖼𝗈𝗇𝗍𝖺𝖼𝗍 𝗎𝗌 𝗌𝗈 𝗍𝗁𝖺𝗍 𝗂𝗍 𝖼𝖺𝗇 𝖻𝖾 𝗋𝖾𝗆𝗈𝗏𝖾𝖽 𝖺𝗌𝖺𝗉.</blockquotes>
 
 """
   ABOUT_TXT=""" Hey {} ,
@@ -34,9 +34,9 @@ __𝖠𝗅𝗅 𝗍𝗁𝖾 𝖿𝗂𝗅𝖾𝗌 𝗂𝗇 𝗍𝗁𝗂𝗌 𝖻�
   """
 
   STATUS_TXT="""📁 Tᴏᴛᴀʟ Fɪʟᴇs: {}
-🤵Usᴇʀs: <code>{}</code>
-📜Usɪɴɢ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
-♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ:<code>{}/512 MB</code>
+🤵Usᴇʀs : <code>{}</code>
+📜Usɪɴɢ Sᴛᴏʀᴀɢᴇ : <code>{}/512 MB</code>
+♻ Fʀᴇᴇ Sᴛᴏʀᴀɢᴇ : <code>{}/512 MB</code>
 """ # [ "{}" - size_formater fn() import from inline ]
   
   DEV_TXT="""Iɴғᴏʀᴍᴀᴛɪᴏɴ Aʙᴏᴜᴛ Oᴡɴᴇʀ!!!
