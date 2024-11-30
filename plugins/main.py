@@ -11,7 +11,7 @@ BOT = {}
 
 async def send_search_result(bot, message, search, private=True):
     btn = []
-    reqst_gle = search
+    mv_rqst = search
     reqst_gle = mv_rqst.replace(" ", "+")
     buttonres = [[
         InlineKeyboardButton('🔍 Search 🔎', url=f"https://www.google.com/search?q={reqst_gle}")
