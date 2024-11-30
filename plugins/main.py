@@ -11,6 +11,11 @@ BOT = {}
 
 async def send_search_result(bot, message, search, private=True):
     btn = []
+    reqst_gle = search
+    reqst_gle = mv_rqst.replace(" ", "+")
+    buttonres = [[
+        InlineKeyboardButton('🔍 Search 🔎', url=f"https://www.google.com/search?q={reqst_gle}")
+    ]]
     kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u>"
     files = await get_filter_results(query=search)
     
@@ -34,8 +39,11 @@ async def send_search_result(bot, message, search, private=True):
 
     # Handle no results
     if not btn:
-        nres = await message.reply_text(script.NO_RES.format(search))  # No result message from script.py
-        await asyncio.sleep(30)
+        nres = await message.reply_text(
+            text=script.NO_RES.format(search),
+            reply_markup=InlineKeyboardMarkup(buttonres)
+        )# No result message from script.py
+        await asyncio.sleep(12)
         await nres.delete()
         return
 
