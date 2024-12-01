@@ -9,6 +9,7 @@ from pyrogram.errors import *
 BUTTONS = {}
 BOT = {}
 
+
 async def send_search_result(bot, message, search, private=True):
     btn = []
     mv_rqst = search
@@ -16,13 +17,13 @@ async def send_search_result(bot, message, search, private=True):
     buttonres = [[
         InlineKeyboardButton('🔍 Search 🔎', url=f"https://www.google.com/search?q={reqst_gle}")
     ]]
-    kuttubot = f"<u>🎊 𝖧𝖾𝗋𝖾 𝖨𝗌 𝖶𝗁𝖺𝗍 𝖨 𝖥𝗈𝗎𝗇𝖽 𝖥𝗈𝗋 𝖸𝗈𝗎𝗋 {search} 🎊 </u>"
+    kuttubot = f"<u>🎊 Here is what I found for your search: {search} 🎊</u>"
     files = await get_filter_results(query=search)
-    
+
     if files:
         for file in files:
             file_id = file.file_id
-            filename = f"[{get_size(file.file_size)}]💿{file.file_name}"
+            filename = f"[{get_size(file.file_size)}] 💿 {file.file_name}"
             if private:
                 btn.append(
                     [InlineKeyboardButton(text=f"{filename}", callback_data=f"kuttu={file_id}")]
@@ -42,7 +43,7 @@ async def send_search_result(bot, message, search, private=True):
         nres = await message.reply_text(
             text=script.NO_RES.format(search),
             reply_markup=InlineKeyboardMarkup(buttonres)
-        )# No result message from script.py
+        )  # No result message from script.py
         await asyncio.sleep(12)
         await nres.delete()
         return
@@ -61,7 +62,7 @@ async def send_search_result(bot, message, search, private=True):
 
         # Add pagination buttons
         navigation_buttons = [
-            InlineKeyboardButton(f"📃 1 /{data['total']}", callback_data="pages"),
+            InlineKeyboardButton(f"📃 1/{data['total']}", callback_data="pages"),
             InlineKeyboardButton("Next ⏩", callback_data=f"next_{current_page+1}_{keyword}")
         ]
         buttons.append(navigation_buttons)
@@ -79,7 +80,6 @@ async def send_search_result(bot, message, search, private=True):
     # Auto-delete message after 5 minutes
     await asyncio.sleep(300)
     await autodelete.delete()
-
 
 
 @Client.on_message(filters.text & (filters.group | filters.private) & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & (filters.group | filters.private) & filters.incoming)
