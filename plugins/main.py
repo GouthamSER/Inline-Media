@@ -108,100 +108,100 @@ def split_list(l, n):
 
 @Client.on_callback_query()
 async def cb_handler(bot: Client, query: CallbackQuery):
-    clicked = query.from_user.id
+    clicked_user = query.from_user.id
     try:
-        typed = query.message.reply_to_message.from_user.id
+        # Check if the callback is linked to the original user
+        target_user = query.message.reply_to_message.from_user.id
     except AttributeError:
-        typed = query.from_user.id
+        target_user = query.from_user.id
     except Exception as e:
-        print(e)
+        print(f"Error determining target user: {e}")
 
-    # Check if the user who clicked is the same as the user being replied to
-    if clicked == typed:
-        ident, index, keyword = query.data.split("_", maxsplit=2)
-        index = int(index)
+    if clicked_user == target_user:
+        if query.data.startswith("next") or query.data.startswith("back"):
+            # Extract pagination details
+            action, index, keyword = query.data.split("_", maxsplit=2)
+            index = int(index)
 
-        try:
-            data = BUTTONS[keyword]  # Get pagination data
-        except KeyError:
-            await query.answer("This message is outdated. Please send the request again.")
-            return
-        except Exception as e:
-            print(e)
+            try:
+                data = BUTTONS[keyword]  # Retrieve stored pagination data
+            except KeyError:
+                await query.answer("This message is outdated. Please request the search again.", show_alert=True)
+                return
+            except Exception as e:
+                print(f"Error fetching pagination data: {e}")
 
-        # Handle "Next" button
-        if ident == "next":
-            if index < data["total"] - 1:
-                buttons = data['buttons'][index + 1].copy()
-                buttons.append([
-                    InlineKeyboardButton("⏪ Back", callback_data=f"back_{index + 1}_{keyword}"),
-                    InlineKeyboardButton("Next ⏩", callback_data=f"next_{index + 1}_{keyword}")
-                ])
-            else:
-                buttons = data['buttons'][index].copy()
-                buttons.append([
-                    InlineKeyboardButton(f"📃 1 {index + 1}/{data['total']}", callback_data="pages"),
-                    InlineKeyboardButton("⏪ Back", callback_data=f"back_{index}_{keyword}")
-                ])
+            # Handle "Next" action
+            if action == "next":
+                if index < data["total"] - 1:
+                    buttons = data['buttons'][index + 1].copy()
+                    buttons.append([
+                        InlineKeyboardButton("⏪ Back", callback_data=f"back_{index + 1}_{keyword}"),
+                        InlineKeyboardButton("Next ⏩", callback_data=f"next_{index + 1}_{keyword}")
+                    ])
+                else:
+                    buttons = data['buttons'][index].copy()
+                    buttons.append([
+                        InlineKeyboardButton(f"📃 Page {index + 1}/{data['total']}", callback_data="pages"),
+                        InlineKeyboardButton("⏪ Back", callback_data=f"back_{index}_{keyword}")
+                    ])
+                await query.answer("Next Page")
+                await query.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(buttons))
 
-            await query.answer("Next Page")
-            await query.edit_message_reply_markup(
-                reply_markup=InlineKeyboardMarkup(buttons)
-            )
+            # Handle "Back" action
+            elif action == "back":
+                if index > 0:
+                    buttons = data['buttons'][index - 1].copy()
+                    buttons.append([
+                        InlineKeyboardButton("⏪ Back", callback_data=f"back_{index - 1}_{keyword}"),
+                        InlineKeyboardButton("Next ⏩", callback_data=f"next_{index - 1}_{keyword}")
+                    ])
+                else:
+                    buttons = data['buttons'][0].copy()
+                    buttons.append([
+                        InlineKeyboardButton(f"📃 Page {index + 1}/{data['total']}", callback_data="pages"),
+                        InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")
+                    ])
+                await query.answer("Previous Page")
+                await query.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(buttons))
 
-        # Handle "Back" button
-        elif ident == "back":
-            if index > 0:
-                buttons = data['buttons'][index - 1].copy()
-                buttons.append([
-                    InlineKeyboardButton("⏪ Back", callback_data=f"back_{index - 1}_{keyword}"),
-                    InlineKeyboardButton("Next ⏩", callback_data=f"next_{index - 1}_{keyword}")
-                ])
-            else:
-                buttons = data['buttons'][0].copy()
-                buttons.append([
-                    InlineKeyboardButton(f"📃 1 {index + 1}/{data['total']}", callback_data="pages"),
-                    InlineKeyboardButton("Next ⏩", callback_data=f"next_{index}_{keyword}")
-                ])
-
-            await query.answer("Previous Page")
-            await query.edit_message_reply_markup(
-                reply_markup=InlineKeyboardMarkup(buttons)
-            )
-
-        # Handle custom callback actions like "kuttu" and "checksub"
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("=")
-            filedetails = await get_file_details(file_id)  # Retrieve file details from file ID
-            for files in filedetails:
-                title = files.file_name
-                size = [get_size(files.file_size)]  # Assuming `get_size` is a function that formats the file size
-                f_caption = files.caption or f"{title}"
+            # Handle custom callback for file retrieval
+            _, file_id = query.data.split("=")
+            filedetails = await get_file_details(file_id)
+            for file in filedetails:
+                title = file.file_name
+                size = get_size(file.file_size)
+                caption = file.caption or f"{title}"
                 
                 if CUSTOM_FILE_CAPTION:
                     try:
-                        f_caption = CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                        caption = CUSTOM_FILE_CAPTION.format(
+                            file_name=title,
+                            file_size=size,
+                            file_caption=caption
+                        )
                     except Exception as e:
-                        print(e)
+                        print(f"Error formatting caption: {e}")
 
-                # Buttons for sharing the file to a movie group
                 buttons = [[
-                    InlineKeyboardButton('Movie Group🎥', url='https://telegram.dog/wudixh')
+                    InlineKeyboardButton('🎥 Movie Group', url='https://telegram.dog/wudixh')
                 ]]
-
+                
                 await query.answer()
                 await bot.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
-                    caption=f_caption,
+                    caption=caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
 
-        # Handle "pages" callback (used for the pages button)
         elif query.data == "pages":
+            # Handle "pages" callback
             try:
-                await query.answer("")  # Acknowledge the callback
+                await query.answer("Page navigation is displayed.")
             except Exception as e:
-                print(e)
+                print(f"Error handling 'pages' callback: {e}")
+
     else:
-        await query.answer("")  # If the user clicking is not the intended user, acknowledge
+        await query.answer("This action is not for you.", show_alert=True)
