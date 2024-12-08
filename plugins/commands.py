@@ -45,10 +45,10 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
+                                InlineKeyboardButton("ʝισи υρ∂αтє ¢нαииєℓ", url=invite_link.invite_link)
                             ],
                             [
-                                InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
+                                InlineKeyboardButton("тяу αgαιи", callback_data=f"checksub#{file_id}")
                             ]
                         ]
                     ),
@@ -99,12 +99,11 @@ async def start(bot, message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
+                        InlineKeyboardButton("ʝσιи υρ∂αтє ¢нαииєℓ", url=invite_link.invite_link)
                     ]
                 ]
             )
         )
-    else:
     else:
         emo=await message.reply_text("👀")
         await asyncio.sleep(1.1)
@@ -113,15 +112,15 @@ async def start(bot, message):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('🎉 Aᴅᴅ Mᴇ ᴛᴏ ᴜʀ Gʀᴏᴜᴘ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
+                    InlineKeyboardButton('🎉 α∂∂ мє ιи уσυя gяσυρ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
                 ], [
-                    InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
-                    InlineKeyboardButton('Gᴏ Group ↗', switch_inline_query='')
+                    InlineKeyboardButton('ѕєαя¢н нєяє 🔎', switch_inline_query_current_chat=''),
+                    InlineKeyboardButton('gσ gяσυρ ↗', switch_inline_query='')
                 ], [
-                    InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
-                    InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
+                    InlineKeyboardButton('🛠️ нєℓρ 🛠️', callback_data='help'),
+                    InlineKeyboardButton('🛡️ αвσυт 🛡️', callback_data='about')     
                 ], [
-                    InlineKeyboardButton('📈 Usage', callback_data='usg')
+                    InlineKeyboardButton('📈 υѕαgє', callback_data='usg')
                 ]]
             )
         )
@@ -135,54 +134,55 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.START_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                InlineKeyboardButton('🎉 Aᴅᴅ Mᴇ ᴛᴏ ᴜʀ Gʀᴏᴜᴘ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
-            ],[
-                InlineKeyboardButton('Sᴇᴀʀᴄʜ Hᴇʀᴇ 🔎', switch_inline_query_current_chat=''),
-                InlineKeyboardButton('Gᴏ Iɴʟɪɴᴇ ↗', switch_inline_query='')
-            ],[
-                InlineKeyboardButton('🛠️ Hᴇʟᴘ 🛠️', callback_data='help'),
-                InlineKeyboardButton('🛡️ Aʙᴏᴜᴛ 🛡️', callback_data='about')     
-            ],[
-                InlineKeyboardButton('📈 Usage', callback_data='usg')
+                    InlineKeyboardButton('🎉 α∂∂ мє ιи уσυя gяσυρ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
+                ], [
+                    InlineKeyboardButton('ѕєαя¢н нєяє 🔎', switch_inline_query_current_chat=''),
+                    InlineKeyboardButton('gσ gяσυρ ↗', switch_inline_query='')
+                ], [
+                    InlineKeyboardButton('🛠️ нєℓρ 🛠️', callback_data='help'),
+                    InlineKeyboardButton('🛡️ αвσυт 🛡️', callback_data='about')     
+                ], [
+                    InlineKeyboardButton('📈 υѕαgє', callback_data='usg')
                 ]]
-            ))
+            )
+        )
     elif query.data=="help":
-        await query.answer("Helping..⚙️..")
+        await query.answer("нєℓριиg..⚙️..")
         await query.message.edit_text(
             text=script.HELP_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('Index 📂', callback_data="index")
+                    InlineKeyboardButton('ιи∂єχ 📂', callback_data="index")
                 ],[
-                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start")
+                    InlineKeyboardButton('< вα¢к', callback_data="start")
                 ]]
             ))
     elif query.data == "index":
         # Check if the user is an admin
         if query.from_user.id in ADMINS:
-            await query.answer("Admin Use Only <!>")
+            await query.answer("α∂мιи υѕє <!>")
             await query.message.edit_text(
                 text=script.INDEX_TXT,
                 reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="help"),
-                        InlineKeyboardButton('Home 🏠', callback_data="start")
+                        InlineKeyboardButton('< вα¢к', callback_data="help"),
+                        InlineKeyboardButton('нσмє 🏠', callback_data="start")
                     ]]
                 ))
         else:
             # Notify the user that they are not authorized
-            await query.answer("You are not authorized to access this section.", show_alert=True)
+            await query.answer("иσт α¢¢єѕαвℓє мαин.", show_alert=True)
     
     elif query.data=="about":
-        await query.answer("About..💀..")
+        await query.answer("αвт.💀..")
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('🤵Oᴡɴᴇʀ', callback_data="dev"),
-                    InlineKeyboardButton("Sᴛᴀᴛᴜs 💹", callback_data="stats")
+                    InlineKeyboardButton('🤵σωиєя', callback_data="dev"),
+                    InlineKeyboardButton("ѕтαтѕ 💹", callback_data="stats")
                 ],[
-                    InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="start")
+                    InlineKeyboardButton('< вα¢к', callback_data="start")
                 ]]
             ))
     elif query.data=="stats":
@@ -196,7 +196,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
                     [[
-                        InlineKeyboardButton('< Bᴀᴄᴋ', callback_data="about")
+                        InlineKeyboardButton('< вα¢к', callback_data="about")
                     ]]
                 ))
     
@@ -206,10 +206,10 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
                 [[
-                    InlineKeyboardButton('Cᴏɴᴛᴀᴄᴛ↗', url=f"https://t.me/wudixh13/4")
+                    InlineKeyboardButton('¢нαииєℓ', url=f"https://t.me/wudixh13/4")
                 ],[
-                    InlineKeyboardButton('< Back', callback_data="about"),
-                    InlineKeyboardButton('Home 🏠', callback_data="start")
+                    InlineKeyboardButton('< вα¢к', callback_data="about"),
+                    InlineKeyboardButton('нσмє 🏠', callback_data="start")
                 ]]
             ))
     elif query.data=="usg":
