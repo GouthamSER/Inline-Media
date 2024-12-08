@@ -1,7 +1,7 @@
 import re, os, logging, asyncio, random
 import time, shutil, psutil, sys #for cb usage alert in startcmnd cb
 from utils import Media
-from utils.database import get_file_details #forsutofilter
+from utils.database import get_file_details, is_subscribed #forsutofilter
 from pyrogram import Client, filters, StopPropagation, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import *
@@ -23,8 +23,8 @@ async def start(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-    user_cmdall1 = message.text
-    if usr_cmdall1.startswith("/start kuttu"):
+    user_cmd = message.text
+    if usr_cmd.startswith("/start kuttu"):
         if AUTH_CHANNEL:
             invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
             try:
