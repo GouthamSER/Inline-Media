@@ -24,76 +24,87 @@ async def start(bot, message):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
     user_cmd = message.text
-
-    if user_cmd.startswith("/start kuttu"):
-        # Check if FORCE_SUB channels are defined
-        if FORCE_SUB1 and FORCE_SUB2:
+    if usr_cmdall1.startswith("/start kuttu"):
+        if AUTH_CHANNEL:
+            invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
             try:
-                # Check subscription for both channels
-                user1 = await bot.get_chat_member(FORCE_SUB1, message.from_user.id)
-                user2 = await bot.get_chat_member(FORCE_SUB2, message.from_user.id)
-
-                if user1.status in ["kicked", "restricted"]:
-                    await message.reply_text("❌ You are banned or restricted from the first required channel.")
+                user = await bot.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
+                if user.status == "kicked":
+                    await bot.send_message(
+                        chat_id=message.from_user.id,
+                        text="Sorry Sir, You are Banned to use me.",
+                        parse_mode="markdown",
+                        disable_web_page_preview=True
+                    )
                     return
-
-                if user2.status in ["kicked", "restricted"]:
-                    await message.reply_text("❌ You are banned or restricted from the second required channel.")
-                    return
-
             except UserNotParticipant:
-                # User is not a member, prompt them to join channels
-                await message.reply_text(
-                    text="🔊 Please join our required channels to use this bot.\n\nJoin both channels and then try again.",
-                    reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton("Update Channel ⚙️", url=f"https://t.me/{FORCE_SUB1}")],
-                        [InlineKeyboardButton("Movie Group 💿", url=f"https://t.me/{FORCE_SUB2}")],
-                        [InlineKeyboardButton("✅ Check Again", callback_data=f"checksub:{message.from_user.id}")]
-                    ])
+                ident, file_id = message.text.split("_-_-_-_")
+                await bot.send_message(
+                    chat_id=message.from_user.id,
+                    text="**Please Join My Updates Channel to use this Bot!**",
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                                InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
+                            ],
+                            [
+                                InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{file_id}")
+                            ]
+                        ]
+                    ),
+                    parse_mode="markdown"
                 )
                 return
-                await message.reply_text("✅ You have joined the required channels! Processing your request...")
-            except Exception as e:
-                print(e) #print on terminal any error
-                # Handle generic exceptions
+            except Exception:
                 await bot.send_message(
-                    chat_id=message.chat.id,
-                    text=f"⚠️ Something went wrong.\n\n**Error:** `{e}`",
+                    chat_id=message.from_user.id,
+                    text="Something went Wrong.",
                     parse_mode="markdown",
                     disable_web_page_preview=True
                 )
                 return
         try:
-            ident, file_id = message.text.split("=")
+            ident, file_id = message.text.split("_-_-_-_")
             filedetails = await get_file_details(file_id)
-            
             for files in filedetails:
                 title = files.file_name
-                size = size_formatter(files.file_size)  # fn() call size_formatter is mb gb converter
-                f_caption = files.caption
-                
+                size=files.file_size
+                f_caption=files.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
-                        f_caption = CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
                     except Exception as e:
                         print(e)
-                        f_caption = f_caption
-                buttons = [[
-                        InlineKeyboardButton('Movie Group🎥', url='telegram.dog/wudixh')
-                ]]#, [
-                       # InlineKeyboardButton('Kᴜᴛᴛᴜ Bᴏᴛ ™ <Uᴘᴅᴀᴛᴇs>', url='telegram.dog/wudixh13')
-                #]]
-                
+                        f_caption=f_caption
+                if f_caption is None:
+                    f_caption = f"{files.file_name}"
+                buttons = [
+                    [
+                        InlineKeyboardButton('mσvíє rєq ⚡', url='t.mє/wudíхh')
+                    ]
+                    ]
                 await bot.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
-                    reply_markup=InlineKeyboardMarkup(buttons),
-                    parse_mode=enums.ParseMode.HTML
-                )
-        
+                    reply_markup=InlineKeyboardMarkup(buttons)
+                    )
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+    elif len(message.command) > 1 and message.command[1] == 'subscribe':
+        invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
+        await bot.send_message(
+            chat_id=message.from_user.id,
+            text="**Please Join My Updates Channel to use this Bot!**",
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("📢 Join Updates Channel 📢", url=invite_link.invite_link)
+                    ]
+                ]
+            )
+        )
+    else:
     else:
         emo=await message.reply_text("👀")
         await asyncio.sleep(1.1)
@@ -310,38 +321,3 @@ async def delete(bot, message):
         await msg.edit('Fɪʟᴇ ɪs Sᴜᴄᴄᴇssғᴜʟʟʏ Dᴇʟᴇᴛᴇᴅ ғʀᴏᴍ DᴀᴛᴀBᴀsᴇ')
     else:
         await msg.edit('Fɪʟᴇ ɴᴏᴛ ғᴏᴜɴᴅ ɪɴ DᴀᴛᴀBᴀsᴇ')
-
-@Client.on_callback_query(filters.regex(r"checksub:"))
-async def recheck_subscription(bot, query: CallbackQuery):
-    """Rechecks the user's subscription to required channels."""
-    try:
-        user_id = int(query.data.split(":")[1]) # Extract user ID from callback data
-    except Exception as e:
-        print(e)
-        # Recheck subscription status for both channels
-        user1 = await bot.get_chat_member(FORCE_SUB1, user_id)
-        user2 = await bot.get_chat_member(FORCE_SUB2, user_id)
-
-        if user1.status not in ["member", "administrator", "creator"]:
-            await query.answer("❌ You are not joined to the first required channel.", show_alert=True)
-            return
-
-        if user2.status not in ["member", "administrator", "creator"]:
-            await query.answer("❌ You are not joined to the second required channel.", show_alert=True)
-            return
-
-        # If user is subscribed to both channels
-        await query.message.delete()  # Remove the subscription prompt message
-        await query.answer("✅ Thank you for joining both channels!", show_alert=True)
-        await bot.send_message(
-            chat_id=query.message.chat.id,
-            text="✅ You are now eligible to use the bot. Proceed with your request!"
-        )
-
-    except UserNotParticipant:
-        await query.answer("❌ You are not subscribed to one or both channels.", show_alert=True)
-
-    except Exception as e:
-        print(e)
-        await query.answer(f"⚠️ An error occurred: {e}", show_alert=True)
-
