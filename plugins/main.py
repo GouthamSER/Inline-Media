@@ -67,10 +67,9 @@ async def filter(client, message):
         if not btn:
             nres = await message.reply_text(
                 text=script.NO_RES.format(search),
-                reply_markup=InlineKeyboardMarkup(buttonres)
-                )# No result message from script.py
-                await asyncio.sleep(12)
-                await nres.delete()
+                reply_markup=InlineKeyboardMarkup(buttonres))# No result message from script.py
+            await asyncio.sleep(12)
+            await nres.delete()
             return
 
         if len(btn) > 10: 
@@ -127,8 +126,8 @@ async def group(client, message):
                 text=script.NO_RES.format(search),
                 reply_markup=InlineKeyboardMarkup(buttonres)
                 )# No result message from script.py
-                await asyncio.sleep(12)
-                await nres.delete()
+            await asyncio.sleep(12)
+            await nres.delete()
             return
        
         if len(btn) > 10: 
