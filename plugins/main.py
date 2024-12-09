@@ -59,7 +59,7 @@ async def filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]💐{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu={file_id}")]
                     )
         else:
             return
@@ -74,7 +74,7 @@ async def filter(client, message):
 
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message_id}"
+            keyword = f"{message.chat.id}-{message.id}"
             BUTTONS[keyword] = {
                 "total" : len(btns),
                 "buttons" : btns
@@ -132,7 +132,7 @@ async def group(client, message):
        
         if len(btn) > 10: 
             btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message_id}"
+            keyword = f"{message.chat.id}-{message.id}"
             BUTTONS[keyword] = {
                 "total" : len(btns),
                 "buttons" : btns
@@ -255,7 +255,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 return
 
         elif query.data.startswith("kuttu"):
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("=")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -286,7 +286,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("=")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
