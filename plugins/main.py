@@ -56,6 +56,12 @@ async def bot_pm_filter(client, message):
         mo_tech_yt = f"**🗂️ Title:** {search}\n\n**📤 Uploaded by: Kuttu Bot**"
         btn = []
 
+        nyva=BOT.get("username")
+        if not nyva:
+            botusername=await client.get_me()
+            nyva=botusername.username
+            BOT["username"]=nyva
+
         # Fetch results
         files = await get_filter_results(query=search)
         if files:
@@ -63,15 +69,9 @@ async def bot_pm_filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=kuttu={file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=kuttu={file_id}")]
                 )
         else:
-            nres = await message.reply_text(
-                text=script.NO_RES.format(search),
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Retry", callback_data=f"checksub={file_id}")]])
-            )
-            await asyncio.sleep(12)
-            await nres.delete()
             return
 
         if not btn:
@@ -115,6 +115,12 @@ async def group_filter(client, message):
         search = message.text
         mo_tech_yt = f"**🗂️ Title:** {search}\n\n**📤 Uploaded by: {message.chat.title}**"
         btn = []
+        
+        nyva=BOT.get("username")
+        if not nyva:
+            botusername=await client.get_me()
+            nyva=botusername.username
+            BOT["username"]=nyva
 
         # Fetch results
         files = await get_filter_results(query=search)
@@ -126,12 +132,6 @@ async def group_filter(client, message):
                     [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=kuttu={file_id}")]
                 )
         else:
-            nres = await message.reply_text(
-                text=script.NO_RES.format(search),
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Retry", callback_data=f"#checksub={file_id}")]])
-            )
-            await asyncio.sleep(12)
-            await nres.delete()
             return
 
         if not btn:
