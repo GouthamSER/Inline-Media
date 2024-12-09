@@ -9,11 +9,14 @@ from pyrogram.errors import *
 BUTTONS = {}
 BOT = {}
 
-@Client.on_message(filters.text & filters.private & filters.incoming & filters.user(AUTH_USERS) if AUTH_USERS else filters.text & filters.private & filters.incoming)
-async def filter(client, message):
+@Client.on_message(filters.text & filters.private & filters.incoming)
+async def bot_pm_filter(client, message):
+    """Handles filtering in bot's private messages like group logic."""
     if message.text.startswith("/"):
         return
+
     if AUTH_CHANNEL:
+        # Check if the user is subscribed to the channel
         invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
         try:
             user = await client.get_chat_member(int(AUTH_CHANNEL), message.from_user.id)
@@ -42,118 +45,125 @@ async def filter(client, message):
         except Exception:
             await client.send_message(
                 chat_id=message.from_user.id,
-                text="Something went Wrong.",
+                text="Something went wrong. Please try again later.",
                 parse_mode="markdown",
                 disable_web_page_preview=True
             )
             return
-    if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-        return
-    if 2 < len(message.text) < 100:    
-        btn = []
+
+    if 2 < len(message.text) < 100:
         search = message.text
-        mo_tech_yt = f"**🗂️ Title:** {search}\n\n**📤 Uploaded by {message.chat.title}**"
+        mo_tech_yt = f"**🗂️ Title:** {search}\n\n**📤 Uploaded by: Kuttu Bot**"
+        btn = []
+
+        # Fetch results
         files = await get_filter_results(query=search)
         if files:
             for file in files:
                 file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}]💐{file.file_name}"
+                filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}",callback_data=f"kuttu={file_id}")]
-                    )
-        else:
-            return
-
-        if not btn:
-            nres = await message.reply_text(
-                text=script.NO_RES.format(search),
-                reply_markup=InlineKeyboardMarkup(buttonres))# No result message from script.py
-            await asyncio.sleep(12)
-            await nres.delete()
-            return
-
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
-            keyword = f"{message.chat.id}-{message.id}"
-            BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
-            }
-        else:
-            buttons = btn
-            buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
-            )
-            await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
-            return
-
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
-
-@Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
-async def group(client, message):
-    if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
-        return
-    if 2 < len(message.text) < 50:    
-        btn = []
-        search = message.text
-        mo_tech_yt = f"**🗂️ Title:** {search}\n\n**📤 Uploaded by {message.chat.title}**"
-        nyva=BOT.get("username")
-        if not nyva:
-            botusername=await client.get_me()
-            nyva=botusername.username
-            BOT["username"]=nyva
-        files = await get_filter_results(query=search)
-        if files:
-            for file in files:
-                file_id = file.file_id
-                filename = f"[{get_size(file.file_size)}]💐{file.file_name}"
-                btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://telegram.dog/{nyva}?start=kuttu_-_-_-_{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=kuttu={file_id}")]
                 )
         else:
-            return
-        if not btn:
             nres = await message.reply_text(
                 text=script.NO_RES.format(search),
-                reply_markup=InlineKeyboardMarkup(buttonres)
-                )# No result message from script.py
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Retry", callback_data=f"checksub={file_id}")]])
+            )
             await asyncio.sleep(12)
             await nres.delete()
             return
-       
-        if len(btn) > 10: 
-            btns = list(split_list(btn, 10)) 
+
+        if not btn:
+            return
+
+        if len(btn) > 10:
+            # Pagination logic
+            btns = list(split_list(btn, 10))
             keyword = f"{message.chat.id}-{message.id}"
             BUTTONS[keyword] = {
-                "total" : len(btns),
-                "buttons" : btns
+                "total": len(btns),
+                "buttons": btns
             }
+            data = BUTTONS[keyword]
+            buttons = data['buttons'][0].copy()
+
+            buttons.append(
+                [InlineKeyboardButton("NEXT ⏩", callback_data=f"next_0_{keyword}")]
+            )
+            buttons.append(
+                [InlineKeyboardButton(f"📃 Pages 1/{data['total']}", callback_data="pages")]
+            )
+            await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
         else:
             buttons = btn
             buttons.append(
-                [InlineKeyboardButton(text="📃 Pages 1/1",callback_data="pages")]
+                [InlineKeyboardButton(f"📃 Pages 1/1", callback_data="pages")]
+            )
+            autd=await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
+            await autd.sleep(150)
+            await asyncio.delete()
+
+
+@Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
+async def group_filter(client, message):
+    """Handles filtering logic in groups."""
+    if re.findall("((^\/|^,|^!|^\.|^[\U0001F600-\U000E007F]).*)", message.text):
+        return
+
+    if 2 < len(message.text) < 50:
+        search = message.text
+        mo_tech_yt = f"**🗂️ Title:** {search}\n\n**📤 Uploaded by: {message.chat.title}**"
+        btn = []
+
+        # Fetch results
+        files = await get_filter_results(query=search)
+        if files:
+            for file in files:
+                file_id = file.file_id
+                filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
+                btn.append(
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=kuttu={file_id}")]
+                )
+        else:
+            nres = await message.reply_text(
+                text=script.NO_RES.format(search),
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Retry", callback_data=f"#checksub={file_id}")]])
+            )
+            await asyncio.sleep(12)
+            await nres.delete()
+            return
+
+        if not btn:
+            return
+
+        if len(btn) > 10:
+            # Pagination logic
+            btns = list(split_list(btn, 10))
+            keyword = f"{message.chat.id}-{message.id}"
+            BUTTONS[keyword] = {
+                "total": len(btns),
+                "buttons": btns
+            }
+            data = BUTTONS[keyword]
+            buttons = data['buttons'][0].copy()
+
+            buttons.append(
+                [InlineKeyboardButton("NEXT ⏩", callback_data=f"next_0_{keyword}")]
+            )
+            buttons.append(
+                [InlineKeyboardButton(f"📃 Pages 1/{data['total']}", callback_data="pages")]
             )
             await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
+        else:
+            buttons = btn
+            buttons.append(
+                [InlineKeyboardButton(f"📃 Pages 1/1", callback_data="pages")]
+            )
+            aut=await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
+            await aut.sleep(150)
+            await asyncio.delete()
 
-        data = BUTTONS[keyword]
-        buttons = data['buttons'][0].copy()
-
-        buttons.append(
-            [InlineKeyboardButton(text="NEXT ⏩",callback_data=f"next_0_{keyword}")]
-        )    
-        buttons.append(
-            [InlineKeyboardButton(text=f"📃 Pages 1/{data['total']}",callback_data="pages")]
-        )
-        await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
 
 
 def get_size(size):
@@ -316,6 +326,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
 
         elif query.data == "pages":
-            await query.answer()
+            await query.answer("page cb")
     else:
         await query.answer("കൌതുകും ലേശം കൂടുതൽ ആണല്ലേ👀",show_alert=True)
