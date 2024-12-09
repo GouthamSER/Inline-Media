@@ -39,7 +39,7 @@ async def start(bot, message):
                     )
                     return
             except UserNotParticipant:
-                ident, file_id = message.text.split("_-_-_-_")
+                ident, file_id = message.text.split("=")
                 await bot.send_message(
                     chat_id=message.from_user.id,
                     text="**Please Join My Updates Channel to use this Bot!**",
@@ -65,7 +65,7 @@ async def start(bot, message):
                 )
                 return
         try:
-            ident, file_id = message.text.split("_-_-_-_")
+            ident, file_id = message.text.split("=")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
