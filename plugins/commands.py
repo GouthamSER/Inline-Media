@@ -49,7 +49,7 @@ async def start(bot, message):
                                 InlineKeyboardButton("ʝισи υρ∂αтє ¢нαииєℓ", url=invite_link.invite_link)
                             ],
                             [
-                                InlineKeyboardButton("тяу αgαιи", callback_data=f"checksub#{file_id}")
+                                InlineKeyboardButton("тяу αgαιи", callback_data=f"checksub={file_id}")
                             ]
                         ]
                     ),
