@@ -14,7 +14,7 @@ from plugins.inline import size_formatter
 logger = logging.getLogger(__name__)
 
 FORCE_SUB1 = "wudixh14"  # Replace with your actual channel username (without @)
-FORCE_SUB2 = "wudixh"    # Replace with your actual channel username (without @)
+FORCE_SUB2 = "https://t.me/+pRaLXcOcEW83OWY1"    # Replace with your actual channel username (without @)
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
