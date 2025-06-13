@@ -85,12 +85,16 @@ async def start(bot, message):
                 buttons = [
                     [InlineKeyboardButton('Request Movie', url=f'https://t.me/{bot_username}')]
                 ]
-                await bot.send_cached_media(
+                au=await bot.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                 )
+                k = await message.reply_text("**⚠️ 𝖳𝗁𝗂𝗌 𝗆𝖾𝖽𝗂𝖺 𝗐𝗂𝗅𝗅 𝖻𝖾 𝖽𝖾𝗅𝖾𝗍𝖾𝖽 𝗐𝗂𝗍𝗁𝗂𝗇 5 𝗆𝗂𝗇𝗎𝗍𝖾.**\n__𝖪𝗂𝗇𝖽𝗅𝗒 𝖿𝗈𝗋𝗐𝖺𝗋𝖽 𝗂𝗍 𝗍𝗈 𝗌𝖺𝗏𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾𝗌.__")
+                await asyncio.sleep(300)
+                await au.delete()
+                await k.edit("<b>Your File/Video is successfully deleted!!!</b>")
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
 
