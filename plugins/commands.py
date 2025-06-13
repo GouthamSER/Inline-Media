@@ -10,7 +10,7 @@ from utils import Media #class 2 are there dbstatus.py and database.py class Dat
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
 from plugins.inline import size_formatter
-
+BOT={}
 logger = logging.getLogger(__name__)
 
 
