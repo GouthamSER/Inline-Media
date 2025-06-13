@@ -65,7 +65,7 @@ async def start(bot, message):
                 return
 
         try:
-            _, file_id = message.text.split("-_-")
+            _, file_id = message.text.split("-_-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -83,7 +83,7 @@ async def start(bot, message):
                 if not f_caption:
                     f_caption = f"{files.file_name}"
                 buttons = [
-                    [InlineKeyboardButton('Request Movie', url=f'https://t.me/{client.username}')]
+                    [InlineKeyboardButton('Owner', url=f'https://t.me/im_goutham_josh')]
                 ]
                 au=await bot.send_cached_media(
                     chat_id=message.from_user.id,
@@ -120,7 +120,7 @@ async def start(bot, message):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{client.username}?startgroup=true')],
+                    #[InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{client.username}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
@@ -144,7 +144,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{client.username}?startgroup=true')],
+                    #[InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
