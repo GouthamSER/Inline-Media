@@ -50,7 +50,7 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [InlineKeyboardButton("Join Updates Channel", url=invite_link.invite_link)],
-                            [InlineKeyboardButton("Try Again", callback_data=f"checksub#{file_id}")]
+                            [InlineKeyboardButton("Try Again", callback_data=f"checksub-_-_-{file_id}")]
                         ]
                     ),
                     parse_mode="markdown"
@@ -83,7 +83,7 @@ async def start(bot, message):
                 if not f_caption:
                     f_caption = f"{files.file_name}"
                 buttons = [
-                    [InlineKeyboardButton('Request Movie', url=f'https://t.me/{bot_username}')]
+                    [InlineKeyboardButton('Request Movie', url=f'https://t.me/{client.username}')]
                 ]
                 au=await bot.send_cached_media(
                     chat_id=message.from_user.id,
@@ -111,9 +111,6 @@ async def start(bot, message):
 
     # Default /start response
     else:
-        # Get bot username dynamically
-        bot_username = (await bot.get_me()).username
-
         # Typing effect
         emo = await message.reply_text("👀")
         await asyncio.sleep(1.1)
@@ -123,7 +120,7 @@ async def start(bot, message):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{bot_username}?startgroup=true')],
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{client.username}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
@@ -147,7 +144,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{bot_username}?startgroup=true')],
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{client.username}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
