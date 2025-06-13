@@ -13,8 +13,6 @@ from plugins.inline import size_formatter
 
 logger = logging.getLogger(__name__)
 
-FORCE_SUB1 = "wudixh14"  # Replace with your actual channel username (without @)
-FORCE_SUB2 = "https://t.me/+pRaLXcOcEW83OWY1"    # Replace with your actual channel username (without @)
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
@@ -39,7 +37,7 @@ async def start(bot, message):
                     )
                     return
             except UserNotParticipant:
-                ident, file_id = message.text.split("=")
+                ident, file_id = message.text.split("#")
                 await bot.send_message(
                     chat_id=message.from_user.id,
                     text="**Please Join My Updates Channel to use this Bot!**",
@@ -49,7 +47,7 @@ async def start(bot, message):
                                 InlineKeyboardButton("ʝισи υρ∂αтє ¢нαииєℓ", url=invite_link.invite_link)
                             ],
                             [
-                                InlineKeyboardButton("тяу αgαιи", callback_data=f"checksub={file_id}")
+                                InlineKeyboardButton("тяу αgαιи", callback_data=f"checksub#{file_id}")
                             ]
                         ]
                     ),
@@ -65,7 +63,7 @@ async def start(bot, message):
                 )
                 return
         try:
-            ident, file_id = message.text.split("=")
+            ident, file_id = message.text.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
