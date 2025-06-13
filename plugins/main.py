@@ -282,7 +282,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     [
                         InlineKeyboardButton('Owner', url=f'https://t.me/im_goutham_josh')]
                     ]
-                    ]
                 
                 await query.answer()
                 au=await client.send_cached_media(
@@ -317,7 +316,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 buttons = [
                     [
                         InlineKeyboardButton('Owner', url=f'https://t.me/im_goutham_josh')]
-                    ]
                     ]
                 
                 await query.answer()
