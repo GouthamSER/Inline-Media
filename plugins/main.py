@@ -128,7 +128,7 @@ async def group_filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=file-_-_-{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=file-_-_-{file_id}")]
                 )
         else:
             return
@@ -280,7 +280,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     f_caption = f"{files.file_name}"
                 buttons = [
                     [
-                        InlineKeyboardButton('mσvíє rєq ⚡', url='https://t.me/wudixh')
+                        InlineKeyboardButton('Owner', url=f'https://t.me/im_goutham_josh')]
                     ]
                     ]
                 
@@ -300,7 +300,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("-_-")
+            ident, file_id = query.data.split("-_-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -316,7 +316,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     f_caption = f"{title}"
                 buttons = [
                     [
-                        InlineKeyboardButton('movie req ⚡', url='https://t.me/wudixh')
+                        InlineKeyboardButton('Owner', url=f'https://t.me/im_goutham_josh')]
                     ]
                     ]
                 
