@@ -4,7 +4,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram import Client, filters
 import re, asyncio
 from Script import script
-import random
+import random,asyncio
 from pyrogram.errors import *
 BUTTONS = {}
 BOT = {}
