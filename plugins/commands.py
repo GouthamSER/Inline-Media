@@ -40,7 +40,7 @@ async def start(bot, message):
                     return
             except UserNotParticipant:
                 try:
-                    _, file_id = message.text.split("-_-")
+                    _, file_id = message.text.split("-_-_-")
                 except ValueError:
                     await message.reply("Invalid start command format.")
                     return
