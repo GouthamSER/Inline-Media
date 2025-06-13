@@ -111,6 +111,11 @@ async def start(bot, message):
 
     # Default /start response
     else:
+        nyva=BOT.get("username")
+        if not nyva:
+            botusername=await client.get_me()
+            nyva=botusername.username
+            BOT["username"]=nyva
         # Typing effect
         emo = await message.reply_text("👀")
         await asyncio.sleep(1.1)
@@ -120,7 +125,7 @@ async def start(bot, message):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    #[InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{client.username}?startgroup=true')],
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{nyva}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
@@ -144,7 +149,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    #[InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/?startgroup=true')],
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{nyva}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
