@@ -68,7 +68,7 @@ async def bot_pm_filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=file#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=file-_-{file_id}")]
                 )
         else:
             return
@@ -100,8 +100,8 @@ async def bot_pm_filter(client, message):
                 [InlineKeyboardButton(f"📃 Pages 1/1", callback_data="pages")]
             )
             autd=await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
-            await autd.sleep(150)
-            await asyncio.delete()
+            await asyncio.sleep(150)
+            await autd.delete()
 
 
 @Client.on_message(filters.text & filters.group & filters.incoming & filters.chat(AUTH_GROUPS) if AUTH_GROUPS else filters.text & filters.group & filters.incoming)
@@ -128,7 +128,7 @@ async def group_filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=file#{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=file-_-{file_id}")]
                 )
         else:
             return
@@ -160,8 +160,8 @@ async def group_filter(client, message):
                 [InlineKeyboardButton(f"📃 Pages 1/1", callback_data="pages")]
             )
             aut=await message.reply_text(mo_tech_yt, reply_markup=InlineKeyboardMarkup(buttons))
-            await aut.sleep(150)
-            await asyncio.delete()
+            await asyncio.sleep(150)
+            await aut.delete()
 
 
 
@@ -264,7 +264,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 return
 
         elif query.data.startswith("file"):
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -300,7 +300,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("#")
+            ident, file_id = query.data.split("-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
