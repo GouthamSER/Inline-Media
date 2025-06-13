@@ -17,13 +17,16 @@ logger = logging.getLogger(__name__)
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
     """Handles the /start command and prompts for channel subscription if necessary."""
-    # USER SAVING IN DB
+
+    # Save user to DB
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
         await bot.send_message(LOG_CHANNEL, script.LOGP_TXT.format(message.from_user.id, message.from_user.mention))
-    
+
     user_cmd = message.text
-    if user_cmd.startswith("/start kuttu"):
+
+    # Handle deep-linking for file access
+    if user_cmd.startswith("/start file"):
         if AUTH_CHANNEL:
             invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
             try:
@@ -31,24 +34,23 @@ async def start(bot, message):
                 if user.status == "kicked":
                     await bot.send_message(
                         chat_id=message.from_user.id,
-                        text="Sorry Sir, You are Banned to use me.",
-                        parse_mode="markdown",
-                        disable_web_page_preview=True
+                        text="Sorry, you are banned from using this bot.",
+                        parse_mode="markdown"
                     )
                     return
             except UserNotParticipant:
-                ident, file_id = message.text.split("#")
+                try:
+                    _, file_id = message.text.split("#")
+                except ValueError:
+                    await message.reply("Invalid start command format.")
+                    return
                 await bot.send_message(
                     chat_id=message.from_user.id,
-                    text="**Please Join My Updates Channel to use this Bot!**",
+                    text="**Please join the updates channel to use this bot.**",
                     reply_markup=InlineKeyboardMarkup(
                         [
-                            [
-                                InlineKeyboardButton("ʝισи υρ∂αтє ¢нαииєℓ", url=invite_link.invite_link)
-                            ],
-                            [
-                                InlineKeyboardButton("тяу αgαιи", callback_data=f"checksub#{file_id}")
-                            ]
+                            [InlineKeyboardButton("Join Updates Channel", url=invite_link.invite_link)],
+                            [InlineKeyboardButton("Try Again", callback_data=f"checksub#{file_id}")]
                         ]
                     ),
                     parse_mode="markdown"
@@ -57,160 +59,178 @@ async def start(bot, message):
             except Exception:
                 await bot.send_message(
                     chat_id=message.from_user.id,
-                    text="Something went Wrong.",
-                    parse_mode="markdown",
-                    disable_web_page_preview=True
+                    text="Something went wrong. Please try again later.",
+                    parse_mode="markdown"
                 )
                 return
+
         try:
-            ident, file_id = message.text.split("#")
+            _, file_id = message.text.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
-                size=files.file_size
-                f_caption=files.caption
+                size = files.file_size
+                f_caption = files.caption
                 if CUSTOM_FILE_CAPTION:
                     try:
-                        f_caption=CUSTOM_FILE_CAPTION.format(file_name=title, file_size=size, file_caption=f_caption)
+                        f_caption = CUSTOM_FILE_CAPTION.format(
+                            file_name=title,
+                            file_size=size,
+                            file_caption=f_caption
+                        )
                     except Exception as e:
                         print(e)
-                        f_caption=f_caption
-                if f_caption is None:
+                if not f_caption:
                     f_caption = f"{files.file_name}"
                 buttons = [
-                    [
-                        InlineKeyboardButton('mσvíє rєq ⚡', url='t.mє/wudíхh')
-                    ]
-                    ]
+                    [InlineKeyboardButton('Request Movie', url=f'https://t.me/{bot_username}')]
+                ]
                 await bot.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
-                    )
+                )
         except Exception as err:
             await message.reply_text(f"Something went wrong!\n\n**Error:** `{err}`")
+
+    # Subscription command
     elif len(message.command) > 1 and message.command[1] == 'subscribe':
         invite_link = await bot.create_chat_invite_link(int(AUTH_CHANNEL))
         await bot.send_message(
             chat_id=message.from_user.id,
-            text="**Please Join My Updates Channel to use this Bot!**",
+            text="**Please join the updates channel to use this bot.**",
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton("ʝσιи υρ∂αтє ¢нαииєℓ", url=invite_link.invite_link)
-                    ]
-                ]
+                [[InlineKeyboardButton("Join Updates Channel", url=invite_link.invite_link)]]
             )
         )
+
+    # Default /start response
     else:
-        emo=await message.reply_text("👀")
+        # Get bot username dynamically
+        bot_username = (await bot.get_me()).username
+
+        # Typing effect
+        emo = await message.reply_text("👀")
         await asyncio.sleep(1.1)
         await emo.delete()
+
         await message.reply_text(
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🎉 α∂∂ мє ιи уσυя gяσυρ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
-                ], [
-                    InlineKeyboardButton('ѕєαя¢н нєяє 🔎', switch_inline_query_current_chat=''),
-                    InlineKeyboardButton('gσ gяσυρ ↗', switch_inline_query='')
-                ], [
-                    InlineKeyboardButton('🛠️ нєℓρ 🛠️', callback_data='help'),
-                    InlineKeyboardButton('🛡️ αвσυт 🛡️', callback_data='about')     
-                ], [
-                    InlineKeyboardButton('📈 υѕαgє', callback_data='usg')
-                ]]
+                [
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{bot_username}?startgroup=true')],
+                    [
+                        InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
+                        InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
+                    ],
+                    [
+                        InlineKeyboardButton('🛠 Help', callback_data='help'),
+                        InlineKeyboardButton('🛡 About', callback_data='about')
+                    ],
+                    [InlineKeyboardButton('📈 Usage', callback_data='usg')]
+                ]
             )
         )
-    StopPropagation
 
+    # Prevent further handler execution
+    raise StopPropagation
 #callback
 @Client.on_callback_query()
 async def startquery(client: Client, query: CallbackQuery):
     if query.data=="start":
-        await query.message.edit_text(
-            text=script.START_TXT.format(query.from_user.mention),
+        await message.reply_text(
+            text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🎉 α∂∂ мє ιи уσυя gяσυρ 🎉', url=f'http://t.me/im_kuttu2_bot?startgroup=true')
-                ], [
-                    InlineKeyboardButton('ѕєαя¢н нєяє 🔎', switch_inline_query_current_chat=''),
-                    InlineKeyboardButton('gσ gяσυρ ↗', switch_inline_query='')
-                ], [
-                    InlineKeyboardButton('🛠️ нєℓρ 🛠️', callback_data='help'),
-                    InlineKeyboardButton('🛡️ αвσυт 🛡️', callback_data='about')     
-                ], [
-                    InlineKeyboardButton('📈 υѕαgє', callback_data='usg')
-                ]]
+                [
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{bot_username}?startgroup=true')],
+                    [
+                        InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
+                        InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
+                    ],
+                    [
+                        InlineKeyboardButton('🛠 Help', callback_data='help'),
+                        InlineKeyboardButton('🛡 About', callback_data='about')
+                    ],
+                    [InlineKeyboardButton('📈 Usage', callback_data='usg')]
+                ]
             )
         )
-    elif query.data=="help":
-        await query.answer("нєℓριиg..⚙️..")
+    elif query.data == "help":
+        await query.answer("Helping... ⚙️")
         await query.message.edit_text(
             text=script.HELP_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('ιи∂єχ 📂', callback_data="index")
-                ],[
-                    InlineKeyboardButton('< вα¢к', callback_data="start")
-                ]]
-            ))
+                [
+                    [InlineKeyboardButton('📂 Index', callback_data="index")],
+                    [InlineKeyboardButton('⬅ Back', callback_data="start")]
+                ]
+            )
+        )
     elif query.data == "index":
         # Check if the user is an admin
         if query.from_user.id in ADMINS:
-            await query.answer("α∂мιи υѕє <!>")
+            await query.answer("Admin Access ✅")
             await query.message.edit_text(
                 text=script.INDEX_TXT,
                 reply_markup=InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton('< вα¢к', callback_data="help"),
-                        InlineKeyboardButton('нσмє 🏠', callback_data="start")
-                    ]]
-                ))
+                    [
+                        [
+                            InlineKeyboardButton('⬅ Back', callback_data="help"),
+                            InlineKeyboardButton('🏠 Home', callback_data="start")
+                        ]
+                    ]
+                )
+            )
         else:
-            # Notify the user that they are not authorized
-            await query.answer("иσт α¢¢єѕαвℓє мαин.", show_alert=True)
-    
-    elif query.data=="about":
-        await query.answer("αвт.💀..")
+            await query.answer("Access denied. Admins only.", show_alert=True)
+
+    elif query.data == "about":
+        await query.answer("About... ℹ️")
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(query.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('🤵σωиєя', callback_data="dev"),
-                    InlineKeyboardButton("ѕтαтѕ 💹", callback_data="stats")
-                ],[
-                    InlineKeyboardButton('< вα¢к', callback_data="start")
-                ]]
-            ))
-    elif query.data=="stats":
+                [
+                    [
+                        InlineKeyboardButton('👤 Owner', callback_data="dev"),
+                        InlineKeyboardButton("📊 Stats", callback_data="stats")
+                    ],
+                    [
+                        InlineKeyboardButton('⬅ Back', callback_data="start")
+                    ]
+                ]
+            )
+        )
+
+    elif query.data == "stats":
         total = await Media.count_documents()
         users = await db.total_users_count()
-        monsize = await db.get_db_size() #db import from util
+        monsize = await db.get_db_size()
         free = 536870912 - monsize
-        monsize = size_formatter(monsize) #fn()calling size_formatter
-        free = size_formatter(free) #fn()calling size_formatter
+        monsize = size_formatter(monsize)
+        free = size_formatter(free)
+
         await query.message.edit_text(
             text=script.STATUS_TXT.format(total, users, monsize, free),
             reply_markup=InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton('< вα¢к', callback_data="about")
-                    ]]
-                ))
-    
-    elif query.data=="dev":
-        await query.answer("Developer..👻..")
+                [[InlineKeyboardButton('⬅ Back', callback_data="about")]]
+            )
+        )
+
+    elif query.data == "dev":
+        await query.answer("Developer Info 👨‍💻")
         await query.message.edit_text(
             text=script.DEV_TXT,
             reply_markup=InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton('¢нαииєℓ', url=f"https://t.me/wudixh13/4")
-                ],[
-                    InlineKeyboardButton('< вα¢к', callback_data="about"),
-                    InlineKeyboardButton('нσмє 🏠', callback_data="start")
-                ]]
-            ))
+                [
+                    [InlineKeyboardButton('📣 Channel', url="https://t.me/wudixh13/4")],
+                    [
+                        InlineKeyboardButton('⬅ Back', callback_data="about"),
+                        InlineKeyboardButton('🏠 Home', callback_data="start")
+                    ]
+                ]
+            )
+        )
     elif query.data=="usg":
         currentTime = time.strftime("%Hh%Mm%Ss", time.gmtime(time.time() - BOT_START_TIME))
         cpu_usage = psutil.cpu_percent()
