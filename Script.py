@@ -1,8 +1,17 @@
 class script(object):
-  START_TXT=""" <b><i>Hey {}, I'm Media Search bot & Auto Filter Bot</i></b>
-  
-Here you can search files in inline mode & Auto Filter. Just press following buttons and start searching.
+  START_TXT = """
+Hello {0}, 👋
+
+I’m a powerful media search bot designed to fetch and serve files from my connected database.
+
+You can:
+- Add me to your group to enable file search.
+- Use the inline search feature.
+- Manage your own media collections (admin-only).
+
+Use the buttons below to get started!
 """
+
   HELP_TXT="""Hᴇʏ {}
 __Tʜɪs ɪs ᴛʜᴇ Hᴇʟᴘ Txᴛ..__
 
