@@ -286,17 +286,22 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     ]
                 
                 await query.answer()
-                await client.send_cached_media(
+                au=await client.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
+                k = await message.reply_text("**⚠️ 𝖳𝗁𝗂𝗌 𝗆𝖾𝖽𝗂𝖺 𝗐𝗂𝗅𝗅 𝖻𝖾 𝖽𝖾𝗅𝖾𝗍𝖾𝖽 𝗐𝗂𝗍𝗁𝗂𝗇 5 𝗆𝗂𝗇𝗎𝗍𝖾.**\n__𝖪𝗂𝗇𝖽𝗅𝗒 𝖿𝗈𝗋𝗐𝖺𝗋𝖽 𝗂𝗍 𝗍𝗈 𝗌𝖺𝗏𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾𝗌.__")
+                await asyncio.sleep(65)
+                await au.delete()
+                await k.edit("<b>Your File/Video is successfully deleted!!!</b>")
+                
         elif query.data.startswith("checksub"):
             if AUTH_CHANNEL and not await is_subscribed(client, query):
                 await query.answer("I Like Your Smartness, But Don't Be Oversmart 😒",show_alert=True)
                 return
-            ident, file_id = query.data.split("=")
+            ident, file_id = query.data.split("#")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
@@ -317,12 +322,16 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     ]
                 
                 await query.answer()
-                await client.send_cached_media(
+                au=await client.send_cached_media(
                     chat_id=query.from_user.id,
                     file_id=file_id,
                     caption=f_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
                     )
+                k = await message.reply_text("**⚠️ 𝖳𝗁𝗂𝗌 𝗆𝖾𝖽𝗂𝖺 𝗐𝗂𝗅𝗅 𝖻𝖾 𝖽𝖾𝗅𝖾𝗍𝖾𝖽 𝗐𝗂𝗍𝗁𝗂𝗇 5 𝗆𝗂𝗇𝗎𝗍𝖾.**\n__𝖪𝗂𝗇𝖽𝗅𝗒 𝖿𝗈𝗋𝗐𝖺𝗋𝖽 𝗂𝗍 𝗍𝗈 𝗌𝖺𝗏𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾𝗌.__")
+                await asyncio.sleep(65)
+                await au.delete()
+                await k.edit("<b>Your File/Video is successfully deleted!!!</b>")
 
 
         elif query.data == "pages":
