@@ -68,7 +68,7 @@ async def bot_pm_filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=file-_-{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{nyva}?start=file-_-_-{file_id}")]
                 )
         else:
             return
@@ -128,7 +128,7 @@ async def group_filter(client, message):
                 file_id = file.file_id
                 filename = f"[{get_size(file.file_size)}]🔪{file.file_name}"
                 btn.append(
-                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=file-_-{file_id}")]
+                    [InlineKeyboardButton(text=f"{filename}", url=f"https://t.me/{client.username}?start=file-_-_-{file_id}")]
                 )
         else:
             return
@@ -264,7 +264,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 return
 
         elif query.data.startswith("file"):
-            ident, file_id = query.data.split("-_-")
+            ident, file_id = query.data.split("-_-_-")
             filedetails = await get_file_details(file_id)
             for files in filedetails:
                 title = files.file_name
