@@ -5,7 +5,7 @@ from utils.database import get_file_details, is_subscribed #forsutofilter
 from pyrogram import Client, filters, StopPropagation, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import *
-from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, CUSTOM_FILE_CAPTION, AUTH_CHANNEL, BOT_START_TIME
+from info import CHANNELS, ADMINS, INVITE_MSG, LOG_CHANNEL, PICS, CUSTOM_FILE_CAPTION, AUTH_CHANNEL, BOT_START_TIME, BOT_USERNAME
 from utils import Media #class 2 are there dbstatus.py and database.py class Database and class Media
 from utils.dbstatus import db #db import from dbstatus.py
 from Script import script
@@ -50,7 +50,7 @@ async def start(bot, message):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [InlineKeyboardButton("Join Updates Channel", url=invite_link.invite_link)],
-                            [InlineKeyboardButton("Try Again", callback_data=f"checksub-_-_-{file_id}")]
+                            [InlineKeyboardButton("Try Again", callback_data=f"checksub_{file_id}")]
                         ]
                     ),
                     parse_mode="markdown"
@@ -111,12 +111,6 @@ async def start(bot, message):
 
     # Default /start response
     else:
-        nyva=BOT.get("username")
-        if not nyva:
-            botusername=await client.get_me()
-            nyva=botusername.username
-            BOT["username"]=nyva
-        # Typing effect
         emo = await message.reply_text("👀")
         await asyncio.sleep(1.1)
         await emo.delete()
@@ -125,7 +119,7 @@ async def start(bot, message):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{nyva}?startgroup=true')],
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{BOT_USERNAME}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
@@ -149,7 +143,7 @@ async def startquery(client: Client, query: CallbackQuery):
             text=script.START_TXT.format(message.from_user.mention),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{nyva}?startgroup=true')],
+                    [InlineKeyboardButton('➕ Add Me to Your Group', url=f'https://t.me/{BOT_USERNAME}?startgroup=true')],
                     [
                         InlineKeyboardButton('🔍 Search Here', switch_inline_query_current_chat=''),
                         InlineKeyboardButton('↗ Search Globally', switch_inline_query='')
