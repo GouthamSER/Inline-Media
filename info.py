@@ -19,6 +19,7 @@ API_ID = int(environ['API_ID'])
 API_HASH = environ['API_HASH']
 BOT_TOKEN = environ['BOT_TOKEN']
 USERBOT_STRING_SESSION = environ.get('USERBOT_STRING_SESSION')
+BOT_USERNAME = environ.get('BOT_USERNAME', '')
 
 # Bot settings
 BOT_START_TIME = time()
